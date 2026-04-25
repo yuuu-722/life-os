@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Life OS">
+<meta name="theme-color" content="#EEF4FB">
+<title>Life OS</title>
+<link rel="manifest" href="#" id="manifest-link">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ── Reset ── */
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --c1:#2B7FD4;
+  --c2:#5BAEE8;
+  --c3:#E8F3FB;
+  --bg:#EEF4FB;
+  --bg2:#F7FAFD;
+  --bg3:#FFFFFF;
+  --border:#D6E8F5;
+  --border2:#C2D9EE;
+  --text:#1A2E42;
+  --text2:#4A6B85;
+  --text3:#8AADC5;
+  --red:#E05C5C;
+  --green:#3BAD7A;
+  --accent:var(--c1);
+  --r:14px;--r-sm:9px;
+  --font:'DM Sans',sans-serif;
+  --font-d:'Playfair Display',serif;
+  --safe-top:env(safe-area-inset-top,0px);
+  --safe-bot:env(safe-area-inset-bottom,0px);
+}
+html,body{height:100%;font-family:var(--font);background:var(--bg);color:var(--text);overflow:hidden}
+
+/* ── App Shell ── */
+.app{display:flex;height:100dvh;overflow:hidden}
+
+/* ── Sidebar ── */
+.sidebar{
+  width:230px;flex-shrink:0;
+  background:var(--bg3);
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  padding:0;
+  overflow:hidden;
+}
+.sidebar-top{
+  padding:28px 20px 20px;
+  border-bottom:1px solid var(--border);
+  background:linear-gradient(135deg,var(--c1) 0%,var(--c2) 100%);
+}
+.sidebar-logo{
+  font-family:var(--font-d);
+  font-size:22px;color:#fff;
+  font-style:italic;letter-spacing:-.3px;
+}
+.sidebar-sub{font-size:11px;color:rgba(255,255,255,.7);margin-top:3px;letter-spacing:.05em}
+.sidebar-user{
+  display:flex;align-items:center;gap:10px;
+  margin-top:16px;padding-top:16px;
+  border-top:1px solid rgba(255,255,255,.2);
+}
+.sidebar-avatar{
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(255,255,255,.25);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;color:#fff;font-weight:500;flex-shrink:0;
+  overflow:hidden;
+}
+.sidebar-avatar img{width:100%;height:100%;object-fit:cover}
+.sidebar-name{font-size:12px;color:rgba(255,255,255,.9);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sidebar-login{font-size:11px;color:rgba(255,255,255,.6);cursor:pointer;white-space:nowrap}
+.sidebar-login:hover{color:#fff}
+
+.nav{flex:1;padding:12px 10px;overflow-y:auto}
+.nav-sec{margin-bottom:18px}
+.nav-sec-label{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);padding:0 8px;margin-bottom:5px}
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 10px;border-radius:var(--r-sm);
+  cursor:pointer;font-size:13.5px;color:var(--text2);
+  transition:all .15s;margin-bottom:2px;
+}
+.nav-item:hover{background:var(--c3);color:var(--c1)}
+.nav-item.active{background:var(--c3);color:var(--c1);font-weight:500}
+.nav-item .ni{width:16px;text-align:center;font-size:14px}
+
+.sidebar-bottom{
+  padding:14px 16px;
+  border-top:1px solid var(--border);
+}
+.sidebar-settings{
+  display:flex;align-items:center;gap:8px;
+  font-size:13px;color:var(--text3);cursor:pointer;
+  padding:8px 6px;border-radius:var(--r-sm);
+  transition:all .15s;
+}
+.sidebar-settings:hover{color:var(--c1);background:var(--c3)}
+
+/* ── Main ── */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.topbar{
+  padding:16px 24px;
+  background:var(--bg3);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-shrink:0;
+}
+.topbar-title{font-family:var(--font-d);font-size:20px;font-style:italic;color:var(--text)}
+.topbar-date{font-size:12px;color:var(--text3)}
+.topbar-btn{
+  padding:7px 14px;border-radius:var(--r-sm);
+  background:var(--c1);color:#fff;
+  font-size:13px;font-weight:500;cursor:pointer;
+  border:none;font-family:var(--font);
+  transition:background .15s;
+}
+.topbar-btn:hover{background:var(--c2)}
+
+.content{flex:1;overflow-y:auto;padding:24px}
+
+/* ── Pages ── */
+.page{display:none}
+.page.active{display:block}
+
+/* ── Cards ── */
+.card{
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:18px 20px;
+  margin-bottom:14px;
+}
+.card-title{
+  font-size:11px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:var(--text3);margin-bottom:14px;
+}
+
+/* ── Grids ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.g-auto{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px}
+
+/* ── Stat ── */
+.stat{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:16px}
+.stat-label{font-size:11px;color:var(--text3);margin-bottom:5px}
+.stat-value{font-size:22px;font-weight:300;color:var(--text)}
+.stat-sub{font-size:11px;color:var(--text3);margin-top:3px}
+
+/* ── Progress ── */
+.prog{margin-top:10px}
+.prog-bar{height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;border-radius:2px;background:var(--c1);transition:width .5s}
+.prog-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--text3);margin-top:4px}
+
+/* ── Task ── */
+.task-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.task-item:last-child{border-bottom:none}
+.task-cb{
+  width:18px;height:18px;border:2px solid var(--border2);
+  border-radius:5px;cursor:pointer;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .15s;
+}
+.task-cb.done{background:var(--green);border-color:var(--green)}
+.task-cb.done::after{content:'✓';font-size:10px;color:#fff;font-weight:700}
+.task-text{flex:1;font-size:14px;color:var(--text)}
+.task-text.done{text-decoration:line-through;color:var(--text3)}
+.task-tag{font-size:10px;padding:2px 8px;border-radius:20px;background:var(--c3);color:var(--c1);border:1px solid var(--border)}
+.task-del{font-size:16px;color:var(--text3);cursor:pointer;opacity:0;transition:opacity .15s}
+.task-item:hover .task-del{opacity:1}
+
+/* ── Quick add ── */
+.quick-add{display:flex;gap:8px;margin-top:12px}
+.quick-add input{flex:1;padding:8px 12px;border:1px solid var(--border2);border-radius:var(--r-sm);font-size:13px;font-family:var(--font);color:var(--text);background:var(--bg);outline:none;transition:border-color .15s}
+.quick-add input:focus{border-color:var(--c1)}
+.quick-add button{padding:8px 14px;background:var(--c1);color:#fff;border:none;border-radius:var(--r-sm);font-size:13px;cursor:pointer;font-family:var(--font);transition:background .15s}
+.quick-add button:hover{background:var(--c2)}
+
+/* ── Project card ── */
+.proj-card{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:var(--r);padding:16px;cursor:pointer;
+  transition:border-color .2s,box-shadow .2s;
+}
+.proj-card:hover{border-color:var(--c2);box-shadow:0 4px 16px rgba(43,127,212,.08)}
+.proj-emoji{font-size:22px;margin-bottom:10px}
+.proj-name{font-size:14px;font-weight:500;color:var(--text);margin-bottom:3px}
+.proj-meta{font-size:11px;color:var(--text3)}
+.proj-bar{height:3px;background:var(--border);border-radius:2px;margin-top:10px}
+.proj-bar-fill{height:100%;border-radius:2px;background:var(--c1)}
+.proj-status{font-size:10px;padding:2px 8px;border-radius:20px;display:inline-block;margin-top:8px}
+.s-active{background:rgba(43,127,212,.1);color:var(--c1);border:1px solid rgba(43,127,212,.2)}
+.s-plan{background:rgba(91,174,232,.1);color:var(--c2);border:1px solid rgba(91,174,232,.2)}
+.s-done{background:rgba(59,173,122,.1);color:var(--green);border:1px solid rgba(59,173,122,.2)}
+
+/* ── Vision card ── */
+.vision-card{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:var(--r);padding:18px;cursor:pointer;
+  transition:border-color .2s,box-shadow .2s;
+}
+.vision-card:hover{border-color:var(--c1);box-shadow:0 4px 16px rgba(43,127,212,.1)}
+.vision-icon{font-size:26px;margin-bottom:10px}
+.vision-title{font-size:15px;font-weight:500;margin-bottom:3px}
+.vision-year{font-size:11px;color:var(--c1);font-weight:500}
+.vision-desc{font-size:12px;color:var(--text3);margin-top:5px;line-height:1.6}
+
+/* ── Account row ── */
+.acc-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.acc-row:last-child{border-bottom:none}
+.acc-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.acc-name{flex:1;font-size:13px;color:var(--text)}
+.acc-code{font-size:11px;color:var(--text3);margin-left:4px}
+.acc-val{font-size:13px;font-weight:500;color:var(--text)}
+
+/* ── VAC ── */
+.vac{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:16px}
+.vac-name{font-size:11px;color:var(--text3);margin-bottom:5px;font-weight:500;letter-spacing:.04em}
+.vac-bal{font-size:20px;font-weight:300;color:var(--text)}
+.vac-sub{font-size:11px;color:var(--text3);margin-top:2px}
+.vac-goals{margin-top:12px;border-top:1px solid var(--border);padding-top:10px}
+.vac-goal{margin-bottom:8px}
+.vac-goal-head{display:flex;justify-content:space-between;font-size:11px;color:var(--text2);margin-bottom:4px}
+.vac-gbar{height:3px;background:var(--border);border-radius:2px;overflow:hidden}
+.vac-gfill{height:100%;background:var(--c1);border-radius:2px}
+
+/* ── Expense ── */
+.exp-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.exp-row:last-child{border-bottom:none}
+.exp-icon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;background:var(--c3)}
+.exp-info{flex:1;min-width:0}
+.exp-name{font-size:13px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.exp-detail{font-size:11px;color:var(--text3);margin-top:1px}
+.exp-right{text-align:right}
+.exp-amt{font-size:13px;font-weight:500;color:var(--red)}
+.exp-del{font-size:11px;color:var(--text3);cursor:pointer;margin-top:2px}
+.exp-del:hover{color:var(--red)}
+
+/* ── Total strip ── */
+.total-strip{display:flex;justify-content:space-between;align-items:baseline;padding:14px 0 0;border-top:1px solid var(--border2);margin-top:10px}
+.total-lbl{font-size:12px;color:var(--text3)}
+.total-val{font-family:var(--font-d);font-size:24px;color:var(--c1)}
+
+/* ── Chart ── */
+.chart-wrap{height:80px;margin:14px 0 6px}
+.chart-wrap svg{width:100%;height:100%}
+
+/* ── Alert ── */
+.alert-box{
+  background:rgba(43,127,212,.06);border:1px solid rgba(43,127,212,.2);
+  border-radius:var(--r-sm);padding:12px 14px;
+  font-size:12.5px;color:var(--c1);line-height:1.6;margin-bottom:10px;
+}
+
+/* ── Tabs ── */
+.tab-nav{display:flex;gap:4px;border-bottom:1px solid var(--border);margin-bottom:20px}
+.tab-btn{
+  padding:8px 16px;font-size:13px;color:var(--text3);
+  cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;
+  transition:all .15s;background:none;border-top:none;border-left:none;border-right:none;
+  font-family:var(--font);
+}
+.tab-btn:hover{color:var(--c1)}
+.tab-btn.active{color:var(--c1);border-bottom-color:var(--c1)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* ── Buttons ── */
+.btn{padding:9px 18px;border-radius:var(--r-sm);font-size:13px;cursor:pointer;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);font-family:var(--font);transition:all .15s}
+.btn:hover{border-color:var(--c1);color:var(--c1)}
+.btn-primary{background:var(--c1);color:#fff;border-color:var(--c1)}
+.btn-primary:hover{background:var(--c2);border-color:var(--c2);color:#fff}
+.btn-sm{padding:6px 12px;font-size:12px}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+
+/* ── Form ── */
+.field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.field label{font-size:12px;color:var(--text3);font-weight:500}
+input[type=text],input[type=number],input[type=date],input[type=color],select,textarea{
+  width:100%;padding:9px 12px;border:1px solid var(--border2);border-radius:var(--r-sm);
+  font-size:14px;font-family:var(--font);color:var(--text);background:var(--bg);
+  outline:none;transition:border-color .15s;
+}
+input:focus,select:focus,textarea:focus{border-color:var(--c1)}
+select option{background:var(--bg3)}
+.input-row{display:flex;gap:10px}
+.input-row .field{flex:1}
+
+/* ── Modal ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(26,46,66,.45);display:none;align-items:center;justify-content:center;z-index:200;backdrop-filter:blur(6px)}
+.modal-overlay.open{display:flex}
+.modal{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);padding:26px;width:420px;max-width:calc(100vw - 32px);max-height:90dvh;overflow-y:auto;box-shadow:0 20px 60px rgba(43,127,212,.12)}
+.modal-title{font-family:var(--font-d);font-size:20px;margin-bottom:18px;color:var(--text)}
+.modal-actions{display:flex;gap:8px;margin-top:18px}
+.modal-actions .btn{flex:1}
+
+/* ── Settings page ── */
+.settings-section{margin-bottom:28px}
+.settings-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.settings-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)}
+.settings-row:last-child{border-bottom:none}
+.settings-row-label{font-size:13px;color:var(--text);flex:1}
+.settings-row-sub{font-size:11px;color:var(--text3);margin-top:2px}
+.settings-row-ctrl{display:flex;align-items:center;gap:8px}
+.settings-row-ctrl input{width:90px}
+.color-preview{width:28px;height:28px;border-radius:6px;border:1px solid var(--border2);cursor:pointer;overflow:hidden}
+.color-preview input[type=color]{width:100%;height:100%;border:none;padding:0;cursor:pointer;background:none}
+
+/* ── Income formula ── */
+.formula-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--border)}
+.formula-row:last-child{border-bottom:none}
+.formula-name{font-size:13px;color:var(--text2)}
+.formula-pct{font-size:11px;color:var(--text3)}
+.formula-amt{font-size:13px;font-weight:500;color:var(--c1)}
+.formula-amt.special{color:var(--green)}
+
+/* ── Mobile nav ── */
+.mobile-nav{
+  display:none;
+  position:fixed;bottom:0;left:0;right:0;
+  background:var(--bg3);border-top:1px solid var(--border);
+  padding:8px 0;
+  padding-bottom:max(8px,var(--safe-bot));
+  z-index:100;
+}
+.mn-inner{display:flex;justify-content:space-around}
+.mn-item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 10px;cursor:pointer;font-size:10px;color:var(--text3);border-radius:var(--r-sm);transition:color .15s}
+.mn-item.active{color:var(--c1)}
+.mn-icon{font-size:20px}
+
+/* ── Login screen ── */
+.login-screen{
+  position:fixed;inset:0;
+  background:linear-gradient(135deg,var(--c1) 0%,var(--c2) 60%,#A8D4F5 100%);
+  display:flex;align-items:center;justify-content:center;
+  z-index:300;flex-direction:column;gap:24px;
+  padding:24px;
+}
+.login-logo{font-family:var(--font-d);font-size:42px;color:#fff;font-style:italic;text-align:center}
+.login-sub{font-size:14px;color:rgba(255,255,255,.8);text-align:center;line-height:1.7}
+.login-btn{
+  display:flex;align-items:center;gap:12px;
+  background:#fff;color:var(--text);
+  padding:14px 28px;border-radius:50px;
+  font-size:15px;font-weight:500;cursor:pointer;
+  border:none;font-family:var(--font);
+  box-shadow:0 8px 32px rgba(0,0,0,.15);
+  transition:transform .15s,box-shadow .15s;
+}
+.login-btn:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,.2)}
+.login-btn svg{width:20px;height:20px}
+.login-offline{font-size:12px;color:rgba(255,255,255,.6);cursor:pointer;text-decoration:underline}
+
+/* ── Empty ── */
+.empty{text-align:center;padding:40px 20px;color:var(--text3);font-size:13px}
+.empty-icon{font-size:36px;margin-bottom:10px;opacity:.4}
+
+/* ── Responsive ── */
+@media(max-width:768px){
+  .sidebar{display:none}
+  .main{height:100dvh}
+  .topbar{padding:12px 16px;padding-top:max(12px,var(--safe-top))}
+  .content{padding:16px 16px 90px}
+  .mobile-nav{display:block}
+  .g2,.g3{grid-template-columns:1fr}
+  .g-auto{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+}
+@media(min-width:769px){
+  .topbar{display:none}
+  .content{padding:28px 32px}
+}
+
+/* ── Animations ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.page.active .card,.page.active .vac,.page.active .proj-card,.page.active .vision-card,.page.active .stat{animation:fadeUp .25s ease both}
+.page.active .card:nth-child(2),.page.active .vac:nth-child(2),.page.active .stat:nth-child(2){animation-delay:.04s}
+.page.active .card:nth-child(3),.page.active .vac:nth-child(3),.page.active .stat:nth-child(3){animation-delay:.08s}
+</style>
+</head>
+<body>
+
+<!-- Login -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-logo">Life OS</div>
+  <div class="login-sub">你的個人控制台<br>記帳、計畫、資產，一站管理</div>
+  <button class="login-btn" onclick="signInWithGoogle()">
+    <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+    使用 Google 帳號登入
+  </button>
+  <div class="login-offline" onclick="skipLogin()">先離線使用（資料不會同步）</div>
+</div>
+
+<!-- App -->
+<div class="app" id="appShell" style="display:none">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-top">
+      <div class="sidebar-logo">Life OS</div>
+      <div class="sidebar-sub">你的個人控制台</div>
+      <div class="sidebar-user">
+        <div class="sidebar-avatar" id="sb-avatar">?</div>
+        <div class="sidebar-name" id="sb-name">未登入</div>
+        <div class="sidebar-login" id="sb-login" onclick="handleAuthClick()">登入</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <div class="nav-sec">
+        <div class="nav-sec-label">每日</div>
+        <div class="nav-item active" onclick="nav('home')"><span class="ni">⌂</span>首頁</div>
+        <div class="nav-item" onclick="nav('tasks')"><span class="ni">✓</span>執行清單</div>
+      </div>
+      <div class="nav-sec">
+        <div class="nav-sec-label">計畫</div>
+        <div class="nav-item" onclick="nav('projects')"><span class="ni">◈</span>計畫庫</div>
+        <div class="nav-item" onclick="nav('visions')"><span class="ni">◎</span>未來願景</div>
+      </div>
+      <div class="nav-sec">
+        <div class="nav-sec-label">財務</div>
+        <div class="nav-item" onclick="nav('cashflow')"><span class="ni">⬡</span>現金流</div>
+        <div class="nav-item" onclick="nav('assets')"><span class="ni">△</span>實體資產</div>
+        <div class="nav-item" onclick="nav('income')"><span class="ni">↑</span>收入分配</div>
+      </div>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="sidebar-settings" onclick="nav('settings')">⚙ 設定與自訂</div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+    <div class="topbar">
+      <div>
+        <div class="topbar-title" id="topbar-title">首頁</div>
+        <div class="topbar-date" id="topbar-date"></div>
+      </div>
+      <button class="topbar-btn" id="topbar-action" onclick="topbarAction()">+ 新增</button>
+    </div>
+    <div class="content" id="content">
+
+      <!-- HOME -->
+      <div id="page-home" class="page active">
+        <div class="g2" style="margin-bottom:14px">
+          <div class="stat">
+            <div class="stat-label">今日待辦</div>
+            <div class="stat-value" id="h-task-count">—</div>
+            <div class="stat-sub">尚未完成</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">總資產</div>
+            <div class="stat-value" id="h-total-assets">—</div>
+            <div class="stat-sub" id="h-asset-pct">— 達成目標</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">今日待辦</div>
+          <div id="home-tasks"></div>
+          <div class="quick-add">
+            <input type="text" id="h-task-input" placeholder="快速新增任務..." onkeydown="if(event.key==='Enter')quickTask()">
+            <button onclick="quickTask()">新增</button>
+          </div>
+        </div>
+        <div class="card-title" style="margin-top:4px">重要計畫</div>
+        <div class="g-auto" id="home-projects" style="margin-bottom:14px"></div>
+        <div class="card-title">防衝動警示</div>
+        <div id="home-alerts" style="margin-bottom:14px"></div>
+        <div class="card-title">北極星</div>
+        <div class="card" style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px">
+            <span style="font-size:12px;color:var(--text3)">資產成長</span>
+            <span style="font-size:11px;color:var(--text3)" id="h-asset-target"></span>
+          </div>
+          <div class="chart-wrap"><svg id="asset-svg" viewBox="0 0 400 70" preserveAspectRatio="none" fill="none"></svg></div>
+          <div class="prog-bar"><div class="prog-fill" id="h-prog" style="width:0%"></div></div>
+          <div class="prog-meta"><span>0</span><span id="h-prog-pct"></span><span id="h-prog-target"></span></div>
+        </div>
+        <div class="g3" id="home-visions"></div>
+      </div>
+
+      <!-- TASKS -->
+      <div id="page-tasks" class="page">
+        <div class="btn-row">
+          <button class="btn btn-sm btn-primary" onclick="openModal('task-modal')">+ 新增任務</button>
+          <button class="btn btn-sm" onclick="filterTasks('undone',this)">未完成</button>
+          <button class="btn btn-sm" onclick="filterTasks('today',this)">今天</button>
+          <button class="btn btn-sm" onclick="filterTasks('done',this)">已完成</button>
+        </div>
+        <div class="card" id="task-list"></div>
+      </div>
+
+      <!-- PROJECTS -->
+      <div id="page-projects" class="page">
+        <div class="btn-row">
+          <button class="btn btn-sm btn-primary" onclick="openModal('proj-modal')">+ 新計畫</button>
+        </div>
+        <div class="g-auto" id="proj-grid"></div>
+      </div>
+
+      <!-- VISIONS -->
+      <div id="page-visions" class="page">
+        <div class="btn-row">
+          <button class="btn btn-sm btn-primary" onclick="openModal('vision-modal')">+ 新增願景</button>
+        </div>
+        <div class="g3" id="vision-grid"></div>
+      </div>
+
+      <!-- CASHFLOW -->
+      <div id="page-cashflow" class="page">
+        <div class="tab-nav">
+          <button class="tab-btn active" onclick="cfTab('accounts',this)">虛擬帳戶</button>
+          <button class="tab-btn" onclick="cfTab('expenses',this)">消費記錄</button>
+          <button class="tab-btn" onclick="cfTab('goals',this)">目標</button>
+        </div>
+        <div id="cf-accounts" class="tab-panel active">
+          <div class="btn-row">
+            <button class="btn btn-sm" onclick="openModal('deposit-modal')">+ 撥款</button>
+            <button class="btn btn-sm btn-primary" onclick="openModal('expense-modal')">+ 記帳</button>
+          </div>
+          <div class="g2" id="vac-grid"></div>
+        </div>
+        <div id="cf-expenses" class="tab-panel">
+          <div class="btn-row">
+            <button class="btn btn-sm btn-primary" onclick="openModal('expense-modal')">+ 記帳</button>
+          </div>
+          <div class="card" id="exp-list"></div>
+        </div>
+        <div id="cf-goals" class="tab-panel">
+          <div class="btn-row">
+            <button class="btn btn-sm btn-primary" onclick="openModal('goal-modal')">+ 新增目標</button>
+          </div>
+          <div id="goals-list"></div>
+        </div>
+      </div>
+
+      <!-- ASSETS -->
+      <div id="page-assets" class="page">
+        <div class="btn-row">
+          <button class="btn btn-sm btn-primary" onclick="openModal('asset-modal')">+ 月底結算</button>
+        </div>
+        <div class="card">
+          <div id="asset-list"></div>
+          <div class="total-strip">
+            <span class="total-lbl">💰 總資產淨值</span>
+            <span class="total-val" id="asset-total">—</span>
+          </div>
+          <div class="prog" style="margin-top:12px">
+            <div class="prog-bar"><div class="prog-fill" id="asset-prog" style="width:0%"></div></div>
+            <div class="prog-meta"><span>0</span><span id="asset-prog-pct"></span><span id="asset-prog-target"></span></div>
+          </div>
+        </div>
+        <div style="margin-top:16px">
+          <div class="card-title">更新記錄</div>
+          <div class="card" id="snap-list"></div>
+        </div>
+      </div>
+
+      <!-- INCOME -->
+      <div id="page-income" class="page">
+        <div class="card">
+          <div class="card-title">收入分配計算機</div>
+          <div class="input-row">
+            <div class="field">
+              <label>金額</label>
+              <input type="number" id="inc-amt" placeholder="45000" step="any" oninput="calcIncome()">
+            </div>
+            <div class="field">
+              <label>來源</label>
+              <select id="inc-src" onchange="updateIncTypes();calcIncome()">
+                <option value="self">自己</option>
+                <option value="parents">父母</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>類型</label>
+              <select id="inc-type" onchange="calcIncome()">
+                <option value="salary">正職</option>
+                <option value="bonus_annual">年終</option>
+                <option value="bonus_perf">績效</option>
+                <option value="extra">額外</option>
+              </select>
+            </div>
+          </div>
+          <div id="inc-rule" style="font-size:12px;color:var(--text3);padding:10px 12px;background:var(--bg);border-radius:var(--r-sm);margin-bottom:14px;line-height:1.7"></div>
+          <div id="inc-result"></div>
+          <div style="display:flex;gap:8px;margin-top:14px">
+            <button class="btn btn-primary" onclick="applyIncome()">套用到虛擬帳戶 →</button>
+            <button class="btn" onclick="saveIncome()">存入記錄</button>
+          </div>
+        </div>
+        <div style="margin-top:16px">
+          <div class="card-title">收入記錄</div>
+          <div class="card" id="income-records"></div>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div id="page-settings" class="page">
+        <div class="settings-section">
+          <div class="settings-title">🎨 主題配色</div>
+          <div id="color-settings"></div>
+          <button class="btn btn-sm btn-primary" style="margin-top:10px" onclick="applyColors()">套用配色</button>
+        </div>
+        <div class="settings-section">
+          <div class="settings-title">🏦 虛擬帳戶設定</div>
+          <div id="vac-settings"></div>
+          <button class="btn btn-sm" style="margin-top:10px" onclick="addVAC()">+ 新增帳戶</button>
+          <button class="btn btn-sm btn-primary" style="margin-top:10px;margin-left:8px" onclick="saveVACSettings()">儲存帳戶設定</button>
+        </div>
+        <div class="settings-section">
+          <div class="settings-title">💰 收入分配規則</div>
+          <div id="alloc-settings"></div>
+          <div style="margin-top:14px">
+            <div class="settings-row">
+              <div><div class="settings-row-label">社交（自己正職固定）</div></div>
+              <div class="settings-row-ctrl"><input type="number" id="s-social" style="width:90px" step="any"> 元</div>
+            </div>
+            <div class="settings-row">
+              <div><div class="settings-row-label">孝親（自己正職固定）</div></div>
+              <div class="settings-row-ctrl"><input type="number" id="s-filial" style="width:90px" step="any"> 元</div>
+            </div>
+          </div>
+          <button class="btn btn-sm btn-primary" style="margin-top:12px" onclick="saveAllocSettings()">儲存分配規則</button>
+        </div>
+        <div class="settings-section">
+          <div class="settings-title">📊 實體帳戶設定</div>
+          <div id="asset-settings"></div>
+          <button class="btn btn-sm" style="margin-top:10px" onclick="addAssetAccount()">+ 新增帳戶</button>
+          <button class="btn btn-sm btn-primary" style="margin-top:10px;margin-left:8px" onclick="saveAssetSettings()">儲存</button>
+        </div>
+        <div class="settings-section">
+          <div class="settings-title">🎯 資產目標</div>
+          <div class="settings-row">
+            <div class="settings-row-label">目標總資產</div>
+            <div class="settings-row-ctrl"><input type="number" id="s-target" style="width:120px" step="any"> 元</div>
+          </div>
+          <button class="btn btn-sm btn-primary" style="margin-top:12px" onclick="saveTargetSetting()">儲存</button>
+        </div>
+        <div class="settings-section">
+          <div class="settings-title">🔐 帳號</div>
+          <div class="settings-row">
+            <div><div class="settings-row-label" id="s-user-name">未登入</div><div class="settings-row-sub">資料同步至 Firebase</div></div>
+            <button class="btn btn-sm" id="s-auth-btn" onclick="handleAuthClick()">登入</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- content -->
+  </main>
+</div><!-- app -->
+
+<!-- Mobile Nav -->
+<nav class="mobile-nav" id="mobileNav" style="display:none">
+  <div class="mn-inner">
+    <div class="mn-item active" onclick="nav('home')"><div class="mn-icon">⌂</div>首頁</div>
+    <div class="mn-item" onclick="nav('cashflow')"><div class="mn-icon">⬡</div>現金流</div>
+    <div class="mn-item" onclick="nav('projects')"><div class="mn-icon">◈</div>計畫</div>
+    <div class="mn-item" onclick="nav('assets')"><div class="mn-icon">△</div>資產</div>
+    <div class="mn-item" onclick="nav('settings')"><div class="mn-icon">⚙</div>設定</div>
+  </div>
+</nav>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="task-modal">
+  <div class="modal">
+    <div class="modal-title">新增任務</div>
+    <div class="field"><label>任務名稱</label><input type="text" id="t-name" placeholder="具體可執行的事項"></div>
+    <div class="input-row">
+      <div class="field"><label>日期</label><input type="date" id="t-date"></div>
+      <div class="field"><label>所屬計畫</label><select id="t-proj"><option value="">無</option></select></div>
+    </div>
+    <div class="field"><label>標籤</label><input type="text" id="t-tag" placeholder="例：財務、旅行"></div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal('task-modal')">取消</button>
+      <button class="btn btn-primary" onclick="saveTask()">新增</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="proj-modal">
+  <div class="modal">
+    <div class="modal-title">新增計畫</div>
+    <div class="input-row">
+      <div class="field" style="flex:0 0 64px"><label>Emoji</label><input type="text" id="p-emoji" placeholder="🎯" maxlength="2"></div>
+      <div class="field"><label>計畫名稱</label><input type="text" id="p-name"></div>
+    </div>
+    <div class="input-row">
+      <div class="field"><label>類型</label><select id="p-type"><option value="short">短期計畫</option><option value="long">長期願景</option></select></div>
+      <div class="field"><label>狀態</label><select id="p-status"><option value="planning">規劃中</option><option value="active">進行中</option><option value="done">已完成</option></select></div>
+    </div>
+    <div class="input-row">
+      <div class="field"><label>開始日期</label><input type="date" id="p-start"></div>
+      <div class="field"><label>截止日期</label><input type="date" id="p-end"></div>
+    </div>
+    <div class="field"><label>綁定帳戶（選填）</label><select id="p-account"><option value="">不綁定</option></select></div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal('proj-modal')">取消</button>
+      <button class="btn btn-primary" onclick="saveProject()">新增</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="vision-modal">
+  <div class="modal">
+    <div class="modal-title">新增願景</div>
+    <div class="input-row">
+      <div class="field" style="flex:0 0 64px"><label>Emoji</label><input type="text" id="v-emoji" placeholder="🌍" maxlength="2"></div>
+      <div class="field"><label>願景名稱</label><input type="text" id="v-name"></div>
+    </div>
+    <div class="input-row">
+      <div class="field"><label>目標年份</label><input type="number" id="v-year" placeholder="2029"></div>
+      <div class="field"><label>綁定帳戶</label><select id="v-account"><option value="">不綁定</option></select></div>
+    </div>
+    <div class="field"><label>描述</label><input type="text" id="v-desc" placeholder="一年壯遊計畫"></div>
+    <div class="field"><label>目標金額（選填）</label><input type="number" id="v-goal-amt" placeholder="0" step="any"></div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal('vision-modal')">取消</button>
+      <button class="btn btn-primary" onclick="saveVision()">新增</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="expense-modal">
+  <div class="modal">
+    <div class="modal-title">記一筆消費</div>
+    <div class="field"><label>消費名稱</label><input type="text" id="e-name" placeholder="例：路易莎咖啡"></div>
+    <div class="input-row">
+      <div class="field"><label>金額</label><input type="number" id="e-amount" placeholder="0" step="any"></div>
+      <div class="field"><label>日期</label><input type="date" id="e-date"></div>
+    </div>
+    <div class="input-row">
+      <div class="field"><label>扣除帳戶</label><select id="e-account"></select></div>
+      <div class="field"><label>類別</label><select id="e-cat"><option>餐飲</option><option>交通</option><option>購物</option><option>娛樂</option><option>醫療</option><option>其他</option></select></div>
+    </div>
+    <div class="field"><label>備註（選填）</label><input type="text" id="e-note"></div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal('expense-modal')">取消</button>
+      <button class="btn btn-primary" onclick="saveExpense()">記帳</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="deposit-modal">
+  <div class="modal">
+    <div class="modal-title">撥款入帳</div>
+    <div class="field"><label>帳戶</label><select id="dep-acct"></select></div>
+    <div class="field"><label>撥入金額</label><input type="number" id="dep-amt" placeholder="0" step="any"></div>
+    <div class="field"><label>備註</label><input type="text" id="dep-note" placeholder="例：8月薪水 - 小確幸"></div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal('deposit-modal')">取消</button>
+      <button class="btn btn-primary" onclick="saveDeposit()">確認撥入</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="goal-modal">
+  <div class="modal">
+    <div class="modal-title">新增目標</div>
+    <div class="field"><label>目標名稱</label><input type="text" id="g-name" placeholder="例：ICL 手術"></div>
+    <div class="field"><label>綁定帳戶</label><select id="g-account"></select></div>
+    <div class="field"><label>目標金額</label><input type="number" id="g-amt" placeholder="200000" step="any"></div>
+    <div class="field"><label>綁定計畫（選填）</label><select id="g-proj"><option value="">無</option></select></div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal('goal-modal')">取消</button>
+      <button class="btn btn-primary" onclick="saveGoal()">新增</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="asset-modal">
+  <div class="modal">
+    <div class="modal-title">更新實體帳戶</div>
+    <div id="asset-modal-inputs"></div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal('asset-modal')">取消</button>
+      <button class="btn btn-primary" onclick="saveAssets()">儲存並快照</button>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA2rHPAQT-eaJnvoUuNHBZdIo88b0Olhmk",
+  authDomain: "life-os-01-byyu.firebaseapp.com",
+  projectId: "life-os-01-byyu",
+  storageBucket: "life-os-01-byyu.firebasestorage.app",
+  messagingSenderId: "904924111847",
+  appId: "1:904924111847:web:8301a7bf43e13f5ef0d342"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+window._fb = { auth, db, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, doc, getDoc, setDoc, onSnapshot };
+
+// Auth state
+onAuthStateChanged(auth, user => {
+  window._fbUser = user;
+  updateAuthUI(user);
+  if (user) {
+    loadFromFirebase(user.uid);
+    document.getElementById('loginScreen').style.display = 'none';
+    showApp();
+  }
+});
+
+window.signInWithGoogle = async () => {
+  try {
+    const provider = new GoogleAuthProvider();
+    await signInWithPopup(auth, provider);
+  } catch(e) { console.error(e); }
+};
+
+window.handleAuthClick = async () => {
+  if (window._fbUser) {
+    await signOut(auth);
+    window._fbUser = null;
+    updateAuthUI(null);
+  } else {
+    await window.signInWithGoogle();
+  }
+};
+
+window.saveToFirebase = async (data) => {
+  if (!window._fbUser) return;
+  try {
+    await setDoc(doc(db, 'users', window._fbUser.uid), data);
+  } catch(e) { console.error('Firebase save error:', e); }
+};
+
+window.loadFromFirebase = async (uid) => {
+  try {
+    const snap = await getDoc(doc(db, 'users', uid));
+    if (snap.exists()) {
+      const data = snap.data();
+      window.DB = { ...window.DB, ...data };
+      applyTheme();
+      renderPage(window._currentPage || 'home');
+    }
+  } catch(e) { console.error('Firebase load error:', e); }
+};
+
+function updateAuthUI(user) {
+  const av = document.getElementById('sb-avatar');
+  const nm = document.getElementById('sb-name');
+  const lg = document.getElementById('sb-login');
+  const sn = document.getElementById('s-user-name');
+  const sb = document.getElementById('s-auth-btn');
+  if (user) {
+    if (av) { av.innerHTML = user.photoURL ? `<img src="${user.photoURL}">` : user.displayName?.[0] || 'U'; }
+    if (nm) nm.textContent = user.displayName || user.email;
+    if (lg) lg.textContent = '登出';
+    if (sn) sn.textContent = user.displayName || user.email;
+    if (sb) sb.textContent = '登出';
+  } else {
+    if (av) av.textContent = '?';
+    if (nm) nm.textContent = '未登入';
+    if (lg) lg.textContent = '登入';
+    if (sn) sn.textContent = '未登入';
+    if (sb) sb.textContent = '登入';
+  }
+}
+</script>
+
+<script>
+// ══════════════════════════════════════════
+// DATA
+// ══════════════════════════════════════════
+
+const DEFAULT_VAC = [
+  {id:'v1',name:'小確幸',deposited:0,pct:0.01},
+  {id:'v2',name:'必需品',deposited:0,pct:0.09},
+  {id:'v3',name:'變漂亮',deposited:0,pct:0.02},
+  {id:'v4',name:'社交',deposited:0,pct:0},
+  {id:'v5',name:'學習',deposited:0,pct:0.10},
+  {id:'v6',name:'短期旅遊',deposited:0,pct:0.03},
+  {id:'v7',name:'長期旅遊',deposited:0,pct:0.05},
+  {id:'v8',name:'孝親',deposited:0,pct:0},
+  {id:'v9',name:'儲蓄',deposited:0,pct:0},
+];
+const DEFAULT_ASSETS = [
+  {id:'a',code:'A',name:'日常活存 + 外幣',amount:0,color:'#2B7FD4'},
+  {id:'b',code:'B',name:'定存',amount:0,color:'#3BAD7A'},
+  {id:'c',code:'C',name:'備用金 + 舊ETF',amount:0,color:'#8B7FD4'},
+  {id:'d',code:'D',name:'股票交割戶',amount:0,color:'#D4A82B'},
+  {id:'e',code:'E',name:'薪轉高利活存',amount:0,color:'#5BAEE8'},
+  {id:'f',code:'F',name:'主力台股ETF',amount:0,color:'#4A9BD4'},
+  {id:'g',code:'G',name:'海外ETF',amount:0,color:'#D4705B'},
+  {id:'h',code:'H',name:'現金',amount:0,color:'#8AADC5'},
+];
+const DEFAULT_COLORS = { c1:'#2B7FD4', c2:'#5BAEE8', c3:'#E8F3FB' };
+const DEFAULT_RULES = { socialFixed:2000, filialFixed:2000 };
+
+window.DB = {
+  tasks:[], projects:[], visions:[], goals:[],
+  virtualAccounts: JSON.parse(JSON.stringify(DEFAULT_VAC)),
+  expenses:[], assets: JSON.parse(JSON.stringify(DEFAULT_ASSETS)),
+  snapshots:[], incomeRecords:[],
+  colors: {...DEFAULT_COLORS},
+  rules: {...DEFAULT_RULES},
+  assetTarget: 5800000,
+};
+
+function save() {
+  localStorage.setItem('lifeos_v2', JSON.stringify(window.DB));
+  if (window.saveToFirebase) window.saveToFirebase(window.DB);
+}
+
+// Load from localStorage first
+try {
+  const raw = localStorage.getItem('lifeos_v2');
+  if (raw) { const d = JSON.parse(raw); window.DB = {...window.DB, ...d}; }
+} catch(e) {}
+
+function uid() { return Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+function fmtM(n) { if(n===null||n===undefined)return'—'; return '$'+parseFloat(n).toLocaleString('zh-TW',{maximumFractionDigits:4}); }
+function fmtD(d) { if(!d)return''; return new Date(d+'T00:00:00').toLocaleDateString('zh-TW',{month:'numeric',day:'numeric'}); }
+function today() { return new Date().toISOString().slice(0,10); }
+function getVACBal(id) {
+  const v = DB.virtualAccounts.find(v=>v.id===id); if(!v)return 0;
+  return v.deposited - DB.expenses.filter(e=>e.accountId===id).reduce((s,e)=>s+e.amount,0);
+}
+function totalAssets() { return DB.assets.reduce((s,a)=>s+(a.amount||0),0); }
+
+// ══════════════════════════════════════════
+// THEME
+// ══════════════════════════════════════════
+function applyTheme() {
+  const c = DB.colors || DEFAULT_COLORS;
+  document.documentElement.style.setProperty('--c1', c.c1||'#2B7FD4');
+  document.documentElement.style.setProperty('--c2', c.c2||'#5BAEE8');
+  document.documentElement.style.setProperty('--c3', c.c3||'#E8F3FB');
+  const hex = c.c3||'#E8F3FB';
+  document.documentElement.style.setProperty('--bg', hex);
+  document.documentElement.style.setProperty('--border', lighten(c.c1||'#2B7FD4', 0.6));
+  document.documentElement.style.setProperty('--border2', lighten(c.c1||'#2B7FD4', 0.4));
+  document.querySelector('meta[name=theme-color]').setAttribute('content', c.c3||'#EEF4FB');
+}
+function lighten(hex, amt) {
+  const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  const nr=Math.round(r+(255-r)*amt),ng=Math.round(g+(255-g)*amt),nb=Math.round(b+(255-b)*amt);
+  return '#'+[nr,ng,nb].map(x=>x.toString(16).padStart(2,'0')).join('');
+}
+applyTheme();
+
+// ══════════════════════════════════════════
+// NAV
+// ══════════════════════════════════════════
+window._currentPage = 'home';
+const PAGE_TITLES = {home:'首頁',tasks:'執行清單',projects:'計畫庫',visions:'未來願景',cashflow:'現金流',assets:'實體資產',income:'收入分配',settings:'設定與自訂'};
+const PAGE_ACTIONS = {home:'+ 記帳',tasks:'+ 任務',projects:'+ 計畫',cashflow:'+ 記帳',assets:'+ 結算',income:'套用',settings:''};
+
+function nav(page) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item,.mn-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  document.querySelectorAll('.nav-item,.mn-item').forEach(n=>{
+    if(n.getAttribute('onclick')&&n.getAttribute('onclick').includes("'"+page+"'")) n.classList.add('active');
+  });
+  const t = document.getElementById('topbar-title');
+  const d = document.getElementById('topbar-date');
+  const a = document.getElementById('topbar-action');
+  if(t) t.textContent = PAGE_TITLES[page]||page;
+  if(d) d.textContent = new Date().toLocaleDateString('zh-TW',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
+  if(a) { a.textContent = PAGE_ACTIONS[page]||''; a.style.display = PAGE_ACTIONS[page]?'':'none'; }
+  window._currentPage = page;
+  renderPage(page);
+}
+
+function topbarAction() {
+  const p = window._currentPage;
+  if(p==='home'||p==='cashflow') openModal('expense-modal');
+  else if(p==='tasks') openModal('task-modal');
+  else if(p==='projects') openModal('proj-modal');
+  else if(p==='assets') openModal('asset-modal');
+  else if(p==='income') applyIncome();
+}
+
+function renderPage(page) {
+  if(page==='home') renderHome();
+  else if(page==='tasks') renderTasks();
+  else if(page==='projects') renderProjects();
+  else if(page==='visions') renderVisions();
+  else if(page==='cashflow') { renderVACs(); renderExpenses(); renderGoals(); }
+  else if(page==='assets') renderAssets();
+  else if(page==='income') { calcIncome(); renderIncomeRecords(); }
+  else if(page==='settings') renderSettings();
+}
+
+// ══════════════════════════════════════════
+// MODALS
+// ══════════════════════════════════════════
+function openModal(id) {
+  fillAccountSelects();
+  fillProjSelects();
+  document.getElementById(id).classList.add('open');
+  if(id==='asset-modal') renderAssetModalInputs();
+  document.querySelectorAll('#'+id+' input[type=date]').forEach(i=>{if(!i.value)i.value=today();});
+}
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
+
+function fillAccountSelects() {
+  const ids = ['p-account','v-account','e-account','dep-acct','g-account'];
+  ids.forEach(sid=>{
+    const sel=document.getElementById(sid); if(!sel)return;
+    const hasEmpty = ['p-account','v-account'].includes(sid);
+    sel.innerHTML = hasEmpty?'<option value="">不綁定</option>':'';
+    DB.virtualAccounts.forEach(v=>{ sel.innerHTML+=`<option value="${v.id}">${v.name}</option>`; });
+  });
+}
+function fillProjSelects() {
+  ['t-proj','g-proj'].forEach(sid=>{
+    const sel=document.getElementById(sid); if(!sel)return;
+    sel.innerHTML='<option value="">無</option>';
+    DB.projects.forEach(p=>{ sel.innerHTML+=`<option value="${p.id}">${p.emoji||''}${p.name}</option>`; });
+  });
+}
+
+// ══════════════════════════════════════════
+// HOME
+// ══════════════════════════════════════════
+function renderHome() {
+  const h=new Date().getHours();
+  // Task count
+  const td=today(), undone=DB.tasks.filter(t=>!t.done&&t.date===td);
+  document.getElementById('h-task-count').textContent = undone.length;
+  // Assets
+  const total=totalAssets(), target=DB.assetTarget||5800000;
+  document.getElementById('h-total-assets').textContent = fmtM(total);
+  document.getElementById('h-asset-pct').textContent = (total/target*100).toFixed(1)+'% 達成目標';
+  document.getElementById('h-asset-target').textContent = '目標 '+fmtM(target);
+  document.getElementById('h-prog').style.width = Math.min(total/target*100,100)+'%';
+  document.getElementById('h-prog-pct').textContent = (total/target*100).toFixed(1)+'%';
+  document.getElementById('h-prog-target').textContent = fmtM(target);
+  // Tasks
+  const allUndone=DB.tasks.filter(t=>!t.done).slice(0,6);
+  const display=undone.length?undone:allUndone;
+  const tel=document.getElementById('home-tasks');
+  tel.innerHTML = display.length ? display.map(t=>`
+    <div class="task-item">
+      <div class="task-cb ${t.done?'done':''}" onclick="toggleTask('${t.id}')"></div>
+      <span class="task-text ${t.done?'done':''}">${t.name}</span>
+      ${t.tag?`<span class="task-tag">${t.tag}</span>`:''}
+    </div>`).join('') : '<div class="empty"><div class="empty-icon">✓</div>今天沒有待辦</div>';
+  // Projects
+  const sixMo=new Date(); sixMo.setMonth(sixMo.getMonth()+6);
+  const ap=DB.projects.filter(p=>p.status!=='done'&&p.type!=='long'&&(!p.endDate||new Date(p.endDate)<=sixMo)).slice(0,5);
+  document.getElementById('home-projects').innerHTML = ap.length ? ap.map(projCardHTML).join('') : '<div class="empty" style="grid-column:1/-1"><div class="empty-icon">◈</div>尚無計畫</div>';
+  // Alerts
+  const alerts=[];
+  DB.goals.forEach(g=>{
+    const bal=getVACBal(g.accountId), pct=g.targetAmount?bal/g.targetAmount*100:null;
+    if(pct!==null&&pct<50){ const v=DB.virtualAccounts.find(v=>v.id===g.accountId); alerts.push(`「${v?.name||''}」距 <b>${g.name}</b> 還差 ${fmtM(g.targetAmount-bal)}，目前 ${pct.toFixed(1)}%`); }
+  });
+  const ael=document.getElementById('home-alerts');
+  ael.innerHTML = alerts.length ? alerts.map(a=>`<div class="alert-box">⚠ ${a}</div>`).join('') : '<div style="font-size:13px;color:var(--text3)">目前所有目標進度良好 ✓</div>';
+  // Chart
+  renderAssetChart();
+  // Visions
+  document.getElementById('home-visions').innerHTML = DB.visions.slice(0,3).map(visionCardHTML).join('');
+}
+
+function renderAssetChart() {
+  const snaps=DB.snapshots.slice(-8), svg=document.getElementById('asset-svg');
+  if(snaps.length<2){ svg.innerHTML='<text x="200" y="40" text-anchor="middle" fill="#8AADC5" font-size="11" font-family="DM Sans">尚無足夠資料</text>'; return; }
+  const vals=snaps.map(s=>s.total), max=Math.max(...vals), min=Math.min(...vals), range=max-min||1;
+  const W=400,H=60,pad=8;
+  const pts=vals.map((v,i)=>{ const x=pad+(W-pad*2)*i/(vals.length-1),y=H-pad-(v-min)/range*(H-pad*2); return `${x},${y}`; }).join(' ');
+  const [lx,ly]=pts.split(' ').pop().split(',');
+  const c1=getComputedStyle(document.documentElement).getPropertyValue('--c1').trim()||'#2B7FD4';
+  svg.innerHTML=`<polyline points="${pts}" stroke="${c1}" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="${pts} ${W-pad},${H} ${pad},${H}" fill="${c1}" opacity="0.08"/>
+    <circle cx="${lx}" cy="${ly}" r="3" fill="${c1}"/>`;
+}
+
+// ══════════════════════════════════════════
+// TASKS
+// ══════════════════════════════════════════
+let _taskFilter='undone';
+function renderTasks(f) {
+  if(f) _taskFilter=f;
+  let tasks=[...DB.tasks];
+  if(_taskFilter==='today') tasks=tasks.filter(t=>t.date===today());
+  else if(_taskFilter==='done') tasks=tasks.filter(t=>t.done);
+  else tasks=tasks.filter(t=>!t.done);
+  const el=document.getElementById('task-list');
+  el.innerHTML = tasks.length ? tasks.map(t=>{
+    const p=DB.projects.find(p=>p.id===t.projectId);
+    return `<div class="task-item">
+      <div class="task-cb ${t.done?'done':''}" onclick="toggleTask('${t.id}')"></div>
+      <div style="flex:1">
+        <div class="task-text ${t.done?'done':''}">${t.name}</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:1px">${t.date?fmtD(t.date):''}${p?' · '+(p.emoji||'')+p.name:''}${t.tag?' · '+t.tag:''}</div>
+      </div>
+      <span class="task-del" onclick="deleteTask('${t.id}')">×</span>
+    </div>`;
+  }).join('') : '<div class="empty"><div class="empty-icon">✓</div>沒有符合的任務</div>';
+}
+function filterTasks(f,btn) {
+  document.querySelectorAll('#page-tasks .btn').forEach(b=>b.classList.remove('btn-primary'));
+  btn.classList.add('btn-primary');
+  renderTasks(f);
+}
+function quickTask() {
+  const inp=document.getElementById('h-task-input'), name=inp.value.trim(); if(!name)return;
+  DB.tasks.push({id:uid(),name,date:today(),done:false,projectId:'',tag:''});
+  save(); inp.value=''; renderHome();
+}
+function saveTask() {
+  const name=document.getElementById('t-name').value.trim(); if(!name)return;
+  DB.tasks.push({id:uid(),name,date:document.getElementById('t-date').value,done:false,projectId:document.getElementById('t-proj').value,tag:document.getElementById('t-tag').value.trim()});
+  save(); closeModal('task-modal'); document.getElementById('t-name').value=''; renderTasks(); renderHome();
+}
+function toggleTask(id) {
+  const t=DB.tasks.find(t=>t.id===id); if(t){t.done=!t.done;save();}
+  renderPage(window._currentPage);
+}
+function deleteTask(id) { DB.tasks=DB.tasks.filter(t=>t.id!==id); save(); renderTasks(); }
+
+// ══════════════════════════════════════════
+// PROJECTS
+// ══════════════════════════════════════════
+function projCardHTML(p) {
+  const pct=p.progress||0;
+  const smap={active:'進行中',planning:'規劃中',done:'已完成'};
+  const scls={active:'s-active',planning:'s-plan',done:'s-done'};
+  return `<div class="proj-card">
+    <div class="proj-emoji">${p.emoji||'📌'}</div>
+    <div class="proj-name">${p.name}</div>
+    <div class="proj-meta">${p.endDate?fmtD(p.endDate):'長期'}</div>
+    <div class="proj-bar"><div class="proj-bar-fill" style="width:${pct}%"></div></div>
+    <div class="proj-status ${scls[p.status]||'s-plan'}">${smap[p.status]||p.status}</div>
+  </div>`;
+}
+function renderProjects() {
+  const el=document.getElementById('proj-grid');
+  const projs=DB.projects.filter(p=>p.type!=='long');
+  el.innerHTML=projs.length?projs.map(projCardHTML).join(''):'<div class="empty" style="grid-column:1/-1"><div class="empty-icon">◈</div>尚無計畫</div>';
+}
+function saveProject() {
+  const name=document.getElementById('p-name').value.trim(); if(!name)return;
+  DB.projects.push({id:uid(),emoji:document.getElementById('p-emoji').value||'📌',name,type:document.getElementById('p-type').value,status:document.getElementById('p-status').value,startDate:document.getElementById('p-start').value,endDate:document.getElementById('p-end').value,accountId:document.getElementById('p-account').value,progress:0});
+  save(); closeModal('proj-modal'); document.getElementById('p-name').value=''; renderProjects();
+}
+
+// ══════════════════════════════════════════
+// VISIONS
+// ══════════════════════════════════════════
+function visionCardHTML(v) {
+  const bal=v.accountId?getVACBal(v.accountId):0, pct=v.goalAmount?Math.min(bal/v.goalAmount*100,100):null;
+  return `<div class="vision-card">
+    <div class="vision-icon">${v.emoji||'⭐'}</div>
+    <div class="vision-title">${v.name}</div>
+    <div class="vision-year">${v.year||''}</div>
+    <div class="vision-desc">${v.desc||''}</div>
+    ${pct!==null?`<div class="prog" style="margin-top:10px"><div class="prog-bar"><div class="prog-fill" style="width:${pct}%"></div></div><div class="prog-meta"><span>${fmtM(bal)}</span><span>${pct.toFixed(1)}%</span><span>${fmtM(v.goalAmount)}</span></div></div>`:''}
+  </div>`;
+}
+function renderVisions() {
+  const el=document.getElementById('vision-grid');
+  el.innerHTML=DB.visions.length?DB.visions.map(visionCardHTML).join(''):'<div class="empty" style="grid-column:1/-1"><div class="empty-icon">◎</div>尚無願景</div>';
+}
+function saveVision() {
+  const name=document.getElementById('v-name').value.trim(); if(!name)return;
+  const ga=parseFloat(document.getElementById('v-goal-amt').value)||null;
+  const v={id:uid(),emoji:document.getElementById('v-emoji').value||'⭐',name,year:document.getElementById('v-year').value,accountId:document.getElementById('v-account').value,desc:document.getElementById('v-desc').value.trim(),goalAmount:ga};
+  DB.visions.push(v);
+  if(ga&&v.accountId) DB.goals.push({id:uid(),name,accountId:v.accountId,targetAmount:ga,status:'active'});
+  save(); closeModal('vision-modal'); document.getElementById('v-name').value=''; renderVisions();
+}
+
+// ══════════════════════════════════════════
+// CASHFLOW
+// ══════════════════════════════════════════
+function cfTab(tab,btn) {
+  document.querySelectorAll('#page-cashflow .tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('#page-cashflow .tab-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('cf-'+tab).classList.add('active');
+}
+function renderVACs() {
+  const el=document.getElementById('vac-grid');
+  el.innerHTML=DB.virtualAccounts.map(v=>{
+    const bal=getVACBal(v.id);
+    const goals=DB.goals.filter(g=>g.accountId===v.id);
+    const goalsHTML=goals.length?`<div class="vac-goals">${goals.map(g=>{
+      const pct=g.targetAmount?Math.min(bal/g.targetAmount*100,100):0;
+      return `<div class="vac-goal"><div class="vac-goal-head"><span>${g.name}</span><span>${pct.toFixed(1)}%</span></div><div class="vac-gbar"><div class="vac-gfill" style="width:${pct}%"></div></div><div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-top:2px"><span>${fmtM(bal)}</span><span>${fmtM(g.targetAmount)}</span></div></div>`;
+    }).join('')}</div>`:'';
+    return `<div class="vac"><div class="vac-name">${v.name}</div><div class="vac-bal">${fmtM(bal)}</div><div class="vac-sub">累積撥入 ${fmtM(v.deposited)}</div>${goalsHTML}</div>`;
+  }).join('');
+}
+function renderExpenses() {
+  const el=document.getElementById('exp-list');
+  const sorted=[...DB.expenses].sort((a,b)=>(b.date||'').localeCompare(a.date||'')).slice(0,30);
+  const icons={餐飲:'🍜',交通:'🚌',購物:'🛍',娛樂:'🎵',醫療:'💊',其他:'📦'};
+  el.innerHTML=sorted.length?sorted.map(e=>{
+    const v=DB.virtualAccounts.find(v=>v.id===e.accountId);
+    return `<div class="exp-row"><div class="exp-icon">${icons[e.category]||'📦'}</div><div class="exp-info"><div class="exp-name">${e.name}</div><div class="exp-detail">${fmtD(e.date)} · ${v?.name||''} ${e.note?'· '+e.note:''}</div></div><div class="exp-right"><div class="exp-amt">-${fmtM(e.amount)}</div><div class="exp-del" onclick="deleteExp('${e.id}')">刪除</div></div></div>`;
+  }).join(''):'<div class="empty"><div class="empty-icon">💸</div>尚無消費記錄</div>';
+}
+function renderGoals() {
+  const el=document.getElementById('goals-list');
+  el.innerHTML=DB.goals.length?DB.goals.map(g=>{
+    const v=DB.virtualAccounts.find(v=>v.id===g.accountId), bal=getVACBal(g.accountId);
+    const pct=g.targetAmount?Math.min(bal/g.targetAmount*100,100):0, diff=g.targetAmount-bal;
+    return `<div class="card" style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px"><div><div style="font-size:15px;font-weight:500">🚩 ${g.name}</div><div style="font-size:11px;color:var(--text3);margin-top:2px">${v?.name||'—'}</div></div><div style="text-align:right"><div style="font-size:13px;color:var(--c1)">${fmtM(bal)}</div><div style="font-size:11px;color:var(--text3)">目標 ${fmtM(g.targetAmount)}</div></div></div><div class="prog-bar"><div class="prog-fill" style="width:${pct}%"></div></div><div class="prog-meta"><span>${pct.toFixed(2)}%</span><span style="color:${diff>0?'var(--red)':'var(--green)'}">${diff>0?'還差 '+fmtM(diff):'已達成！'}</span></div><div style="text-align:right;margin-top:8px"><span style="font-size:11px;color:var(--text3);cursor:pointer" onclick="deleteGoal('${g.id}')">刪除</span></div></div>`;
+  }).join(''):'<div class="empty"><div class="empty-icon">🚩</div>尚無目標</div>';
+}
+function saveExpense() {
+  const name=document.getElementById('e-name').value.trim(), amount=parseFloat(document.getElementById('e-amount').value), accountId=document.getElementById('e-account').value;
+  if(!name||!amount||!accountId){alert('請填入名稱、金額、帳戶');return;}
+  DB.expenses.push({id:uid(),name,amount,date:document.getElementById('e-date').value||today(),accountId,category:document.getElementById('e-cat').value,note:document.getElementById('e-note').value.trim()});
+  save(); closeModal('expense-modal'); document.getElementById('e-name').value=''; document.getElementById('e-amount').value=''; document.getElementById('e-note').value='';
+  renderVACs(); renderExpenses(); renderGoals(); renderHome();
+}
+function deleteExp(id) { DB.expenses=DB.expenses.filter(e=>e.id!==id); save(); renderExpenses(); renderVACs(); renderGoals(); renderHome(); }
+function saveDeposit() {
+  const accountId=document.getElementById('dep-acct').value, amount=parseFloat(document.getElementById('dep-amt').value);
+  if(!accountId||!amount){alert('請選擇帳戶並輸入金額');return;}
+  const v=DB.virtualAccounts.find(v=>v.id===accountId); if(v) v.deposited+=amount;
+  save(); closeModal('deposit-modal'); document.getElementById('dep-amt').value=''; renderVACs(); renderHome();
+}
+function saveGoal() {
+  const name=document.getElementById('g-name').value.trim(), accountId=document.getElementById('g-account').value, amt=parseFloat(document.getElementById('g-amt').value);
+  if(!name||!accountId||!amt){alert('請填入名稱、帳戶、目標金額');return;}
+  DB.goals.push({id:uid(),name,accountId,targetAmount:amt,projectId:document.getElementById('g-proj').value,status:'active'});
+  save(); closeModal('goal-modal'); document.getElementById('g-name').value=''; document.getElementById('g-amt').value=''; renderGoals(); renderHome();
+}
+function deleteGoal(id) { DB.goals=DB.goals.filter(g=>g.id!==id); save(); renderGoals(); renderHome(); }
+
+// ══════════════════════════════════════════
+// ASSETS
+// ══════════════════════════════════════════
+function renderAssets() {
+  const el=document.getElementById('asset-list');
+  el.innerHTML=DB.assets.map(a=>`<div class="acc-row"><div class="acc-dot" style="background:${a.color}"></div><span class="acc-name">${a.name}<span class="acc-code">${a.code}</span></span><span class="acc-val">${fmtM(a.amount)}</span></div>`).join('');
+  const total=totalAssets(), target=DB.assetTarget||5800000, pct=total/target*100;
+  document.getElementById('asset-total').textContent=fmtM(total);
+  document.getElementById('asset-prog').style.width=Math.min(pct,100)+'%';
+  document.getElementById('asset-prog-pct').textContent=pct.toFixed(1)+'%';
+  document.getElementById('asset-prog-target').textContent='目標 '+fmtM(target);
+  const snaps=[...DB.snapshots].reverse().slice(0,6);
+  document.getElementById('snap-list').innerHTML=snaps.length?snaps.map(s=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px"><span style="color:var(--text3)">${s.date}</span><span style="color:var(--c1)">${fmtM(s.total)}</span></div>`).join(''):'<div class="empty">尚無快照</div>';
+}
+function renderAssetModalInputs() {
+  document.getElementById('asset-modal-inputs').innerHTML=DB.assets.map(a=>`<div class="field"><label>${a.name} (${a.code})</label><input type="number" id="ai-${a.id}" value="${a.amount}" step="any" placeholder="0"></div>`).join('');
+}
+function saveAssets() {
+  DB.assets.forEach(a=>{ const v=parseFloat(document.getElementById('ai-'+a.id)?.value)||0; a.amount=v; });
+  DB.snapshots.push({date:new Date().toLocaleDateString('zh-TW'),total:totalAssets()});
+  save(); closeModal('asset-modal'); renderAssets(); renderHome();
+}
+
+// ══════════════════════════════════════════
+// INCOME
+// ══════════════════════════════════════════
+const FIXED_ALLOC_IDS = {
+  '小確幸':'v1','必需品':'v2','變漂亮':'v3',
+  '學習':'v5','短期旅遊':'v6','長期旅遊':'v7',
+};
+let _lastCalc=null;
+
+function updateIncTypes() {
+  const src=document.getElementById('inc-src').value;
+  const te=document.getElementById('inc-type');
+  te.innerHTML=src==='parents'?'<option value="extra">額外</option><option value="hongbao">紅包</option>':'<option value="salary">正職</option><option value="bonus_annual">年終</option><option value="bonus_perf">績效</option><option value="extra">額外</option>';
+  calcIncome();
+}
+
+function calcIncome() {
+  const raw=parseFloat(document.getElementById('inc-amt')?.value)||0;
+  const src=document.getElementById('inc-src')?.value, type=document.getElementById('inc-type')?.value;
+  const rule=document.getElementById('inc-rule'), result=document.getElementById('inc-result');
+  if(!rule||!result)return;
+  const social=DB.rules?.socialFixed||2000, filial=DB.rules?.filialFixed||2000;
+  if(type==='hongbao'){rule.textContent='🧧 父母紅包 → 全額存入儲蓄';if(!raw){result.innerHTML='';return;}
+    _lastCalc=[{name:'儲蓄',id:'v9',amount:raw,pct:'100%',special:true}];result.innerHTML=resultHTML(_lastCalc,raw);return;}
+  if(src==='parents')rule.textContent='父母 · 額外 → 固定 30%，剩下 70% 進孝親';
+  else if(type==='salary')rule.textContent=`自己 · 正職 → 固定 30%，再存社交 ${fmtM(social)}、孝親 ${fmtM(filial)}，其餘進儲蓄`;
+  else rule.textContent='自己 · 非正職 → 固定 30%，剩下 70% 進儲蓄';
+  if(!raw){result.innerHTML='';return;}
+  const rows=[]; let rem=raw;
+  DB.virtualAccounts.forEach(v=>{
+    if(!v.pct||v.pct<=0)return;
+    const amt=raw*v.pct; rows.push({name:v.name,id:v.id,amount:amt,pct:(v.pct*100)+'%',special:false}); rem-=amt;
+  });
+  if(src==='parents'){rows.push({name:'孝親',id:'v8',amount:rem,pct:'70%（剩餘）',special:true});}
+  else if(type==='salary'){rows.push({name:'社交',id:'v4',amount:social,pct:fmtM(social)+' 固定',special:true});rows.push({name:'孝親',id:'v8',amount:filial,pct:fmtM(filial)+' 固定',special:true});rows.push({name:'儲蓄',id:'v9',amount:Math.max(0,rem-social-filial),pct:'剩餘',special:true});}
+  else{rows.push({name:'儲蓄',id:'v9',amount:rem,pct:'70%（剩餘）',special:true});}
+  _lastCalc=rows; result.innerHTML=resultHTML(rows,raw);
+}
+
+function resultHTML(rows,total) {
+  return `<div>${rows.map(r=>`<div class="formula-row"><div><div class="formula-name">${r.name}</div><div class="formula-pct">${r.pct}</div></div><div class="formula-amt ${r.special?'special':''}">${fmtM(r.amount)}</div></div>`).join('')}</div><div class="total-strip"><span class="total-lbl">合計</span><span style="font-size:16px;font-weight:500;color:var(--c1)">${fmtM(total)}</span></div>`;
+}
+
+function applyIncome() {
+  if(!_lastCalc||!_lastCalc.length){alert('請先輸入收入金額');return;}
+  _lastCalc.forEach(r=>{ const v=DB.virtualAccounts.find(v=>v.id===r.id); if(v)v.deposited+=r.amount; });
+  save(); saveIncome(); alert('✓ 已套用到各虛擬帳戶！'); renderPage('cashflow'); renderHome();
+}
+function saveIncome() {
+  const raw=parseFloat(document.getElementById('inc-amt')?.value)||0; if(!raw)return;
+  const src=document.getElementById('inc-src').value, type=document.getElementById('inc-type').value;
+  const srcL=src==='self'?'自己':'父母';
+  const typeM={salary:'正職',bonus_annual:'年終',bonus_perf:'績效',extra:'額外',hongbao:'紅包'};
+  DB.incomeRecords.push({id:uid(),date:today(),amount:raw,source:srcL,type:typeM[type]||type,allocation:_lastCalc?[..._lastCalc]:[]});
+  save(); renderIncomeRecords();
+}
+function renderIncomeRecords() {
+  const el=document.getElementById('income-records'); if(!el)return;
+  const recs=[...DB.incomeRecords].reverse();
+  el.innerHTML=recs.length?recs.slice(0,10).map(r=>`<div style="padding:12px 0;border-bottom:1px solid var(--border)"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><div><span style="font-size:14px;font-weight:500">${fmtM(r.amount)}</span><span style="font-size:11px;color:var(--text3);margin-left:8px">${r.source} · ${r.type}</span></div><span style="font-size:11px;color:var(--text3)">${fmtD(r.date)}</span></div>${r.allocation?`<div style="display:flex;flex-wrap:wrap;gap:5px">${r.allocation.map(a=>`<span style="font-size:10px;padding:2px 7px;border-radius:20px;background:var(--c3);color:var(--c1)">${a.name} ${fmtM(a.amount)}</span>`).join('')}</div>`:''}</div>`).join(''):'<div class="empty">尚無收入記錄</div>';
+}
+
+// ══════════════════════════════════════════
+// SETTINGS
+// ══════════════════════════════════════════
+function renderSettings() {
+  const c=DB.colors||DEFAULT_COLORS;
+  document.getElementById('color-settings').innerHTML=`
+    <div class="settings-row"><div><div class="settings-row-label">主色（按鈕、強調）</div></div><div class="settings-row-ctrl"><input type="color" id="sc1" value="${c.c1||'#2B7FD4'}" style="width:44px;height:32px;padding:2px;cursor:pointer;border-radius:6px"></div></div>
+    <div class="settings-row"><div><div class="settings-row-label">副色（漸層、次要）</div></div><div class="settings-row-ctrl"><input type="color" id="sc2" value="${c.c2||'#5BAEE8'}" style="width:44px;height:32px;padding:2px;cursor:pointer;border-radius:6px"></div></div>
+    <div class="settings-row"><div><div class="settings-row-label">底色（背景、卡片底）</div></div><div class="settings-row-ctrl"><input type="color" id="sc3" value="${c.c3||'#E8F3FB'}" style="width:44px;height:32px;padding:2px;cursor:pointer;border-radius:6px"></div></div>`;
+  // VAC settings
+  document.getElementById('vac-settings').innerHTML=DB.virtualAccounts.map((v,i)=>`
+    <div class="settings-row" id="vac-row-${i}">
+      <div class="settings-row-ctrl" style="gap:6px;flex:1">
+        <input type="text" value="${v.name}" id="vac-n-${i}" style="width:80px">
+        <input type="number" value="${(v.pct*100)}" id="vac-p-${i}" placeholder="%" step="any" style="width:60px"> %
+        <span style="font-size:11px;color:var(--text3)">(0=固定規則)</span>
+        <span style="font-size:18px;cursor:pointer;color:var(--text3)" onclick="removeVAC(${i})">×</span>
+      </div>
+    </div>`).join('');
+  // Alloc rules
+  const r=DB.rules||DEFAULT_RULES;
+  document.getElementById('s-social').value=r.socialFixed||2000;
+  document.getElementById('s-filial').value=r.filialFixed||2000;
+  // Asset settings
+  document.getElementById('asset-settings').innerHTML=DB.assets.map((a,i)=>`
+    <div class="settings-row">
+      <div class="settings-row-ctrl" style="gap:6px;flex:1">
+        <input type="text" value="${a.code}" id="ast-c-${i}" style="width:36px">
+        <input type="text" value="${a.name}" id="ast-n-${i}" style="flex:1">
+        <input type="color" value="${a.color}" id="ast-col-${i}" style="width:36px;height:30px;padding:2px;cursor:pointer;border-radius:4px">
+        <span style="font-size:18px;cursor:pointer;color:var(--text3)" onclick="removeAsset(${i})">×</span>
+      </div>
+    </div>`).join('');
+  // Target
+  document.getElementById('s-target').value=DB.assetTarget||5800000;
+}
+function applyColors() {
+  DB.colors={c1:document.getElementById('sc1').value,c2:document.getElementById('sc2').value,c3:document.getElementById('sc3').value};
+  save(); applyTheme(); alert('✓ 配色已套用！');
+}
+function addVAC() {
+  DB.virtualAccounts.push({id:uid(),name:'新帳戶',deposited:0,pct:0});
+  save(); renderSettings();
+}
+function removeVAC(i) {
+  if(DB.virtualAccounts.length<=1){alert('至少保留一個帳戶');return;}
+  DB.virtualAccounts.splice(i,1); save(); renderSettings();
+}
+function saveVACSettings() {
+  DB.virtualAccounts.forEach((v,i)=>{
+    const n=document.getElementById('vac-n-'+i)?.value.trim(), p=parseFloat(document.getElementById('vac-p-'+i)?.value)||0;
+    if(n)v.name=n; v.pct=p/100;
+  });
+  save(); alert('✓ 帳戶設定已儲存！'); renderSettings();
+}
+function saveAllocSettings() {
+  if(!DB.rules)DB.rules={};
+  DB.rules.socialFixed=parseFloat(document.getElementById('s-social').value)||2000;
+  DB.rules.filialFixed=parseFloat(document.getElementById('s-filial').value)||2000;
+  save(); alert('✓ 分配規則已儲存！');
+}
+function addAssetAccount() {
+  DB.assets.push({id:uid(),code:'?',name:'新帳戶',amount:0,color:'#8AADC5'});
+  save(); renderSettings();
+}
+function removeAsset(i) {
+  DB.assets.splice(i,1); save(); renderSettings();
+}
+function saveAssetSettings() {
+  DB.assets.forEach((a,i)=>{
+    const c=document.getElementById('ast-c-'+i)?.value.trim(), n=document.getElementById('ast-n-'+i)?.value.trim(), col=document.getElementById('ast-col-'+i)?.value;
+    if(c)a.code=c; if(n)a.name=n; if(col)a.color=col;
+  });
+  save(); alert('✓ 實體帳戶設定已儲存！'); renderSettings();
+}
+function saveTargetSetting() {
+  DB.assetTarget=parseFloat(document.getElementById('s-target').value)||5800000;
+  save(); alert('✓ 目標已儲存！');
+}
+
+// ══════════════════════════════════════════
+// APP INIT
+// ══════════════════════════════════════════
+function showApp() {
+  document.getElementById('appShell').style.display='flex';
+  document.getElementById('mobileNav').style.display='block';
+  const date=document.getElementById('topbar-date');
+  if(date) date.textContent=new Date().toLocaleDateString('zh-TW',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
+  renderHome();
+  calcIncome();
+}
+
+function skipLogin() {
+  document.getElementById('loginScreen').style.display='none';
+  showApp();
+}
+
+// PWA manifest
+const manifest={name:'Life OS',short_name:'Life OS',start_url:'.',display:'standalone',background_color:'#EEF4FB',theme_color:'#2B7FD4',icons:[{src:'https://raw.githubusercontent.com/googlefonts/noto-emoji/main/png/72/emoji_u1f3e0.png',sizes:'72x72',type:'image/png'},{src:'https://raw.githubusercontent.com/googlefonts/noto-emoji/main/png/144/emoji_u1f3e0.png',sizes:'144x144',type:'image/png'}]};
+const mblob=new Blob([JSON.stringify(manifest)],{type:'application/json'});
+const murl=URL.createObjectURL(mblob);
+document.getElementById('manifest-link').href=murl;
+
+// Check if already authed (Firebase will call showApp via onAuthStateChanged)
+// If no Firebase, check localStorage
+setTimeout(()=>{
+  if(document.getElementById('loginScreen').style.display!=='none' && !window._fbUser) {
+    // Show login screen - handled by Firebase onAuthStateChanged
+  }
+},2000);
+</script>
+</body>
+</html>
