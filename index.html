@@ -4,1439 +4,809 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Life OS">
-<meta name="theme-color" content="#EEF4FB">
+<meta name="theme-color" content="#2B7FD4">
 <title>Life OS</title>
 <link rel="manifest" href="#" id="manifest-link">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
-/* ── Reset ── */
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-:root{
-  --c1:#2B7FD4;
-  --c2:#5BAEE8;
-  --c3:#E8F3FB;
-  --bg:#EEF4FB;
-  --bg2:#F7FAFD;
-  --bg3:#FFFFFF;
-  --border:#D6E8F5;
-  --border2:#C2D9EE;
-  --text:#1A2E42;
-  --text2:#4A6B85;
-  --text3:#8AADC5;
-  --red:#E05C5C;
-  --green:#3BAD7A;
-  --accent:var(--c1);
-  --r:14px;--r-sm:9px;
-  --font:'DM Sans',sans-serif;
-  --font-d:'Playfair Display',serif;
-  --safe-top:env(safe-area-inset-top,0px);
-  --safe-bot:env(safe-area-inset-bottom,0px);
-}
+:root{--c1:#2B7FD4;--c2:#5BAEE8;--c3:#E8F3FB;--bg:#EEF4FB;--bg3:#FFFFFF;--border:#D6E8F5;--border2:#C2D9EE;--text:#1A2E42;--text2:#4A6B85;--text3:#8AADC5;--red:#E05C5C;--green:#3BAD7A;--r:14px;--r-sm:9px;--font:'DM Sans',sans-serif;--font-d:'Playfair Display',serif;--safe-top:env(safe-area-inset-top,0px);--safe-bot:env(safe-area-inset-bottom,0px)}
 html,body{height:100%;font-family:var(--font);background:var(--bg);color:var(--text);overflow:hidden}
-
-/* ── App Shell ── */
-.app{display:flex;height:100dvh;overflow:hidden}
-
-/* ── Sidebar ── */
-.sidebar{
-  width:230px;flex-shrink:0;
-  background:var(--bg3);
-  border-right:1px solid var(--border);
-  display:flex;flex-direction:column;
-  padding:0;
-  overflow:hidden;
-}
-.sidebar-top{
-  padding:28px 20px 20px;
-  border-bottom:1px solid var(--border);
-  background:linear-gradient(135deg,var(--c1) 0%,var(--c2) 100%);
-}
-.sidebar-logo{
-  font-family:var(--font-d);
-  font-size:22px;color:#fff;
-  font-style:italic;letter-spacing:-.3px;
-}
-.sidebar-sub{font-size:11px;color:rgba(255,255,255,.7);margin-top:3px;letter-spacing:.05em}
-.sidebar-user{
-  display:flex;align-items:center;gap:10px;
-  margin-top:16px;padding-top:16px;
-  border-top:1px solid rgba(255,255,255,.2);
-}
-.sidebar-avatar{
-  width:32px;height:32px;border-radius:50%;
-  background:rgba(255,255,255,.25);
-  display:flex;align-items:center;justify-content:center;
-  font-size:13px;color:#fff;font-weight:500;flex-shrink:0;
-  overflow:hidden;
-}
-.sidebar-avatar img{width:100%;height:100%;object-fit:cover}
-.sidebar-name{font-size:12px;color:rgba(255,255,255,.9);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.sidebar-login{font-size:11px;color:rgba(255,255,255,.6);cursor:pointer;white-space:nowrap}
-.sidebar-login:hover{color:#fff}
-
+.app{display:grid;grid-template-columns:220px 1fr;height:100dvh;overflow:hidden}
+.sidebar{background:var(--bg3);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
+.sb-top{padding:24px 20px 18px;border-bottom:1px solid var(--border);background:var(--c1)}
+.sb-logo{font-family:var(--font-d);font-size:22px;color:#fff;font-style:italic}
+.sb-sub{font-size:11px;color:rgba(255,255,255,.65);margin-top:2px}
+.sb-user{display:flex;align-items:center;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.2)}
+.sb-avatar{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;flex-shrink:0;overflow:hidden}
+.sb-avatar img{width:100%;height:100%;object-fit:cover}
+.sb-name{font-size:12px;color:rgba(255,255,255,.85);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sb-auth{font-size:11px;color:rgba(255,255,255,.55);cursor:pointer;white-space:nowrap;flex-shrink:0}
+.sb-auth:hover{color:#fff}
 .nav{flex:1;padding:12px 10px;overflow-y:auto}
-.nav-sec{margin-bottom:18px}
-.nav-sec-label{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);padding:0 8px;margin-bottom:5px}
-.nav-item{
-  display:flex;align-items:center;gap:10px;
-  padding:9px 10px;border-radius:var(--r-sm);
-  cursor:pointer;font-size:13.5px;color:var(--text2);
-  transition:all .15s;margin-bottom:2px;
-}
+.nav-sec{margin-bottom:16px}
+.nav-sec-label{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);padding:0 8px;margin-bottom:4px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:var(--r-sm);cursor:pointer;font-size:13.5px;color:var(--text2);transition:all .15s;margin-bottom:1px}
 .nav-item:hover{background:var(--c3);color:var(--c1)}
 .nav-item.active{background:var(--c3);color:var(--c1);font-weight:500}
-.nav-item .ni{width:16px;text-align:center;font-size:14px}
-
-.sidebar-bottom{
-  padding:14px 16px;
-  border-top:1px solid var(--border);
-}
-.sidebar-settings{
-  display:flex;align-items:center;gap:8px;
-  font-size:13px;color:var(--text3);cursor:pointer;
-  padding:8px 6px;border-radius:var(--r-sm);
-  transition:all .15s;
-}
-.sidebar-settings:hover{color:var(--c1);background:var(--c3)}
-
-/* ── Main ── */
-.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
-.topbar{
-  padding:16px 24px;
-  background:var(--bg3);
-  border-bottom:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;
-  flex-shrink:0;
-}
-.topbar-title{font-family:var(--font-d);font-size:20px;font-style:italic;color:var(--text)}
-.topbar-date{font-size:12px;color:var(--text3)}
-.topbar-btn{
-  padding:7px 14px;border-radius:var(--r-sm);
-  background:var(--c1);color:#fff;
-  font-size:13px;font-weight:500;cursor:pointer;
-  border:none;font-family:var(--font);
-  transition:background .15s;
-}
-.topbar-btn:hover{background:var(--c2)}
-
-.content{flex:1;overflow-y:auto;padding:24px}
-
-/* ── Pages ── */
-.page{display:none}
-.page.active{display:block}
-
-/* ── Cards ── */
-.card{
-  background:var(--bg3);
-  border:1px solid var(--border);
-  border-radius:var(--r);
-  padding:18px 20px;
-  margin-bottom:14px;
-}
-.card-title{
-  font-size:11px;font-weight:500;
-  letter-spacing:.08em;text-transform:uppercase;
-  color:var(--text3);margin-bottom:14px;
-}
-
-/* ── Grids ── */
+.nav-item .ni{width:16px;text-align:center}
+.sb-bottom{padding:12px 16px;border-top:1px solid var(--border)}
+.sb-settings{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text3);cursor:pointer;padding:8px 6px;border-radius:var(--r-sm);transition:all .15s}
+.sb-settings:hover{color:var(--c1);background:var(--c3)}
+.main{display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.topbar{padding:14px 24px;background:var(--bg3);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.topbar-left .page-title{font-family:var(--font-d);font-size:20px;font-style:italic}
+.topbar-left .page-date{font-size:11px;color:var(--text3);margin-top:1px}
+.content{flex:1;overflow-y:auto;padding:24px 28px}
+.page{display:none}.page.active{display:block}
+.card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;margin-bottom:12px}
+.card-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.card-title{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--text3)}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.g-auto{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px}
-
-/* ── Stat ── */
+.g-auto{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
 .stat{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:16px}
-.stat-label{font-size:11px;color:var(--text3);margin-bottom:5px}
-.stat-value{font-size:22px;font-weight:300;color:var(--text)}
-.stat-sub{font-size:11px;color:var(--text3);margin-top:3px}
-
-/* ── Progress ── */
-.prog{margin-top:10px}
-.prog-bar{height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.stat-lbl{font-size:11px;color:var(--text3);margin-bottom:4px}
+.stat-val{font-size:22px;font-weight:300}
+.stat-sub{font-size:11px;color:var(--text3);margin-top:2px}
+.prog-bar{height:4px;background:var(--border);border-radius:2px;overflow:hidden;margin:8px 0 4px}
 .prog-fill{height:100%;border-radius:2px;background:var(--c1);transition:width .5s}
-.prog-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--text3);margin-top:4px}
-
-/* ── Task ── */
-.task-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.prog-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--text3)}
+.chart-wrap{height:75px;margin:10px 0 4px}
+.chart-wrap svg{width:100%;height:100%}
+.task-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)}
 .task-item:last-child{border-bottom:none}
-.task-cb{
-  width:18px;height:18px;border:2px solid var(--border2);
-  border-radius:5px;cursor:pointer;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  transition:all .15s;
-}
+.task-cb{width:18px;height:18px;border:2px solid var(--border2);border-radius:5px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
 .task-cb.done{background:var(--green);border-color:var(--green)}
-.task-cb.done::after{content:'✓';font-size:10px;color:#fff;font-weight:700}
-.task-text{flex:1;font-size:14px;color:var(--text)}
+.task-cb.done::after{content:"✓";font-size:10px;color:#fff;font-weight:700}
+.task-text{flex:1;font-size:14px}
 .task-text.done{text-decoration:line-through;color:var(--text3)}
-.task-tag{font-size:10px;padding:2px 8px;border-radius:20px;background:var(--c3);color:var(--c1);border:1px solid var(--border)}
-.task-del{font-size:16px;color:var(--text3);cursor:pointer;opacity:0;transition:opacity .15s}
-.task-item:hover .task-del{opacity:1}
-
-/* ── Quick add ── */
-.quick-add{display:flex;gap:8px;margin-top:12px}
-.quick-add input{flex:1;padding:8px 12px;border:1px solid var(--border2);border-radius:var(--r-sm);font-size:13px;font-family:var(--font);color:var(--text);background:var(--bg);outline:none;transition:border-color .15s}
-.quick-add input:focus{border-color:var(--c1)}
-.quick-add button{padding:8px 14px;background:var(--c1);color:#fff;border:none;border-radius:var(--r-sm);font-size:13px;cursor:pointer;font-family:var(--font);transition:background .15s}
-.quick-add button:hover{background:var(--c2)}
-
-/* ── Project card ── */
-.proj-card{
-  background:var(--bg3);border:1px solid var(--border);
-  border-radius:var(--r);padding:16px;cursor:pointer;
-  transition:border-color .2s,box-shadow .2s;
-}
-.proj-card:hover{border-color:var(--c2);box-shadow:0 4px 16px rgba(43,127,212,.08)}
-.proj-emoji{font-size:22px;margin-bottom:10px}
-.proj-name{font-size:14px;font-weight:500;color:var(--text);margin-bottom:3px}
+.task-tag{font-size:10px;padding:2px 7px;border-radius:20px;background:var(--c3);color:var(--c1)}
+.task-actions{display:flex;gap:6px;opacity:0;transition:opacity .15s}
+.task-item:hover .task-actions{opacity:1}
+.task-act-btn{font-size:11px;color:var(--text3);cursor:pointer;padding:2px 6px;border-radius:4px}
+.task-act-btn:hover{background:var(--border);color:var(--text)}
+.task-act-btn.del:hover{color:var(--red)}
+.proj-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:15px;cursor:pointer;transition:border-color .2s,box-shadow .2s;position:relative}
+.proj-card:hover{border-color:var(--c2);box-shadow:0 3px 12px rgba(43,127,212,.08)}
+.proj-emoji{font-size:20px;margin-bottom:8px}
+.proj-name{font-size:14px;font-weight:500;margin-bottom:2px}
 .proj-meta{font-size:11px;color:var(--text3)}
-.proj-bar{height:3px;background:var(--border);border-radius:2px;margin-top:10px}
-.proj-bar-fill{height:100%;border-radius:2px;background:var(--c1)}
-.proj-status{font-size:10px;padding:2px 8px;border-radius:20px;display:inline-block;margin-top:8px}
-.s-active{background:rgba(43,127,212,.1);color:var(--c1);border:1px solid rgba(43,127,212,.2)}
-.s-plan{background:rgba(91,174,232,.1);color:var(--c2);border:1px solid rgba(91,174,232,.2)}
-.s-done{background:rgba(59,173,122,.1);color:var(--green);border:1px solid rgba(59,173,122,.2)}
-
-/* ── Vision card ── */
-.vision-card{
-  background:var(--bg3);border:1px solid var(--border);
-  border-radius:var(--r);padding:18px;cursor:pointer;
-  transition:border-color .2s,box-shadow .2s;
-}
-.vision-card:hover{border-color:var(--c1);box-shadow:0 4px 16px rgba(43,127,212,.1)}
-.vision-icon{font-size:26px;margin-bottom:10px}
-.vision-title{font-size:15px;font-weight:500;margin-bottom:3px}
+.proj-bar{height:2px;background:var(--border);border-radius:1px;margin-top:10px}
+.proj-fill{height:100%;border-radius:1px;background:var(--c1)}
+.proj-status{font-size:10px;padding:2px 7px;border-radius:20px;display:inline-block;margin-top:7px}
+.s-active{background:rgba(43,127,212,.1);color:var(--c1)}
+.s-plan{background:rgba(91,174,232,.1);color:var(--c2)}
+.s-done{background:rgba(59,173,122,.1);color:var(--green)}
+.card-actions{display:flex;gap:6px;position:absolute;top:10px;right:10px;opacity:0;transition:opacity .15s}
+.proj-card:hover .card-actions,.vision-card:hover .card-actions,.vac:hover .card-actions{opacity:1}
+.ca-btn{font-size:11px;padding:3px 8px;border-radius:4px;cursor:pointer;background:var(--bg3);border:1px solid var(--border2);color:var(--text2)}
+.ca-btn:hover{border-color:var(--c1);color:var(--c1)}
+.ca-del{color:var(--red);border-color:rgba(224,92,92,.3)}
+.ca-del:hover{background:rgba(224,92,92,.05);border-color:var(--red)}
+.vision-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:16px;transition:border-color .2s;position:relative}
+.vision-card:hover{border-color:var(--c1)}
+.vision-icon{font-size:24px;margin-bottom:8px}
+.vision-title{font-size:14px;font-weight:500;margin-bottom:2px}
 .vision-year{font-size:11px;color:var(--c1);font-weight:500}
-.vision-desc{font-size:12px;color:var(--text3);margin-top:5px;line-height:1.6}
-
-/* ── Account row ── */
-.acc-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.vision-desc{font-size:12px;color:var(--text3);margin-top:4px;line-height:1.6}
+.acc-row{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--border)}
 .acc-row:last-child{border-bottom:none}
 .acc-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.acc-name{flex:1;font-size:13px;color:var(--text)}
-.acc-code{font-size:11px;color:var(--text3);margin-left:4px}
-.acc-val{font-size:13px;font-weight:500;color:var(--text)}
-
-/* ── VAC ── */
-.vac{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:16px}
-.vac-name{font-size:11px;color:var(--text3);margin-bottom:5px;font-weight:500;letter-spacing:.04em}
-.vac-bal{font-size:20px;font-weight:300;color:var(--text)}
-.vac-sub{font-size:11px;color:var(--text3);margin-top:2px}
-.vac-goals{margin-top:12px;border-top:1px solid var(--border);padding-top:10px}
-.vac-goal{margin-bottom:8px}
-.vac-goal-head{display:flex;justify-content:space-between;font-size:11px;color:var(--text2);margin-bottom:4px}
-.vac-gbar{height:3px;background:var(--border);border-radius:2px;overflow:hidden}
-.vac-gfill{height:100%;background:var(--c1);border-radius:2px}
-
-/* ── Expense ── */
-.exp-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.acc-name{flex:1;font-size:13px}
+.acc-code{font-size:11px;color:var(--text3);margin-left:3px}
+.acc-val{font-size:13px;font-weight:500}
+.vac{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:15px;position:relative}
+.vac-name{font-size:11px;color:var(--text3);margin-bottom:4px;font-weight:500}
+.vac-bal{font-size:20px;font-weight:300}
+.vac-sub{font-size:11px;color:var(--text3);margin-top:1px}
+.vac-goals{margin-top:10px;border-top:1px solid var(--border);padding-top:8px}
+.vac-goal{margin-bottom:6px}
+.vac-goal-hd{display:flex;justify-content:space-between;font-size:11px;color:var(--text2);margin-bottom:3px}
+.vac-gbar{height:2px;background:var(--border);border-radius:1px;overflow:hidden}
+.vac-gfill{height:100%;background:var(--c1);border-radius:1px}
+.exp-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)}
 .exp-row:last-child{border-bottom:none}
-.exp-icon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;background:var(--c3)}
+.exp-icon{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;background:var(--c3)}
+.exp-icon.in-icon{background:rgba(59,173,122,.1)}
 .exp-info{flex:1;min-width:0}
-.exp-name{font-size:13px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.exp-name{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .exp-detail{font-size:11px;color:var(--text3);margin-top:1px}
-.exp-right{text-align:right}
-.exp-amt{font-size:13px;font-weight:500;color:var(--red)}
-.exp-del{font-size:11px;color:var(--text3);cursor:pointer;margin-top:2px}
-.exp-del:hover{color:var(--red)}
-
-/* ── Total strip ── */
-.total-strip{display:flex;justify-content:space-between;align-items:baseline;padding:14px 0 0;border-top:1px solid var(--border2);margin-top:10px}
+.exp-amt{font-size:13px;font-weight:500;color:var(--red);white-space:nowrap}
+.exp-amt.in{color:var(--green)}
+.exp-acts{display:flex;gap:4px;opacity:0;transition:opacity .15s;flex-shrink:0}
+.exp-row:hover .exp-acts{opacity:1}
+.alert-box{background:rgba(43,127,212,.06);border:1px solid rgba(43,127,212,.2);border-radius:var(--r-sm);padding:11px 14px;font-size:12.5px;color:var(--c1);line-height:1.6;margin-bottom:8px}
+.total-strip{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0 0;border-top:1px solid var(--border2);margin-top:8px}
 .total-lbl{font-size:12px;color:var(--text3)}
-.total-val{font-family:var(--font-d);font-size:24px;color:var(--c1)}
-
-/* ── Chart ── */
-.chart-wrap{height:80px;margin:14px 0 6px}
-.chart-wrap svg{width:100%;height:100%}
-
-/* ── Alert ── */
-.alert-box{
-  background:rgba(43,127,212,.06);border:1px solid rgba(43,127,212,.2);
-  border-radius:var(--r-sm);padding:12px 14px;
-  font-size:12.5px;color:var(--c1);line-height:1.6;margin-bottom:10px;
-}
-
-/* ── Tabs ── */
-.tab-nav{display:flex;gap:4px;border-bottom:1px solid var(--border);margin-bottom:20px}
-.tab-btn{
-  padding:8px 16px;font-size:13px;color:var(--text3);
-  cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;
-  transition:all .15s;background:none;border-top:none;border-left:none;border-right:none;
-  font-family:var(--font);
-}
+.total-val{font-family:var(--font-d);font-size:22px;color:var(--c1)}
+.tab-nav{display:flex;gap:2px;border-bottom:1px solid var(--border);margin-bottom:18px}
+.tab-btn{padding:8px 14px;font-size:13px;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;background:none;border-top:none;border-left:none;border-right:none;font-family:var(--font)}
 .tab-btn:hover{color:var(--c1)}
 .tab-btn.active{color:var(--c1);border-bottom-color:var(--c1)}
-.tab-panel{display:none}
-.tab-panel.active{display:block}
-
-/* ── Buttons ── */
-.btn{padding:9px 18px;border-radius:var(--r-sm);font-size:13px;cursor:pointer;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);font-family:var(--font);transition:all .15s}
+.tab-panel{display:none}.tab-panel.active{display:block}
+.btn{padding:8px 16px;border-radius:var(--r-sm);font-size:13px;cursor:pointer;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);font-family:var(--font);transition:all .15s}
 .btn:hover{border-color:var(--c1);color:var(--c1)}
 .btn-primary{background:var(--c1);color:#fff;border-color:var(--c1)}
 .btn-primary:hover{background:var(--c2);border-color:var(--c2);color:#fff}
-.btn-sm{padding:6px 12px;font-size:12px}
-.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
-
-/* ── Form ── */
-.field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.btn-danger{background:transparent;color:var(--red);border-color:rgba(224,92,92,.3)}
+.btn-danger:hover{background:rgba(224,92,92,.05);border-color:var(--red)}
+.btn-sm{padding:5px 12px;font-size:12px}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.icon-btn{padding:4px 10px;border-radius:var(--r-sm);font-size:11px;cursor:pointer;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);font-family:var(--font);transition:all .15s}
+.icon-btn:hover{border-color:var(--c1);color:var(--c1)}
+.icon-btn.del{color:var(--red);border-color:rgba(224,92,92,.25)}
+.icon-btn.del:hover{background:rgba(224,92,92,.05)}
+.field{display:flex;flex-direction:column;gap:5px;margin-bottom:11px}
 .field label{font-size:12px;color:var(--text3);font-weight:500}
-input[type=text],input[type=number],input[type=date],input[type=color],select,textarea{
-  width:100%;padding:9px 12px;border:1px solid var(--border2);border-radius:var(--r-sm);
-  font-size:14px;font-family:var(--font);color:var(--text);background:var(--bg);
-  outline:none;transition:border-color .15s;
-}
+input[type=text],input[type=number],input[type=date],select,textarea{width:100%;padding:8px 11px;border:1px solid var(--border2);border-radius:var(--r-sm);font-size:14px;font-family:var(--font);color:var(--text);background:var(--bg);outline:none;transition:border-color .15s}
 input:focus,select:focus,textarea:focus{border-color:var(--c1)}
-select option{background:var(--bg3)}
-.input-row{display:flex;gap:10px}
-.input-row .field{flex:1}
-
-/* ── Modal ── */
-.modal-overlay{position:fixed;inset:0;background:rgba(26,46,66,.45);display:none;align-items:center;justify-content:center;z-index:200;backdrop-filter:blur(6px)}
+.input-row{display:flex;gap:10px}.input-row .field{flex:1}
+.quick-add{display:flex;gap:8px;margin-top:10px}
+.quick-add input{flex:1}
+.quick-add button{padding:8px 14px;background:var(--c1);color:#fff;border:none;border-radius:var(--r-sm);font-size:13px;cursor:pointer;font-family:var(--font)}
+.modal-overlay{position:fixed;inset:0;background:rgba(26,46,66,.4);display:none;align-items:center;justify-content:center;z-index:200;backdrop-filter:blur(5px)}
 .modal-overlay.open{display:flex}
-.modal{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);padding:26px;width:420px;max-width:calc(100vw - 32px);max-height:90dvh;overflow-y:auto;box-shadow:0 20px 60px rgba(43,127,212,.12)}
-.modal-title{font-family:var(--font-d);font-size:20px;margin-bottom:18px;color:var(--text)}
-.modal-actions{display:flex;gap:8px;margin-top:18px}
+.modal{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);padding:24px;width:420px;max-width:calc(100vw - 28px);max-height:90dvh;overflow-y:auto;box-shadow:0 16px 48px rgba(43,127,212,.12)}
+.modal-title{font-family:var(--font-d);font-size:19px;margin-bottom:16px}
+.modal-actions{display:flex;gap:8px;margin-top:16px}
 .modal-actions .btn{flex:1}
-
-/* ── Settings page ── */
-.settings-section{margin-bottom:28px}
-.settings-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
-.settings-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)}
+.settings-section{margin-bottom:24px}
+.settings-title{font-size:12px;font-weight:500;color:var(--text);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border);letter-spacing:.04em;text-transform:uppercase}
+.settings-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)}
 .settings-row:last-child{border-bottom:none}
-.settings-row-label{font-size:13px;color:var(--text);flex:1}
-.settings-row-sub{font-size:11px;color:var(--text3);margin-top:2px}
-.settings-row-ctrl{display:flex;align-items:center;gap:8px}
-.settings-row-ctrl input{width:90px}
-.color-preview{width:28px;height:28px;border-radius:6px;border:1px solid var(--border2);cursor:pointer;overflow:hidden}
-.color-preview input[type=color]{width:100%;height:100%;border:none;padding:0;cursor:pointer;background:none}
-
-/* ── Income formula ── */
-.formula-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--border)}
-.formula-row:last-child{border-bottom:none}
-.formula-name{font-size:13px;color:var(--text2)}
-.formula-pct{font-size:11px;color:var(--text3)}
-.formula-amt{font-size:13px;font-weight:500;color:var(--c1)}
-.formula-amt.special{color:var(--green)}
-
-/* ── Mobile nav ── */
-.mobile-nav{
-  display:none;
-  position:fixed;bottom:0;left:0;right:0;
-  background:var(--bg3);border-top:1px solid var(--border);
-  padding:8px 0;
-  padding-bottom:max(8px,var(--safe-bot));
-  z-index:100;
-}
+.settings-row-info{flex:1}
+.settings-row-lbl{font-size:13px}
+.settings-row-sub{font-size:11px;color:var(--text3);margin-top:1px}
+.settings-row-ctrl{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.scheme-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);padding:12px;margin-bottom:8px}
+.scheme-card.default-scheme{border-color:var(--c1);background:rgba(43,127,212,.04)}
+.scheme-name{font-size:13px;font-weight:500;margin-bottom:2px;display:flex;align-items:center;gap:6px}
+.scheme-badge{font-size:10px;padding:1px 6px;border-radius:20px;background:var(--c1);color:#fff}
+.scheme-desc{font-size:11px;color:var(--text3)}
+.scheme-actions{display:flex;gap:6px;margin-top:8px}
+.mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--bg3);border-top:1px solid var(--border);padding:6px 0;padding-bottom:max(6px,var(--safe-bot));z-index:100}
 .mn-inner{display:flex;justify-content:space-around}
-.mn-item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 10px;cursor:pointer;font-size:10px;color:var(--text3);border-radius:var(--r-sm);transition:color .15s}
+.mn-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px 8px;cursor:pointer;font-size:10px;color:var(--text3);border-radius:var(--r-sm)}
 .mn-item.active{color:var(--c1)}
 .mn-icon{font-size:20px}
-
-/* ── Login screen ── */
-.login-screen{
-  position:fixed;inset:0;
-  background:linear-gradient(135deg,var(--c1) 0%,var(--c2) 60%,#A8D4F5 100%);
-  display:flex;align-items:center;justify-content:center;
-  z-index:300;flex-direction:column;gap:24px;
-  padding:24px;
-}
-.login-logo{font-family:var(--font-d);font-size:42px;color:#fff;font-style:italic;text-align:center}
-.login-sub{font-size:14px;color:rgba(255,255,255,.8);text-align:center;line-height:1.7}
-.login-btn{
-  display:flex;align-items:center;gap:12px;
-  background:#fff;color:var(--text);
-  padding:14px 28px;border-radius:50px;
-  font-size:15px;font-weight:500;cursor:pointer;
-  border:none;font-family:var(--font);
-  box-shadow:0 8px 32px rgba(0,0,0,.15);
-  transition:transform .15s,box-shadow .15s;
-}
-.login-btn:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,.2)}
+.login-screen{position:fixed;inset:0;background:var(--c1);display:flex;align-items:center;justify-content:center;z-index:300;flex-direction:column;gap:20px;padding:24px}
+.login-logo{font-family:var(--font-d);font-size:44px;color:#fff;font-style:italic}
+.login-sub{font-size:14px;color:rgba(255,255,255,.75);text-align:center;line-height:1.7;white-space:pre-line}
+.login-btn{display:flex;align-items:center;gap:12px;background:#fff;color:var(--text);padding:14px 28px;border-radius:50px;font-size:15px;font-weight:500;cursor:pointer;border:none;font-family:var(--font);box-shadow:0 6px 24px rgba(0,0,0,.15);transition:transform .15s}
+.login-btn:hover{transform:translateY(-1px)}
 .login-btn svg{width:20px;height:20px}
-.login-offline{font-size:12px;color:rgba(255,255,255,.6);cursor:pointer;text-decoration:underline}
-
-/* ── Empty ── */
-.empty{text-align:center;padding:40px 20px;color:var(--text3);font-size:13px}
-.empty-icon{font-size:36px;margin-bottom:10px;opacity:.4}
-
-/* ── Responsive ── */
+.login-offline{font-size:12px;color:rgba(255,255,255,.55);cursor:pointer;text-decoration:underline}
+.login-loading{font-size:13px;color:rgba(255,255,255,.7);display:none}
+.empty{text-align:center;padding:36px 20px;color:var(--text3);font-size:13px}
+.empty-icon{font-size:32px;margin-bottom:8px;opacity:.35}
+.lang-switch{display:flex;gap:6px}
+.lang-btn{padding:5px 14px;border-radius:20px;font-size:12px;cursor:pointer;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);font-family:var(--font);transition:all .15s}
+.lang-btn.active{background:var(--c1);color:#fff;border-color:var(--c1)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.page.active>*{animation:fadeUp .2s ease both}
+.page.active>*:nth-child(2){animation-delay:.04s}
+.page.active>*:nth-child(3){animation-delay:.08s}
 @media(max-width:768px){
-  .sidebar{display:none}
-  .main{height:100dvh}
-  .topbar{padding:12px 16px;padding-top:max(12px,var(--safe-top))}
-  .content{padding:16px 16px 90px}
+  .app{grid-template-columns:1fr}.sidebar{display:none}
+  .topbar{padding:10px 16px;padding-top:max(10px,var(--safe-top))}
+  .content{padding:14px 14px 90px}
   .mobile-nav{display:block}
   .g2,.g3{grid-template-columns:1fr}
   .g-auto{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+  .task-actions{opacity:1}.card-actions{opacity:1;position:static;margin-top:8px}.exp-acts{opacity:1}
 }
-@media(min-width:769px){
-  .topbar{display:none}
-  .content{padding:28px 32px}
-}
-
-/* ── Animations ── */
-@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.page.active .card,.page.active .vac,.page.active .proj-card,.page.active .vision-card,.page.active .stat{animation:fadeUp .25s ease both}
-.page.active .card:nth-child(2),.page.active .vac:nth-child(2),.page.active .stat:nth-child(2){animation-delay:.04s}
-.page.active .card:nth-child(3),.page.active .vac:nth-child(3),.page.active .stat:nth-child(3){animation-delay:.08s}
+@media(min-width:769px){.topbar{display:none}.content{padding:26px 30px}}
 </style>
 </head>
 <body>
-
-<!-- Login -->
 <div class="login-screen" id="loginScreen">
   <div class="login-logo">Life OS</div>
-  <div class="login-sub">你的個人控制台<br>記帳、計畫、資產，一站管理</div>
-  <button class="login-btn" onclick="signInWithGoogle()">
+  <div class="login-sub" id="login-sub"></div>
+  <button class="login-btn" id="loginBtn" onclick="doSignIn()">
     <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-    使用 Google 帳號登入
+    <span id="login-google-text"></span>
   </button>
-  <div class="login-offline" onclick="skipLogin()">先離線使用（資料不會同步）</div>
+  <div class="login-loading" id="loginLoading"></div>
+  <div class="login-offline" id="login-offline" onclick="skipLogin()"></div>
 </div>
-
-<!-- App -->
 <div class="app" id="appShell" style="display:none">
-
-  <!-- Sidebar -->
   <aside class="sidebar">
-    <div class="sidebar-top">
-      <div class="sidebar-logo">Life OS</div>
-      <div class="sidebar-sub">你的個人控制台</div>
-      <div class="sidebar-user">
-        <div class="sidebar-avatar" id="sb-avatar">?</div>
-        <div class="sidebar-name" id="sb-name">未登入</div>
-        <div class="sidebar-login" id="sb-login" onclick="handleAuthClick()">登入</div>
+    <div class="sb-top">
+      <div class="sb-logo">Life OS</div>
+      <div class="sb-sub" id="sb-sub"></div>
+      <div class="sb-user">
+        <div class="sb-avatar" id="sb-av">?</div>
+        <div class="sb-name" id="sb-nm"></div>
+        <div class="sb-auth" id="sb-auth" onclick="handleAuth()"></div>
       </div>
     </div>
     <nav class="nav">
       <div class="nav-sec">
-        <div class="nav-sec-label">每日</div>
-        <div class="nav-item active" onclick="nav('home')"><span class="ni">⌂</span>首頁</div>
-        <div class="nav-item" onclick="nav('tasks')"><span class="ni">✓</span>執行清單</div>
+        <div class="nav-sec-label" id="nav-lbl-daily"></div>
+        <div class="nav-item active" onclick="nav('home')"><span class="ni">⌂</span><span id="nav-home"></span></div>
+        <div class="nav-item" onclick="nav('tasks')"><span class="ni">✓</span><span id="nav-tasks"></span></div>
       </div>
       <div class="nav-sec">
-        <div class="nav-sec-label">計畫</div>
-        <div class="nav-item" onclick="nav('projects')"><span class="ni">◈</span>計畫庫</div>
-        <div class="nav-item" onclick="nav('visions')"><span class="ni">◎</span>未來願景</div>
+        <div class="nav-sec-label" id="nav-lbl-plans"></div>
+        <div class="nav-item" onclick="nav('projects')"><span class="ni">◈</span><span id="nav-projects"></span></div>
+        <div class="nav-item" onclick="nav('visions')"><span class="ni">◎</span><span id="nav-visions"></span></div>
       </div>
       <div class="nav-sec">
-        <div class="nav-sec-label">財務</div>
-        <div class="nav-item" onclick="nav('cashflow')"><span class="ni">⬡</span>現金流</div>
-        <div class="nav-item" onclick="nav('assets')"><span class="ni">△</span>實體資產</div>
-        <div class="nav-item" onclick="nav('income')"><span class="ni">↑</span>收入分配</div>
+        <div class="nav-sec-label" id="nav-lbl-finance"></div>
+        <div class="nav-item" onclick="nav('cashflow')"><span class="ni">⬡</span><span id="nav-cashflow"></span></div>
+        <div class="nav-item" onclick="nav('assets')"><span class="ni">△</span><span id="nav-assets"></span></div>
+        <div class="nav-item" onclick="nav('income')"><span class="ni">↑</span><span id="nav-income"></span></div>
       </div>
     </nav>
-    <div class="sidebar-bottom">
-      <div class="sidebar-settings" onclick="nav('settings')">⚙ 設定與自訂</div>
+    <div class="sb-bottom">
+      <div class="sb-settings" onclick="nav('settings')">⚙ <span id="nav-settings"></span></div>
     </div>
   </aside>
-
-  <!-- Main -->
   <main class="main">
     <div class="topbar">
-      <div>
-        <div class="topbar-title" id="topbar-title">首頁</div>
-        <div class="topbar-date" id="topbar-date"></div>
+      <div class="topbar-left">
+        <div class="page-title" id="tb-title"></div>
+        <div class="page-date" id="tb-date"></div>
       </div>
-      <button class="topbar-btn" id="topbar-action" onclick="topbarAction()">+ 新增</button>
+      <button class="btn btn-primary btn-sm" id="tb-btn" onclick="topbarAct()" style="display:none"></button>
     </div>
-    <div class="content" id="content">
-
-      <!-- HOME -->
+    <div class="content">
       <div id="page-home" class="page active">
-        <div class="g2" style="margin-bottom:14px">
-          <div class="stat">
-            <div class="stat-label">今日待辦</div>
-            <div class="stat-value" id="h-task-count">—</div>
-            <div class="stat-sub">尚未完成</div>
-          </div>
-          <div class="stat">
-            <div class="stat-label">總資產</div>
-            <div class="stat-value" id="h-total-assets">—</div>
-            <div class="stat-sub" id="h-asset-pct">— 達成目標</div>
-          </div>
+        <div class="g2" style="margin-bottom:12px">
+          <div class="stat"><div class="stat-lbl" id="h-lbl-tasks"></div><div class="stat-val" id="h-tasks">—</div><div class="stat-sub" id="h-sub-tasks"></div></div>
+          <div class="stat"><div class="stat-lbl" id="h-lbl-assets"></div><div class="stat-val" id="h-assets">—</div><div class="stat-sub" id="h-pct">—</div></div>
         </div>
         <div class="card">
-          <div class="card-title">今日待辦</div>
+          <div class="card-hd"><span class="card-title" id="h-today-title"></span><span id="h-task-count" style="font-size:11px;color:var(--text3)"></span></div>
           <div id="home-tasks"></div>
-          <div class="quick-add">
-            <input type="text" id="h-task-input" placeholder="快速新增任務..." onkeydown="if(event.key==='Enter')quickTask()">
-            <button onclick="quickTask()">新增</button>
-          </div>
+          <div class="quick-add"><input type="text" id="h-ti" onkeydown="if(event.key==='Enter')quickTask()"><button onclick="quickTask()" id="h-add-btn"></button></div>
         </div>
-        <div class="card-title" style="margin-top:4px">重要計畫</div>
-        <div class="g-auto" id="home-projects" style="margin-bottom:14px"></div>
-        <div class="card-title">防衝動警示</div>
-        <div id="home-alerts" style="margin-bottom:14px"></div>
-        <div class="card-title">北極星</div>
-        <div class="card" style="margin-bottom:14px">
-          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px">
-            <span style="font-size:12px;color:var(--text3)">資產成長</span>
-            <span style="font-size:11px;color:var(--text3)" id="h-asset-target"></span>
-          </div>
-          <div class="chart-wrap"><svg id="asset-svg" viewBox="0 0 400 70" preserveAspectRatio="none" fill="none"></svg></div>
+        <div class="card-title" id="h-projs-title" style="margin:4px 0 10px"></div>
+        <div class="g-auto" id="h-projs" style="margin-bottom:12px"></div>
+        <div class="card-title" id="h-alerts-title" style="margin-bottom:8px"></div>
+        <div id="h-alerts" style="margin-bottom:12px"></div>
+        <div class="card">
+          <div class="card-hd"><span class="card-title" id="h-growth-title"></span><span style="font-size:11px;color:var(--text3)" id="h-target-lbl"></span></div>
+          <div class="chart-wrap"><svg id="asset-svg" viewBox="0 0 400 65" preserveAspectRatio="none" fill="none"></svg></div>
           <div class="prog-bar"><div class="prog-fill" id="h-prog" style="width:0%"></div></div>
           <div class="prog-meta"><span>0</span><span id="h-prog-pct"></span><span id="h-prog-target"></span></div>
         </div>
-        <div class="g3" id="home-visions"></div>
+        <div class="g3" style="margin-top:12px" id="h-visions"></div>
       </div>
-
-      <!-- TASKS -->
       <div id="page-tasks" class="page">
         <div class="btn-row">
-          <button class="btn btn-sm btn-primary" onclick="openModal('task-modal')">+ 新增任務</button>
-          <button class="btn btn-sm" onclick="filterTasks('undone',this)">未完成</button>
-          <button class="btn btn-sm" onclick="filterTasks('today',this)">今天</button>
-          <button class="btn btn-sm" onclick="filterTasks('done',this)">已完成</button>
+          <button class="btn btn-primary btn-sm" id="btn-new-task" onclick="openModal('task-modal')"></button>
+          <button class="btn btn-sm" id="btn-f-pending" onclick="filterTasks('undone',this)"></button>
+          <button class="btn btn-sm" id="btn-f-today" onclick="filterTasks('today',this)"></button>
+          <button class="btn btn-sm" id="btn-f-done" onclick="filterTasks('done',this)"></button>
         </div>
         <div class="card" id="task-list"></div>
       </div>
-
-      <!-- PROJECTS -->
       <div id="page-projects" class="page">
-        <div class="btn-row">
-          <button class="btn btn-sm btn-primary" onclick="openModal('proj-modal')">+ 新計畫</button>
-        </div>
+        <div class="btn-row"><button class="btn btn-primary btn-sm" id="btn-new-proj" onclick="openModal('proj-modal')"></button></div>
         <div class="g-auto" id="proj-grid"></div>
       </div>
-
-      <!-- VISIONS -->
       <div id="page-visions" class="page">
-        <div class="btn-row">
-          <button class="btn btn-sm btn-primary" onclick="openModal('vision-modal')">+ 新增願景</button>
-        </div>
+        <div class="btn-row"><button class="btn btn-primary btn-sm" id="btn-new-vision" onclick="openModal('vision-modal')"></button></div>
         <div class="g3" id="vision-grid"></div>
       </div>
-
-      <!-- CASHFLOW -->
       <div id="page-cashflow" class="page">
         <div class="tab-nav">
-          <button class="tab-btn active" onclick="cfTab('accounts',this)">虛擬帳戶</button>
-          <button class="tab-btn" onclick="cfTab('expenses',this)">消費記錄</button>
-          <button class="tab-btn" onclick="cfTab('goals',this)">目標</button>
+          <button class="tab-btn active" id="cf-tab-accts" onclick="cfTab('accounts',this)"></button>
+          <button class="tab-btn" id="cf-tab-tx" onclick="cfTab('transactions',this)"></button>
+          <button class="tab-btn" id="cf-tab-goals" onclick="cfTab('goals',this)"></button>
         </div>
         <div id="cf-accounts" class="tab-panel active">
           <div class="btn-row">
-            <button class="btn btn-sm" onclick="openModal('deposit-modal')">+ 撥款</button>
-            <button class="btn btn-sm btn-primary" onclick="openModal('expense-modal')">+ 記帳</button>
+            <button class="btn btn-sm" id="btn-deposit" onclick="openModal('deposit-modal')"></button>
+            <button class="btn btn-sm btn-primary" id="btn-new-tx" onclick="openModal('expense-modal')"></button>
           </div>
           <div class="g2" id="vac-grid"></div>
         </div>
-        <div id="cf-expenses" class="tab-panel">
-          <div class="btn-row">
-            <button class="btn btn-sm btn-primary" onclick="openModal('expense-modal')">+ 記帳</button>
-          </div>
+        <div id="cf-transactions" class="tab-panel">
+          <div class="btn-row"><button class="btn btn-sm btn-primary" id="btn-new-tx2" onclick="openModal('expense-modal')"></button></div>
           <div class="card" id="exp-list"></div>
         </div>
         <div id="cf-goals" class="tab-panel">
-          <div class="btn-row">
-            <button class="btn btn-sm btn-primary" onclick="openModal('goal-modal')">+ 新增目標</button>
-          </div>
+          <div class="btn-row"><button class="btn btn-sm btn-primary" id="btn-new-goal" onclick="openModal('goal-modal')"></button></div>
           <div id="goals-list"></div>
         </div>
       </div>
-
-      <!-- ASSETS -->
       <div id="page-assets" class="page">
-        <div class="btn-row">
-          <button class="btn btn-sm btn-primary" onclick="openModal('asset-modal')">+ 月底結算</button>
-        </div>
+        <div class="btn-row"><button class="btn btn-primary btn-sm" id="btn-update-assets" onclick="openModal('asset-modal')"></button></div>
         <div class="card">
           <div id="asset-list"></div>
-          <div class="total-strip">
-            <span class="total-lbl">💰 總資產淨值</span>
-            <span class="total-val" id="asset-total">—</span>
-          </div>
-          <div class="prog" style="margin-top:12px">
-            <div class="prog-bar"><div class="prog-fill" id="asset-prog" style="width:0%"></div></div>
-            <div class="prog-meta"><span>0</span><span id="asset-prog-pct"></span><span id="asset-prog-target"></span></div>
-          </div>
+          <div class="total-strip"><span class="total-lbl" id="assets-total-lbl"></span><span class="total-val" id="asset-total">—</span></div>
+          <div class="prog-bar"><div class="prog-fill" id="asset-prog" style="width:0%"></div></div>
+          <div class="prog-meta"><span>0</span><span id="asset-prog-pct"></span><span id="asset-prog-target"></span></div>
         </div>
-        <div style="margin-top:16px">
-          <div class="card-title">更新記錄</div>
-          <div class="card" id="snap-list"></div>
-        </div>
+        <div style="margin-top:14px"><div class="card-title" id="snap-title" style="margin-bottom:8px"></div><div class="card" id="snap-list"></div></div>
       </div>
-
-      <!-- INCOME -->
       <div id="page-income" class="page">
         <div class="card">
-          <div class="card-title">收入分配計算機</div>
+          <div class="card-hd"><span class="card-title" id="income-calc-title"></span></div>
           <div class="input-row">
-            <div class="field">
-              <label>金額</label>
-              <input type="number" id="inc-amt" placeholder="45000" step="any" oninput="calcIncome()">
-            </div>
-            <div class="field">
-              <label>來源</label>
-              <select id="inc-src" onchange="updateIncTypes();calcIncome()">
-                <option value="self">自己</option>
-                <option value="parents">父母</option>
-              </select>
-            </div>
-            <div class="field">
-              <label>類型</label>
-              <select id="inc-type" onchange="calcIncome()">
-                <option value="salary">正職</option>
-                <option value="bonus_annual">年終</option>
-                <option value="bonus_perf">績效</option>
-                <option value="extra">額外</option>
-              </select>
-            </div>
+            <div class="field"><label id="lbl-amount"></label><input type="number" id="inc-amt" step="any" oninput="calcIncome()"></div>
+            <div class="field"><label id="lbl-source"></label><select id="inc-src" onchange="updateIncTypes();calcIncome()"></select></div>
+            <div class="field"><label id="lbl-type"></label><select id="inc-type" onchange="calcIncome()"></select></div>
           </div>
-          <div id="inc-rule" style="font-size:12px;color:var(--text3);padding:10px 12px;background:var(--bg);border-radius:var(--r-sm);margin-bottom:14px;line-height:1.7"></div>
+          <div class="field"><label id="lbl-scheme"></label><select id="inc-scheme" onchange="calcIncome()"></select></div>
+          <div id="inc-rule" style="font-size:12px;color:var(--text3);padding:9px 11px;background:var(--bg);border-radius:var(--r-sm);margin-bottom:12px;line-height:1.7"></div>
           <div id="inc-result"></div>
-          <div style="display:flex;gap:8px;margin-top:14px">
-            <button class="btn btn-primary" onclick="applyIncome()">套用到虛擬帳戶 →</button>
-            <button class="btn" onclick="saveIncome()">存入記錄</button>
+          <div style="display:flex;gap:8px;margin-top:12px">
+            <button class="btn btn-primary" id="btn-apply-income" onclick="applyIncome()"></button>
+            <button class="btn" id="btn-save-income" onclick="saveIncome()"></button>
           </div>
         </div>
-        <div style="margin-top:16px">
-          <div class="card-title">收入記錄</div>
-          <div class="card" id="income-records"></div>
-        </div>
+        <div style="margin-top:14px"><div class="card-title" id="income-history-title" style="margin-bottom:8px"></div><div class="card" id="income-records"></div></div>
       </div>
-
-      <!-- SETTINGS -->
       <div id="page-settings" class="page">
         <div class="settings-section">
-          <div class="settings-title">🎨 主題配色</div>
-          <div id="color-settings"></div>
-          <button class="btn btn-sm btn-primary" style="margin-top:10px" onclick="applyColors()">套用配色</button>
+          <div class="settings-title">Language / 語言</div>
+          <div class="settings-row">
+            <div class="settings-row-info"><div class="settings-row-lbl">Language / 語言</div></div>
+            <div class="lang-switch"><div class="lang-btn" id="lang-zh" onclick="setLang('zh')">繁中</div><div class="lang-btn" id="lang-en" onclick="setLang('en')">English</div></div>
+          </div>
         </div>
         <div class="settings-section">
-          <div class="settings-title">🏦 虛擬帳戶設定</div>
+          <div class="settings-title" id="s-title-colors"></div>
+          <div class="settings-row"><div class="settings-row-info"><div class="settings-row-lbl" id="s-lbl-c1"></div></div><div class="settings-row-ctrl"><input type="color" id="sc1" style="width:40px;height:30px;padding:2px;cursor:pointer;border-radius:6px;border:1px solid var(--border2)"></div></div>
+          <div class="settings-row"><div class="settings-row-info"><div class="settings-row-lbl" id="s-lbl-c2"></div></div><div class="settings-row-ctrl"><input type="color" id="sc2" style="width:40px;height:30px;padding:2px;cursor:pointer;border-radius:6px;border:1px solid var(--border2)"></div></div>
+          <div class="settings-row"><div class="settings-row-info"><div class="settings-row-lbl" id="s-lbl-c3"></div></div><div class="settings-row-ctrl"><input type="color" id="sc3" style="width:40px;height:30px;padding:2px;cursor:pointer;border-radius:6px;border:1px solid var(--border2)"></div></div>
+          <button class="btn btn-primary btn-sm" id="btn-apply-colors" style="margin-top:10px" onclick="applyColors()"></button>
+        </div>
+        <div class="settings-section">
+          <div class="settings-title" id="s-title-vac"></div>
           <div id="vac-settings"></div>
-          <button class="btn btn-sm" style="margin-top:10px" onclick="addVAC()">+ 新增帳戶</button>
-          <button class="btn btn-sm btn-primary" style="margin-top:10px;margin-left:8px" onclick="saveVACSettings()">儲存帳戶設定</button>
-        </div>
-        <div class="settings-section">
-          <div class="settings-title">💰 收入分配規則</div>
-          <div id="alloc-settings"></div>
-          <div style="margin-top:14px">
-            <div class="settings-row">
-              <div><div class="settings-row-label">社交（自己正職固定）</div></div>
-              <div class="settings-row-ctrl"><input type="number" id="s-social" style="width:90px" step="any"> 元</div>
-            </div>
-            <div class="settings-row">
-              <div><div class="settings-row-label">孝親（自己正職固定）</div></div>
-              <div class="settings-row-ctrl"><input type="number" id="s-filial" style="width:90px" step="any"> 元</div>
-            </div>
+          <div style="display:flex;gap:8px;margin-top:10px">
+            <button class="btn btn-sm" id="btn-add-vac" onclick="addVAC()"></button>
+            <button class="btn btn-primary btn-sm" id="btn-save-vac" onclick="saveVACSettings()"></button>
           </div>
-          <button class="btn btn-sm btn-primary" style="margin-top:12px" onclick="saveAllocSettings()">儲存分配規則</button>
         </div>
         <div class="settings-section">
-          <div class="settings-title">📊 實體帳戶設定</div>
+          <div class="settings-title" id="s-title-schemes"></div>
+          <div id="scheme-settings"></div>
+          <button class="btn btn-sm" id="btn-add-scheme" style="margin-top:10px" onclick="addScheme()"></button>
+        </div>
+        <div class="settings-section">
+          <div class="settings-title" id="s-title-assets"></div>
           <div id="asset-settings"></div>
-          <button class="btn btn-sm" style="margin-top:10px" onclick="addAssetAccount()">+ 新增帳戶</button>
-          <button class="btn btn-sm btn-primary" style="margin-top:10px;margin-left:8px" onclick="saveAssetSettings()">儲存</button>
-        </div>
-        <div class="settings-section">
-          <div class="settings-title">🎯 資產目標</div>
-          <div class="settings-row">
-            <div class="settings-row-label">目標總資產</div>
-            <div class="settings-row-ctrl"><input type="number" id="s-target" style="width:120px" step="any"> 元</div>
+          <div style="display:flex;gap:8px;margin-top:10px">
+            <button class="btn btn-sm" id="btn-add-asset" onclick="addAsset()"></button>
+            <button class="btn btn-primary btn-sm" id="btn-save-assets" onclick="saveAssetSettings()"></button>
           </div>
-          <button class="btn btn-sm btn-primary" style="margin-top:12px" onclick="saveTargetSetting()">儲存</button>
         </div>
         <div class="settings-section">
-          <div class="settings-title">🔐 帳號</div>
+          <div class="settings-title" id="s-title-target"></div>
           <div class="settings-row">
-            <div><div class="settings-row-label" id="s-user-name">未登入</div><div class="settings-row-sub">資料同步至 Firebase</div></div>
-            <button class="btn btn-sm" id="s-auth-btn" onclick="handleAuthClick()">登入</button>
+            <div class="settings-row-info"><div class="settings-row-lbl" id="s-lbl-target"></div></div>
+            <div class="settings-row-ctrl"><input type="number" id="s-target" style="width:130px" step="any"></div>
+          </div>
+          <button class="btn btn-primary btn-sm" id="btn-save-target" style="margin-top:10px" onclick="saveTarget()"></button>
+        </div>
+        <div class="settings-section">
+          <div class="settings-title" id="s-title-account"></div>
+          <div class="settings-row">
+            <div class="settings-row-info"><div class="settings-row-lbl" id="s-user">—</div><div class="settings-row-sub" id="s-user-sub"></div></div>
+            <button class="btn btn-sm" id="s-auth-btn" onclick="handleAuth()"></button>
           </div>
         </div>
       </div>
-
-    </div><!-- content -->
+    </div>
   </main>
-</div><!-- app -->
-
-<!-- Mobile Nav -->
+</div>
 <nav class="mobile-nav" id="mobileNav" style="display:none">
   <div class="mn-inner">
-    <div class="mn-item active" onclick="nav('home')"><div class="mn-icon">⌂</div>首頁</div>
-    <div class="mn-item" onclick="nav('cashflow')"><div class="mn-icon">⬡</div>現金流</div>
-    <div class="mn-item" onclick="nav('projects')"><div class="mn-icon">◈</div>計畫</div>
-    <div class="mn-item" onclick="nav('assets')"><div class="mn-icon">△</div>資產</div>
-    <div class="mn-item" onclick="nav('settings')"><div class="mn-icon">⚙</div>設定</div>
+    <div class="mn-item active" onclick="nav('home')"><div class="mn-icon">⌂</div><span id="mn-home"></span></div>
+    <div class="mn-item" onclick="nav('cashflow')"><div class="mn-icon">⬡</div><span id="mn-cashflow"></span></div>
+    <div class="mn-item" onclick="nav('projects')"><div class="mn-icon">◈</div><span id="mn-projects"></span></div>
+    <div class="mn-item" onclick="nav('assets')"><div class="mn-icon">△</div><span id="mn-assets"></span></div>
+    <div class="mn-item" onclick="nav('settings')"><div class="mn-icon">⚙</div><span id="mn-settings"></span></div>
   </div>
 </nav>
-
 <!-- MODALS -->
-<div class="modal-overlay" id="task-modal">
-  <div class="modal">
-    <div class="modal-title">新增任務</div>
-    <div class="field"><label>任務名稱</label><input type="text" id="t-name" placeholder="具體可執行的事項"></div>
-    <div class="input-row">
-      <div class="field"><label>日期</label><input type="date" id="t-date"></div>
-      <div class="field"><label>所屬計畫</label><select id="t-proj"><option value="">無</option></select></div>
-    </div>
-    <div class="field"><label>標籤</label><input type="text" id="t-tag" placeholder="例：財務、旅行"></div>
-    <div class="modal-actions">
-      <button class="btn" onclick="closeModal('task-modal')">取消</button>
-      <button class="btn btn-primary" onclick="saveTask()">新增</button>
-    </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="proj-modal">
-  <div class="modal">
-    <div class="modal-title">新增計畫</div>
-    <div class="input-row">
-      <div class="field" style="flex:0 0 64px"><label>Emoji</label><input type="text" id="p-emoji" placeholder="🎯" maxlength="2"></div>
-      <div class="field"><label>計畫名稱</label><input type="text" id="p-name"></div>
-    </div>
-    <div class="input-row">
-      <div class="field"><label>類型</label><select id="p-type"><option value="short">短期計畫</option><option value="long">長期願景</option></select></div>
-      <div class="field"><label>狀態</label><select id="p-status"><option value="planning">規劃中</option><option value="active">進行中</option><option value="done">已完成</option></select></div>
-    </div>
-    <div class="input-row">
-      <div class="field"><label>開始日期</label><input type="date" id="p-start"></div>
-      <div class="field"><label>截止日期</label><input type="date" id="p-end"></div>
-    </div>
-    <div class="field"><label>綁定帳戶（選填）</label><select id="p-account"><option value="">不綁定</option></select></div>
-    <div class="modal-actions">
-      <button class="btn" onclick="closeModal('proj-modal')">取消</button>
-      <button class="btn btn-primary" onclick="saveProject()">新增</button>
-    </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="vision-modal">
-  <div class="modal">
-    <div class="modal-title">新增願景</div>
-    <div class="input-row">
-      <div class="field" style="flex:0 0 64px"><label>Emoji</label><input type="text" id="v-emoji" placeholder="🌍" maxlength="2"></div>
-      <div class="field"><label>願景名稱</label><input type="text" id="v-name"></div>
-    </div>
-    <div class="input-row">
-      <div class="field"><label>目標年份</label><input type="number" id="v-year" placeholder="2029"></div>
-      <div class="field"><label>綁定帳戶</label><select id="v-account"><option value="">不綁定</option></select></div>
-    </div>
-    <div class="field"><label>描述</label><input type="text" id="v-desc" placeholder="一年壯遊計畫"></div>
-    <div class="field"><label>目標金額（選填）</label><input type="number" id="v-goal-amt" placeholder="0" step="any"></div>
-    <div class="modal-actions">
-      <button class="btn" onclick="closeModal('vision-modal')">取消</button>
-      <button class="btn btn-primary" onclick="saveVision()">新增</button>
-    </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="expense-modal">
-  <div class="modal">
-    <div class="modal-title">記一筆消費</div>
-    <div class="field"><label>消費名稱</label><input type="text" id="e-name" placeholder="例：路易莎咖啡"></div>
-    <div class="input-row">
-      <div class="field"><label>金額</label><input type="number" id="e-amount" placeholder="0" step="any"></div>
-      <div class="field"><label>日期</label><input type="date" id="e-date"></div>
-    </div>
-    <div class="input-row">
-      <div class="field"><label>扣除帳戶</label><select id="e-account"></select></div>
-      <div class="field"><label>類別</label><select id="e-cat"><option>餐飲</option><option>交通</option><option>購物</option><option>娛樂</option><option>醫療</option><option>其他</option></select></div>
-    </div>
-    <div class="field"><label>備註（選填）</label><input type="text" id="e-note"></div>
-    <div class="modal-actions">
-      <button class="btn" onclick="closeModal('expense-modal')">取消</button>
-      <button class="btn btn-primary" onclick="saveExpense()">記帳</button>
-    </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="deposit-modal">
-  <div class="modal">
-    <div class="modal-title">撥款入帳</div>
-    <div class="field"><label>帳戶</label><select id="dep-acct"></select></div>
-    <div class="field"><label>撥入金額</label><input type="number" id="dep-amt" placeholder="0" step="any"></div>
-    <div class="field"><label>備註</label><input type="text" id="dep-note" placeholder="例：8月薪水 - 小確幸"></div>
-    <div class="modal-actions">
-      <button class="btn" onclick="closeModal('deposit-modal')">取消</button>
-      <button class="btn btn-primary" onclick="saveDeposit()">確認撥入</button>
-    </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="goal-modal">
-  <div class="modal">
-    <div class="modal-title">新增目標</div>
-    <div class="field"><label>目標名稱</label><input type="text" id="g-name" placeholder="例：ICL 手術"></div>
-    <div class="field"><label>綁定帳戶</label><select id="g-account"></select></div>
-    <div class="field"><label>目標金額</label><input type="number" id="g-amt" placeholder="200000" step="any"></div>
-    <div class="field"><label>綁定計畫（選填）</label><select id="g-proj"><option value="">無</option></select></div>
-    <div class="modal-actions">
-      <button class="btn" onclick="closeModal('goal-modal')">取消</button>
-      <button class="btn btn-primary" onclick="saveGoal()">新增</button>
-    </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="asset-modal">
-  <div class="modal">
-    <div class="modal-title">更新實體帳戶</div>
-    <div id="asset-modal-inputs"></div>
-    <div class="modal-actions">
-      <button class="btn" onclick="closeModal('asset-modal')">取消</button>
-      <button class="btn btn-primary" onclick="saveAssets()">儲存並快照</button>
-    </div>
-  </div>
-</div>
-
-<!-- Firebase -->
+<div class="modal-overlay" id="task-modal"><div class="modal"><div class="modal-title" id="task-modal-title"></div><input type="hidden" id="t-edit-id"><div class="field"><label id="lbl-t-name"></label><input type="text" id="t-name"></div><div class="input-row"><div class="field"><label id="lbl-t-date"></label><input type="date" id="t-date"></div><div class="field"><label id="lbl-t-proj"></label><select id="t-proj"></select></div></div><div class="field"><label id="lbl-t-tag"></label><input type="text" id="t-tag"></div><div class="modal-actions"><button class="btn" id="btn-task-cancel" onclick="closeModal('task-modal')"></button><button class="btn btn-primary" id="btn-task-save" onclick="saveTask()"></button></div></div></div>
+<div class="modal-overlay" id="proj-modal"><div class="modal"><div class="modal-title" id="proj-modal-title"></div><input type="hidden" id="p-edit-id"><div class="input-row"><div class="field" style="flex:0 0 60px"><label>Emoji</label><input type="text" id="p-emoji" maxlength="2"></div><div class="field"><label id="lbl-p-name"></label><input type="text" id="p-name"></div></div><div class="input-row"><div class="field"><label id="lbl-p-type"></label><select id="p-type"></select></div><div class="field"><label id="lbl-p-status"></label><select id="p-status"></select></div></div><div class="input-row"><div class="field"><label id="lbl-p-start"></label><input type="date" id="p-start"></div><div class="field"><label id="lbl-p-end"></label><input type="date" id="p-end"></div></div><div class="field"><label id="lbl-p-prog"></label><input type="number" id="p-prog" min="0" max="100"></div><div class="field"><label id="lbl-p-account"></label><select id="p-account"></select></div><div class="modal-actions"><button class="btn" id="btn-proj-cancel" onclick="closeModal('proj-modal')"></button><button class="btn btn-primary" id="btn-proj-save" onclick="saveProject()"></button></div></div></div>
+<div class="modal-overlay" id="vision-modal"><div class="modal"><div class="modal-title" id="vision-modal-title"></div><input type="hidden" id="v-edit-id"><div class="input-row"><div class="field" style="flex:0 0 60px"><label>Emoji</label><input type="text" id="v-emoji" maxlength="2"></div><div class="field"><label id="lbl-v-name"></label><input type="text" id="v-name"></div></div><div class="input-row"><div class="field"><label id="lbl-v-year"></label><input type="number" id="v-year"></div><div class="field"><label id="lbl-v-account"></label><select id="v-account"></select></div></div><div class="field"><label id="lbl-v-desc"></label><input type="text" id="v-desc"></div><div class="field"><label id="lbl-v-goal-amt"></label><input type="number" id="v-goal-amt" step="any"></div><div class="modal-actions"><button class="btn" id="btn-vision-cancel" onclick="closeModal('vision-modal')"></button><button class="btn btn-primary" id="btn-vision-save" onclick="saveVision()"></button></div></div></div>
+<div class="modal-overlay" id="expense-modal"><div class="modal"><div class="modal-title" id="exp-modal-title"></div><input type="hidden" id="e-edit-id"><div class="input-row"><div class="field"><label id="lbl-e-type"></label><select id="e-type" onchange="toggleExpType()"></select></div><div class="field"><label id="lbl-e-cat"></label><select id="e-cat"></select></div></div><div class="field"><label id="lbl-e-name"></label><input type="text" id="e-name"></div><div class="input-row"><div class="field"><label id="lbl-e-amount"></label><input type="number" id="e-amount" step="any"></div><div class="field"><label id="lbl-e-date"></label><input type="date" id="e-date"></div></div><div class="field" id="e-account-field"><label id="lbl-e-account"></label><select id="e-account"></select></div><div class="field"><label id="lbl-e-note"></label><input type="text" id="e-note"></div><div class="modal-actions"><button class="btn" id="btn-exp-cancel" onclick="closeModal('expense-modal')"></button><button class="btn btn-primary" id="btn-exp-save" onclick="saveExpense()"></button></div></div></div>
+<div class="modal-overlay" id="deposit-modal"><div class="modal"><div class="modal-title" id="deposit-modal-title"></div><div class="field"><label id="lbl-dep-acct"></label><select id="dep-acct"></select></div><div class="field"><label id="lbl-dep-amt"></label><input type="number" id="dep-amt" step="any"></div><div class="field"><label id="lbl-dep-note"></label><input type="text" id="dep-note"></div><div class="modal-actions"><button class="btn" id="btn-dep-cancel" onclick="closeModal('deposit-modal')"></button><button class="btn btn-primary" id="btn-dep-save" onclick="saveDeposit()"></button></div></div></div>
+<div class="modal-overlay" id="goal-modal"><div class="modal"><div class="modal-title" id="goal-modal-title"></div><input type="hidden" id="g-edit-id"><div class="field"><label id="lbl-g-name"></label><input type="text" id="g-name"></div><div class="field"><label id="lbl-g-account"></label><select id="g-account"></select></div><div class="field"><label id="lbl-g-amt"></label><input type="number" id="g-amt" step="any"></div><div class="field"><label id="lbl-g-proj"></label><select id="g-proj"></select></div><div class="modal-actions"><button class="btn" id="btn-goal-cancel" onclick="closeModal('goal-modal')"></button><button class="btn btn-primary" id="btn-goal-save" onclick="saveGoal()"></button></div></div></div>
+<div class="modal-overlay" id="asset-modal"><div class="modal"><div class="modal-title" id="asset-modal-title"></div><div id="asset-modal-inputs"></div><div class="modal-actions"><button class="btn" id="btn-asset-cancel" onclick="closeModal('asset-modal')"></button><button class="btn btn-primary" id="btn-asset-save" onclick="saveAssets()"></button></div></div></div>
+<div class="modal-overlay" id="scheme-modal"><div class="modal"><div class="modal-title" id="scheme-modal-title"></div><input type="hidden" id="sch-edit-id"><div class="field"><label id="lbl-sch-name"></label><input type="text" id="sch-name"></div><div class="field"><label id="lbl-sch-desc"></label><input type="text" id="sch-desc"></div><div id="sch-alloc-fields"></div><div class="field" style="margin-top:10px"><label id="lbl-sch-social"></label><input type="number" id="sch-social" step="any"></div><div class="field"><label id="lbl-sch-filial"></label><input type="number" id="sch-filial" step="any"></div><div class="modal-actions"><button class="btn" id="btn-sch-cancel" onclick="closeModal('scheme-modal')"></button><button class="btn btn-primary" id="btn-sch-save" onclick="saveScheme()"></button></div></div></div>
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyA2rHPAQT-eaJnvoUuNHBZdIo88b0Olhmk",
-  authDomain: "life-os-01-byyu.firebaseapp.com",
-  projectId: "life-os-01-byyu",
-  storageBucket: "life-os-01-byyu.firebasestorage.app",
-  messagingSenderId: "904924111847",
-  appId: "1:904924111847:web:8301a7bf43e13f5ef0d342"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-window._fb = { auth, db, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, doc, getDoc, setDoc, onSnapshot };
-
-// Auth state
-onAuthStateChanged(auth, user => {
-  window._fbUser = user;
-  updateAuthUI(user);
-  if (user) {
-    loadFromFirebase(user.uid);
-    document.getElementById('loginScreen').style.display = 'none';
-    showApp();
-  }
-});
-
-window.signInWithGoogle = async () => {
-  try {
-    const provider = new GoogleAuthProvider();
-    await signInWithPopup(auth, provider);
-  } catch(e) { console.error(e); }
-};
-
-window.handleAuthClick = async () => {
-  if (window._fbUser) {
-    await signOut(auth);
-    window._fbUser = null;
-    updateAuthUI(null);
-  } else {
-    await window.signInWithGoogle();
-  }
-};
-
-window.saveToFirebase = async (data) => {
-  if (!window._fbUser) return;
-  try {
-    await setDoc(doc(db, 'users', window._fbUser.uid), data);
-  } catch(e) { console.error('Firebase save error:', e); }
-};
-
-window.loadFromFirebase = async (uid) => {
-  try {
-    const snap = await getDoc(doc(db, 'users', uid));
-    if (snap.exists()) {
-      const data = snap.data();
-      window.DB = { ...window.DB, ...data };
-      applyTheme();
-      renderPage(window._currentPage || 'home');
-    }
-  } catch(e) { console.error('Firebase load error:', e); }
-};
-
-function updateAuthUI(user) {
-  const av = document.getElementById('sb-avatar');
-  const nm = document.getElementById('sb-name');
-  const lg = document.getElementById('sb-login');
-  const sn = document.getElementById('s-user-name');
-  const sb = document.getElementById('s-auth-btn');
-  if (user) {
-    if (av) { av.innerHTML = user.photoURL ? `<img src="${user.photoURL}">` : user.displayName?.[0] || 'U'; }
-    if (nm) nm.textContent = user.displayName || user.email;
-    if (lg) lg.textContent = '登出';
-    if (sn) sn.textContent = user.displayName || user.email;
-    if (sb) sb.textContent = '登出';
-  } else {
-    if (av) av.textContent = '?';
-    if (nm) nm.textContent = '未登入';
-    if (lg) lg.textContent = '登入';
-    if (sn) sn.textContent = '未登入';
-    if (sb) sb.textContent = '登入';
-  }
+import{initializeApp}from"https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+import{getAuth,GoogleAuthProvider,signInWithPopup,signInWithRedirect,getRedirectResult,signOut,onAuthStateChanged}from"https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import{getFirestore,doc,getDoc,setDoc}from"https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+const cfg={apiKey:"AIzaSyA2rHPAQT-eaJnvoUuNHBZdIo88b0Olhmk",authDomain:"life-os-01-byyu.firebaseapp.com",projectId:"life-os-01-byyu",storageBucket:"life-os-01-byyu.firebasestorage.app",messagingSenderId:"904924111847",appId:"1:904924111847:web:8301a7bf43e13f5ef0d342"};
+const app=initializeApp(cfg),auth=getAuth(app),db=getFirestore(app),provider=new GoogleAuthProvider();
+const isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+window._doSignIn=async()=>{document.getElementById('loginBtn').style.display='none';document.getElementById('loginLoading').style.display='block';try{if(isMobile){await signInWithRedirect(auth,provider);}else{await signInWithPopup(auth,provider);}}catch(e){console.error(e);document.getElementById('loginBtn').style.display='flex';document.getElementById('loginLoading').style.display='none';}};
+getRedirectResult(auth).catch(e=>console.error(e));
+window._doSignOut=async()=>{await signOut(auth);updateAuthUI(null);};
+window._saveToFB=async(data)=>{if(!window._fbUser)return;try{await setDoc(doc(db,'users',window._fbUser.uid),JSON.parse(JSON.stringify(data)));}catch(e){console.error(e);}};
+window._loadFromFB=async(uid)=>{try{const snap=await getDoc(doc(db,'users',uid));if(snap.exists()){const d=snap.data();window.DB={...window.DB,...d};applyTheme();applyLang();renderPage(window._curPage||'home');}}catch(e){console.error(e);}};
+function updateAuthUI(user){
+  const av=document.getElementById('sb-av'),nm=document.getElementById('sb-nm'),au=document.getElementById('sb-auth'),su=document.getElementById('s-user'),sb=document.getElementById('s-auth-btn');
+  if(user){if(av)av.innerHTML=user.photoURL?`<img src="${user.photoURL}">`:(user.displayName?.[0]||'U');if(nm)nm.textContent=user.displayName||user.email;if(au)au.textContent=T('sign_out');if(su)su.textContent=user.displayName||user.email;if(sb)sb.textContent=T('sign_out');}
+  else{if(av)av.textContent='?';if(nm)nm.textContent=T('not_signed');if(au)au.textContent=T('sign_in');if(su)su.textContent=T('not_signed');if(sb)sb.textContent=T('sign_in');}
 }
+onAuthStateChanged(auth,user=>{window._fbUser=user;updateAuthUI(user);if(user){window._loadFromFB(user.uid);document.getElementById('loginScreen').style.display='none';showApp();}});
+window.doSignIn=()=>window._doSignIn();
+window.handleAuth=()=>window._fbUser?window._doSignOut():window._doSignIn();
 </script>
-
 <script>
-// ══════════════════════════════════════════
+// i18n
+const LANGS={
+zh:{
+  app_sub:'你的個人控制台',login_sub:'你的個人控制台\n記帳、計畫、資產，一站管理',
+  login_google:'使用 Google 帳號登入',signing_in:'登入中...',use_offline:'先離線使用（資料不會同步）',
+  nav_daily:'每日',nav_home:'首頁',nav_tasks:'執行清單',nav_plans:'計畫',nav_projects:'計畫庫',
+  nav_visions:'未來願景',nav_finance:'財務',nav_cashflow:'現金流',nav_assets:'實體資產',
+  nav_income:'收入分配',nav_settings:'設定',
+  page_home:'首頁',page_tasks:'執行清單',page_projects:'計畫庫',page_visions:'未來願景',
+  page_cashflow:'現金流',page_assets:'實體資產',page_income:'收入分配',page_settings:'設定',
+  h_tasks:'今日待辦',h_pending:'未完成',h_assets:'總資產',h_today:'今日',
+  h_projs:'重要計畫',h_impulse:'防衝動警示',h_growth:'資產成長',
+  add_ph:'快速新增任務...',btn_add:'新增',
+  btn_new_task:'+ 新增任務',btn_pending:'未完成',btn_today:'今天',btn_done:'已完成',
+  btn_new_proj:'+ 新增計畫',btn_new_vision:'+ 新增願景',
+  cf_accts:'虛擬帳戶',cf_tx:'消費記錄',cf_goals:'目標',
+  btn_deposit:'+ 撥款',btn_new_tx:'+ 記帳',btn_new_goal:'+ 新增目標',
+  btn_update:'+ 月底結算',lbl_snaps:'更新記錄',lbl_total:'💰 總資產淨值',
+  income_title:'收入分配計算機',btn_apply:'套用到虛擬帳戶 →',btn_save_rec:'存入記錄',lbl_hist:'收入記錄',
+  lbl_amt:'金額',lbl_src:'來源',lbl_type:'類型',lbl_scheme:'分配方案',
+  src_self:'自己',src_parents:'父母',
+  t_salary:'正職',t_year:'年終',t_perf:'績效',t_extra:'額外',t_red:'紅包',
+  tx_out:'支出',tx_in:'直接收入',
+  cat_food:'餐飲',cat_transport:'交通',cat_shopping:'購物',cat_ent:'娛樂',cat_health:'醫療',cat_other:'其他',
+  s_colors:'主題配色',s_vac:'虛擬帳戶設定',s_schemes:'收入分配方案',s_assets:'實體帳戶設定',
+  s_target:'資產目標',s_account:'帳號',
+  c1:'主色（按鈕、強調）',c2:'副色',c3:'底色',btn_colors:'套用配色',
+  btn_add_vac:'+ 新增帳戶',btn_save:'儲存',btn_add_scheme:'+ 新增方案',btn_add_asset:'+ 新增帳戶',
+  lbl_target:'目標總資產',s_user_sub:'資料同步至 Firebase',
+  sign_in:'登入',sign_out:'登出',not_signed:'未登入',
+  m_new_task:'新增任務',m_edit_task:'編輯任務',m_new_proj:'新增計畫',m_edit_proj:'編輯計畫',
+  m_new_vision:'新增願景',m_edit_vision:'編輯願景',m_new_tx:'新增記帳',m_edit_tx:'編輯記帳',
+  m_deposit:'撥款入帳',m_new_goal:'新增目標',m_edit_goal:'編輯目標',
+  m_assets:'更新實體帳戶',m_snap:'儲存並快照',m_new_scheme:'新增分配方案',m_edit_scheme:'編輯分配方案',
+  lbl_name:'名稱',lbl_date:'日期',lbl_proj:'所屬計畫',lbl_tag:'標籤',
+  lbl_status:'狀態',lbl_start:'開始日期',lbl_end:'截止日期',lbl_prog:'進度 (%)',
+  lbl_account:'綁定帳戶（選填）',lbl_year:'目標年份',lbl_desc:'描述',lbl_goal_amt:'目標金額（選填）',
+  lbl_cat:'類別',lbl_acct:'扣除帳戶',lbl_note:'備註（選填）',lbl_dep_acct:'帳戶',
+  lbl_dep_amt:'撥入金額',lbl_dep_note:'備註',lbl_g_name:'目標名稱',lbl_g_acct:'綁定帳戶',
+  lbl_g_amt:'目標金額',lbl_g_proj:'綁定計畫（選填）',
+  lbl_sch_name:'方案名稱',lbl_sch_desc:'描述',lbl_sch_social:'社交固定金額（自己正職）',
+  lbl_sch_filial:'孝親固定金額（自己正職）',lbl_sch_alloc:'自訂分配比例（留空使用帳戶預設值）：',
+  p_short:'短期計畫',p_long:'長期願景',p_planning:'規劃中',p_active:'進行中',p_done:'已完成',
+  btn_cancel:'取消',btn_set_def:'設為預設',btn_edit:'編輯',btn_del:'刪除',badge_def:'預設',lbl_none:'無',
+  c_del_task:'確定刪除這個任務？',c_del_proj:'確定刪除這個計畫？',c_del_vision:'確定刪除這個願景？',
+  c_del_tx:'確定刪除這筆記錄？',c_del_goal:'確定刪除這個目標？',c_del_rec:'確定刪除這筆收入記錄？',
+  c_remove_acct:'確定移除這個帳戶？',c_del_scheme:'確定刪除這個方案？',
+  keep_acct:'至少保留一個帳戶',keep_scheme:'至少保留一個方案',
+  ok_applied:'✓ 已套用到各虛擬帳戶！',ok_colors:'✓ 配色已套用！',ok_saved:'✓ 已儲存！',
+  err_amt:'請先輸入收入金額',err_fill:'請填入名稱和金額',err_acct:'請選擇帳戶',err_all:'請填入所有欄位',err_scheme:'請輸入方案名稱',
+  no_data:'尚無足夠資料',no_tasks:'沒有符合的任務',no_proj:'尚無計畫',no_visions:'尚無願景',
+  no_tx:'尚無消費記錄',no_goals:'尚無目標',no_snaps:'尚無快照',no_income:'尚無收入記錄',no_active:'尚無進行中的計畫',
+  all_clear:'今天沒有待辦 ✓',on_track:'目前所有目標進度良好 ✓',
+  deposited:'累積撥入：',goal_col:'目標：',goal_reached:'已達成！🎉',remaining:'還差',
+  total_in:'收入合計',remainder:'剩餘',fixed_lbl:'固定',ongoing:'長期',
+  rule_red:'🧧 父母紅包 → 全額存入儲蓄',
+  rule_parents:'父母 · 額外 → 固定 30%，剩下 70% 進孝親',
+  rule_salary:'自己 · 正職 → 固定 30%，再存社交 {s}、孝親 {f}，其餘進儲蓄',
+  rule_other:'自己 · 非正職 → 固定 30%，剩下 70% 進儲蓄',
+  pct_hint:'% (0=固定規則)',new_acct:'新帳戶',done_fmt:'{d}/{t} 今日完成',pct_goal:'% 達成目標',goal_txt:'目標：',
+},
+en:{
+  app_sub:'Personal Command Center',login_sub:'Your personal command center\nBudget, plans, assets — all in one place',
+  login_google:'Sign in with Google',signing_in:'Signing in...',use_offline:"Use offline (data won't sync)",
+  nav_daily:'Daily',nav_home:'Home',nav_tasks:'Tasks',nav_plans:'Plans',nav_projects:'Projects',
+  nav_visions:'Visions',nav_finance:'Finance',nav_cashflow:'Cash Flow',nav_assets:'Assets',
+  nav_income:'Income',nav_settings:'Settings',
+  page_home:'Home',page_tasks:'Tasks',page_projects:'Projects',page_visions:'Visions',
+  page_cashflow:'Cash Flow',page_assets:'Assets',page_income:'Income',page_settings:'Settings',
+  h_tasks:"Today's Tasks",h_pending:'pending',h_assets:'Net Worth',h_today:'Today',
+  h_projs:'Active Projects',h_impulse:'Impulse Control',h_growth:'Net Worth Growth',
+  add_ph:'Add a task...',btn_add:'Add',
+  btn_new_task:'+ New Task',btn_pending:'Pending',btn_today:'Today',btn_done:'Done',
+  btn_new_proj:'+ New Project',btn_new_vision:'+ New Vision',
+  cf_accts:'Accounts',cf_tx:'Transactions',cf_goals:'Goals',
+  btn_deposit:'+ Deposit',btn_new_tx:'+ Transaction',btn_new_goal:'+ New Goal',
+  btn_update:'+ Update Balances',lbl_snaps:'Snapshots',lbl_total:'💰 Total Net Worth',
+  income_title:'Income Allocator',btn_apply:'Apply to Accounts →',btn_save_rec:'Save Record',lbl_hist:'Income History',
+  lbl_amt:'Amount',lbl_src:'Source',lbl_type:'Type',lbl_scheme:'Allocation Scheme',
+  src_self:'Self',src_parents:'Parents',
+  t_salary:'Salary',t_year:'Year-end Bonus',t_perf:'Performance',t_extra:'Extra',t_red:'Red Envelope',
+  tx_out:'Expense',tx_in:'Direct Income',
+  cat_food:'Food',cat_transport:'Transport',cat_shopping:'Shopping',cat_ent:'Entertainment',cat_health:'Health',cat_other:'Other',
+  s_colors:'Theme Colors',s_vac:'Virtual Accounts',s_schemes:'Allocation Schemes',s_assets:'Physical Accounts',
+  s_target:'Asset Goal',s_account:'Account',
+  c1:'Primary (buttons, accents)',c2:'Secondary',c3:'Background tint',btn_colors:'Apply Colors',
+  btn_add_vac:'+ Add Account',btn_save:'Save',btn_add_scheme:'+ New Scheme',btn_add_asset:'+ Add Account',
+  lbl_target:'Target Net Worth',s_user_sub:'Firebase sync',
+  sign_in:'Sign in',sign_out:'Sign out',not_signed:'Not signed in',
+  m_new_task:'New Task',m_edit_task:'Edit Task',m_new_proj:'New Project',m_edit_proj:'Edit Project',
+  m_new_vision:'New Vision',m_edit_vision:'Edit Vision',m_new_tx:'New Transaction',m_edit_tx:'Edit Transaction',
+  m_deposit:'Deposit to Account',m_new_goal:'New Goal',m_edit_goal:'Edit Goal',
+  m_assets:'Update Account Balances',m_snap:'Save & Snapshot',m_new_scheme:'New Allocation Scheme',m_edit_scheme:'Edit Scheme',
+  lbl_name:'Name',lbl_date:'Date',lbl_proj:'Project',lbl_tag:'Tag',
+  lbl_status:'Status',lbl_start:'Start Date',lbl_end:'End Date',lbl_prog:'Progress (%)',
+  lbl_account:'Linked Account (optional)',lbl_year:'Target Year',lbl_desc:'Description',lbl_goal_amt:'Goal Amount (optional)',
+  lbl_cat:'Category',lbl_acct:'Account',lbl_note:'Note (optional)',lbl_dep_acct:'Account',
+  lbl_dep_amt:'Amount',lbl_dep_note:'Note',lbl_g_name:'Goal Name',lbl_g_acct:'Linked Account',
+  lbl_g_amt:'Target Amount',lbl_g_proj:'Linked Project (optional)',
+  lbl_sch_name:'Scheme Name',lbl_sch_desc:'Description',lbl_sch_social:'Fixed: Social (self/salary)',
+  lbl_sch_filial:'Fixed: Filial (self/salary)',lbl_sch_alloc:'Custom allocation % (leave blank to use account default):',
+  p_short:'Short-term',p_long:'Long-term Vision',p_planning:'Planning',p_active:'Active',p_done:'Done',
+  btn_cancel:'Cancel',btn_set_def:'Set Default',btn_edit:'Edit',btn_del:'Delete',badge_def:'Default',lbl_none:'None',
+  c_del_task:'Delete this task?',c_del_proj:'Delete this project?',c_del_vision:'Delete this vision?',
+  c_del_tx:'Delete this transaction?',c_del_goal:'Delete this goal?',c_del_rec:'Delete this record?',
+  c_remove_acct:'Remove this account?',c_del_scheme:'Delete this scheme?',
+  keep_acct:'Keep at least one account',keep_scheme:'Keep at least one scheme',
+  ok_applied:'✓ Applied to accounts!',ok_colors:'✓ Colors applied!',ok_saved:'✓ Saved!',
+  err_amt:'Please enter an amount first',err_fill:'Please fill in name and amount',err_acct:'Please select an account',err_all:'Please fill in all fields',err_scheme:'Please enter a scheme name',
+  no_data:'Not enough data yet',no_tasks:'No tasks here',no_proj:'No projects yet',no_visions:'No visions yet',
+  no_tx:'No transactions yet',no_goals:'No goals yet',no_snaps:'No snapshots yet',no_income:'No income records yet',no_active:'No active projects',
+  all_clear:'All clear! ✓',on_track:'All goals on track ✓',
+  deposited:'Deposited:',goal_col:'Goal:',goal_reached:'Goal reached! 🎉',remaining:'remaining',
+  total_in:'Total Input',remainder:'remainder',fixed_lbl:'fixed',ongoing:'Ongoing',
+  rule_red:'🧧 Red Envelope → 100% to Savings',
+  rule_parents:'Parents · Extra → Fixed 30%, remaining 70% to Filial',
+  rule_salary:'Self · Salary → Fixed 30%, then Social {s}, Filial {f}, rest to Savings',
+  rule_other:'Self · Non-salary → Fixed 30%, remaining 70% to Savings',
+  pct_hint:'% (0 = fixed rule)',new_acct:'New Account',done_fmt:'{d}/{t} done today',pct_goal:'% of goal',goal_txt:'Goal:',
+}};
+let _lang=localStorage.getItem('lifeos_lang')||'zh';
+const T=k=>(LANGS[_lang]||LANGS.zh)[k]||(LANGS.en)[k]||k;
+function setLang(l){_lang=l;localStorage.setItem('lifeos_lang',l);applyLang();renderPage(window._curPage||'home');}
+function st(id,txt){const e=document.getElementById(id);if(e)e.textContent=txt;}
+function sa(id,attr,val){const e=document.getElementById(id);if(e)e.setAttribute(attr,val);}
+function fillTypeSelects(){
+  const src=document.getElementById('inc-src');if(src){const v=src.value;src.innerHTML=`<option value="self">${T('src_self')}</option><option value="parents">${T('src_parents')}</option>`;src.value=v||'self';}
+  const pt=document.getElementById('p-type');if(pt){const v=pt.value;pt.innerHTML=`<option value="short">${T('p_short')}</option><option value="long">${T('p_long')}</option>`;pt.value=v||'short';}
+  const ps=document.getElementById('p-status');if(ps){const v=ps.value;ps.innerHTML=`<option value="planning">${T('p_planning')}</option><option value="active">${T('p_active')}</option><option value="done">${T('p_done')}</option>`;ps.value=v||'planning';}
+  const et=document.getElementById('e-type');if(et){const v=et.value;et.innerHTML=`<option value="expense">${T('tx_out')}</option><option value="income_direct">${T('tx_in')}</option>`;et.value=v||'expense';}
+  const ec=document.getElementById('e-cat');if(ec){const v=ec.value;ec.innerHTML=['food','transport','shopping','ent','health','other'].map(c=>`<option value="${c}">${T('cat_'+c)}</option>`).join('');if(v)ec.value=v;}
+  updateIncTypes();
+}
+function applyLang(){
+  st('login-sub',T('login_sub'));st('login-google-text',T('login_google'));st('loginLoading',T('signing_in'));st('login-offline',T('use_offline'));
+  st('sb-sub',T('app_sub'));
+  st('nav-lbl-daily',T('nav_daily'));st('nav-lbl-plans',T('nav_plans'));st('nav-lbl-finance',T('nav_finance'));
+  ['home','tasks','projects','visions','cashflow','assets','income','settings'].forEach(p=>{st('nav-'+p,T('nav_'+p));});
+  st('mn-home',T('nav_home'));st('mn-cashflow',T('nav_cashflow'));st('mn-projects',T('nav_projects'));st('mn-assets',T('nav_assets'));st('mn-settings',T('nav_settings'));
+  st('tb-title',T('page_'+(window._curPage||'home')));
+  st('h-lbl-tasks',T('h_tasks'));st('h-sub-tasks',T('h_pending'));st('h-lbl-assets',T('h_assets'));
+  st('h-today-title',T('h_today'));st('h-projs-title',T('h_projs'));st('h-alerts-title',T('h_impulse'));st('h-growth-title',T('h_growth'));
+  sa('h-ti','placeholder',T('add_ph'));st('h-add-btn',T('btn_add'));
+  st('btn-new-task',T('btn_new_task'));st('btn-f-pending',T('btn_pending'));st('btn-f-today',T('btn_today'));st('btn-f-done',T('btn_done'));
+  st('btn-new-proj',T('btn_new_proj'));st('btn-new-vision',T('btn_new_vision'));
+  st('cf-tab-accts',T('cf_accts'));st('cf-tab-tx',T('cf_tx'));st('cf-tab-goals',T('cf_goals'));
+  st('btn-deposit',T('btn_deposit'));st('btn-new-tx',T('btn_new_tx'));st('btn-new-tx2',T('btn_new_tx'));st('btn-new-goal',T('btn_new_goal'));
+  st('btn-update-assets',T('btn_update'));st('snap-title',T('lbl_snaps'));st('assets-total-lbl',T('lbl_total'));
+  st('income-calc-title',T('income_title'));st('btn-apply-income',T('btn_apply'));st('btn-save-income',T('btn_save_rec'));st('income-history-title',T('lbl_hist'));
+  st('lbl-amount',T('lbl_amt'));st('lbl-source',T('lbl_src'));st('lbl-type',T('lbl_type'));st('lbl-scheme',T('lbl_scheme'));
+  st('s-title-colors',T('s_colors'));st('s-title-vac',T('s_vac'));st('s-title-schemes',T('s_schemes'));st('s-title-assets',T('s_assets'));st('s-title-target',T('s_target'));st('s-title-account',T('s_account'));
+  st('s-lbl-c1',T('c1'));st('s-lbl-c2',T('c2'));st('s-lbl-c3',T('c3'));st('btn-apply-colors',T('btn_colors'));
+  st('btn-add-vac',T('btn_add_vac'));st('btn-save-vac',T('btn_save'));st('btn-add-scheme',T('btn_add_scheme'));st('btn-add-asset',T('btn_add_asset'));st('btn-save-assets',T('btn_save'));
+  st('s-lbl-target',T('lbl_target'));st('btn-save-target',T('btn_save'));st('s-user-sub',T('s_user_sub'));
+  st('task-modal-title',T('m_new_task'));st('lbl-t-name',T('lbl_name'));st('lbl-t-date',T('lbl_date'));st('lbl-t-proj',T('lbl_proj'));st('lbl-t-tag',T('lbl_tag'));st('btn-task-cancel',T('btn_cancel'));st('btn-task-save',T('btn_save'));
+  st('proj-modal-title',T('m_new_proj'));st('lbl-p-name',T('lbl_name'));st('lbl-p-type',T('lbl_type'));st('lbl-p-status',T('lbl_status'));st('lbl-p-start',T('lbl_start'));st('lbl-p-end',T('lbl_end'));st('lbl-p-prog',T('lbl_prog'));st('lbl-p-account',T('lbl_account'));st('btn-proj-cancel',T('btn_cancel'));st('btn-proj-save',T('btn_save'));
+  st('vision-modal-title',T('m_new_vision'));st('lbl-v-name',T('lbl_name'));st('lbl-v-year',T('lbl_year'));st('lbl-v-account',T('lbl_account'));st('lbl-v-desc',T('lbl_desc'));st('lbl-v-goal-amt',T('lbl_goal_amt'));st('btn-vision-cancel',T('btn_cancel'));st('btn-vision-save',T('btn_save'));
+  st('exp-modal-title',T('m_new_tx'));st('lbl-e-type',T('lbl_type'));st('lbl-e-cat',T('lbl_cat'));st('lbl-e-name',T('lbl_name'));st('lbl-e-amount',T('lbl_amt'));st('lbl-e-date',T('lbl_date'));st('lbl-e-account',T('lbl_acct'));st('lbl-e-note',T('lbl_note'));st('btn-exp-cancel',T('btn_cancel'));st('btn-exp-save',T('btn_save'));
+  st('deposit-modal-title',T('m_deposit'));st('lbl-dep-acct',T('lbl_dep_acct'));st('lbl-dep-amt',T('lbl_dep_amt'));st('lbl-dep-note',T('lbl_dep_note'));st('btn-dep-cancel',T('btn_cancel'));st('btn-dep-save',T('btn_save'));
+  st('goal-modal-title',T('m_new_goal'));st('lbl-g-name',T('lbl_g_name'));st('lbl-g-account',T('lbl_g_acct'));st('lbl-g-amt',T('lbl_g_amt'));st('lbl-g-proj',T('lbl_g_proj'));st('btn-goal-cancel',T('btn_cancel'));st('btn-goal-save',T('btn_save'));
+  st('asset-modal-title',T('m_assets'));st('btn-asset-cancel',T('btn_cancel'));st('btn-asset-save',T('m_snap'));
+  st('scheme-modal-title',T('m_new_scheme'));st('lbl-sch-name',T('lbl_sch_name'));st('lbl-sch-desc',T('lbl_sch_desc'));st('lbl-sch-social',T('lbl_sch_social'));st('lbl-sch-filial',T('lbl_sch_filial'));st('btn-sch-cancel',T('btn_cancel'));st('btn-sch-save',T('btn_save'));
+  const zh=document.getElementById('lang-zh'),en=document.getElementById('lang-en');
+  if(zh)zh.className='lang-btn'+(_lang==='zh'?' active':'');if(en)en.className='lang-btn'+(_lang==='en'?' active':'');
+  fillTypeSelects();
+  const su=document.getElementById('s-user'),sb=document.getElementById('s-auth-btn'),au=document.getElementById('sb-auth'),nm=document.getElementById('sb-nm');
+  if(window._fbUser){if(su)su.textContent=window._fbUser.displayName||window._fbUser.email;if(sb)sb.textContent=T('sign_out');if(au)au.textContent=T('sign_out');}
+  else{if(su)su.textContent=T('not_signed');if(sb)sb.textContent=T('sign_in');if(au)au.textContent=T('sign_in');if(nm&&!window._fbUser)nm.textContent=T('not_signed');}
+}
 // DATA
-// ══════════════════════════════════════════
-
-const DEFAULT_VAC = [
-  {id:'v1',name:'小確幸',deposited:0,pct:0.01},
-  {id:'v2',name:'必需品',deposited:0,pct:0.09},
-  {id:'v3',name:'變漂亮',deposited:0,pct:0.02},
-  {id:'v4',name:'社交',deposited:0,pct:0},
-  {id:'v5',name:'學習',deposited:0,pct:0.10},
-  {id:'v6',name:'短期旅遊',deposited:0,pct:0.03},
-  {id:'v7',name:'長期旅遊',deposited:0,pct:0.05},
-  {id:'v8',name:'孝親',deposited:0,pct:0},
-  {id:'v9',name:'儲蓄',deposited:0,pct:0},
-];
-const DEFAULT_ASSETS = [
-  {id:'a',code:'A',name:'日常活存 + 外幣',amount:0,color:'#2B7FD4'},
-  {id:'b',code:'B',name:'定存',amount:0,color:'#3BAD7A'},
-  {id:'c',code:'C',name:'備用金 + 舊ETF',amount:0,color:'#8B7FD4'},
-  {id:'d',code:'D',name:'股票交割戶',amount:0,color:'#D4A82B'},
-  {id:'e',code:'E',name:'薪轉高利活存',amount:0,color:'#5BAEE8'},
-  {id:'f',code:'F',name:'主力台股ETF',amount:0,color:'#4A9BD4'},
-  {id:'g',code:'G',name:'海外ETF',amount:0,color:'#D4705B'},
-  {id:'h',code:'H',name:'現金',amount:0,color:'#8AADC5'},
-];
-const DEFAULT_COLORS = { c1:'#2B7FD4', c2:'#5BAEE8', c3:'#E8F3FB' };
-const DEFAULT_RULES = { socialFixed:2000, filialFixed:2000 };
-
-window.DB = {
-  tasks:[], projects:[], visions:[], goals:[],
-  virtualAccounts: JSON.parse(JSON.stringify(DEFAULT_VAC)),
-  expenses:[], assets: JSON.parse(JSON.stringify(DEFAULT_ASSETS)),
-  snapshots:[], incomeRecords:[],
-  colors: {...DEFAULT_COLORS},
-  rules: {...DEFAULT_RULES},
-  assetTarget: 5800000,
-};
-
-function save() {
-  localStorage.setItem('lifeos_v2', JSON.stringify(window.DB));
-  if (window.saveToFirebase) window.saveToFirebase(window.DB);
-}
-
-// Load from localStorage first
-try {
-  const raw = localStorage.getItem('lifeos_v2');
-  if (raw) { const d = JSON.parse(raw); window.DB = {...window.DB, ...d}; }
-} catch(e) {}
-
-function uid() { return Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
-function fmtM(n) { if(n===null||n===undefined)return'—'; return '$'+parseFloat(n).toLocaleString('zh-TW',{maximumFractionDigits:4}); }
-function fmtD(d) { if(!d)return''; return new Date(d+'T00:00:00').toLocaleDateString('zh-TW',{month:'numeric',day:'numeric'}); }
-function today() { return new Date().toISOString().slice(0,10); }
-function getVACBal(id) {
-  const v = DB.virtualAccounts.find(v=>v.id===id); if(!v)return 0;
-  return v.deposited - DB.expenses.filter(e=>e.accountId===id).reduce((s,e)=>s+e.amount,0);
-}
-function totalAssets() { return DB.assets.reduce((s,a)=>s+(a.amount||0),0); }
-
-// ══════════════════════════════════════════
+window.DB={tasks:[],projects:[],visions:[],goals:[],
+  virtualAccounts:[{id:'v1',name:'小確幸',deposited:0,pct:0.01},{id:'v2',name:'必需品',deposited:0,pct:0.09},{id:'v3',name:'變漂亮',deposited:0,pct:0.02},{id:'v4',name:'社交',deposited:0,pct:0},{id:'v5',name:'學習',deposited:0,pct:0.10},{id:'v6',name:'短期旅遊',deposited:0,pct:0.03},{id:'v7',name:'長期旅遊',deposited:0,pct:0.05},{id:'v8',name:'孝親',deposited:0,pct:0},{id:'v9',name:'儲蓄',deposited:0,pct:0}],
+  expenses:[],assets:[{id:'a',code:'A',name:'日常活存+外幣',amount:0,color:'#2B7FD4'},{id:'b',code:'B',name:'定存',amount:0,color:'#3BAD7A'},{id:'c',code:'C',name:'備用金+舊ETF',amount:0,color:'#8B7FD4'},{id:'d',code:'D',name:'股票交割戶',amount:0,color:'#D4A82B'},{id:'e',code:'E',name:'薪轉高利活存',amount:0,color:'#5BAEE8'},{id:'f',code:'F',name:'主力台股ETF',amount:0,color:'#4A9BD4'},{id:'g',code:'G',name:'海外ETF',amount:0,color:'#D4705B'},{id:'h',code:'H',name:'現金',amount:0,color:'#8AADC5'}],
+  snapshots:[],incomeRecords:[],schemes:[{id:'sch-default',name:'預設方案',desc:'標準分配',isDefault:true,socialFixed:2000,filialFixed:2000,alloc:{}}],
+  colors:{c1:'#2B7FD4',c2:'#5BAEE8',c3:'#E8F3FB'},assetTarget:5800000};
+try{const r=localStorage.getItem('lifeos_v3');if(r){const d=JSON.parse(r);window.DB={...window.DB,...d};}}catch(e){}
+function save(){localStorage.setItem('lifeos_v3',JSON.stringify(window.DB));if(window._saveToFB)window._saveToFB(window.DB);}
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const fmtM=n=>{if(n==null)return'—';return '$'+parseFloat(n).toLocaleString('zh-TW',{maximumFractionDigits:4});};
+const fmtD=d=>{if(!d)return'';try{return new Date(d+'T00:00:00').toLocaleDateString('zh-TW',{month:'numeric',day:'numeric'});}catch(e){return d;}};
+const today=()=>new Date().toISOString().slice(0,10);
+const getVACBal=id=>{const v=DB.virtualAccounts.find(v=>v.id===id);if(!v)return 0;return v.deposited-DB.expenses.filter(e=>e.accountId===id&&e.txType!=='income_direct').reduce((s,e)=>s+e.amount,0);};
+const totalAssets=()=>DB.assets.reduce((s,a)=>s+(a.amount||0),0);
+const getDefaultScheme=()=>DB.schemes.find(s=>s.isDefault)||DB.schemes[0];
+const getSchemeById=id=>DB.schemes.find(s=>s.id===id)||getDefaultScheme();
 // THEME
-// ══════════════════════════════════════════
-function applyTheme() {
-  const c = DB.colors || DEFAULT_COLORS;
-  document.documentElement.style.setProperty('--c1', c.c1||'#2B7FD4');
-  document.documentElement.style.setProperty('--c2', c.c2||'#5BAEE8');
-  document.documentElement.style.setProperty('--c3', c.c3||'#E8F3FB');
-  const hex = c.c3||'#E8F3FB';
-  document.documentElement.style.setProperty('--bg', hex);
-  document.documentElement.style.setProperty('--border', lighten(c.c1||'#2B7FD4', 0.6));
-  document.documentElement.style.setProperty('--border2', lighten(c.c1||'#2B7FD4', 0.4));
-  document.querySelector('meta[name=theme-color]').setAttribute('content', c.c3||'#EEF4FB');
+function applyTheme(){
+  const c=DB.colors||{},c1=c.c1||'#2B7FD4',c2=c.c2||'#5BAEE8',c3=c.c3||'#E8F3FB';
+  const r=document.documentElement.style;
+  r.setProperty('--c1',c1);r.setProperty('--c2',c2);r.setProperty('--c3',c3);r.setProperty('--bg',c3);
+  r.setProperty('--border',mix(c1,'#ffffff',0.75));r.setProperty('--border2',mix(c1,'#ffffff',0.55));
+  document.querySelector('meta[name=theme-color]').setAttribute('content',c1);
+  const ls=document.getElementById('loginScreen');if(ls)ls.style.background=c1;
+  const sbt=document.querySelector('.sb-top');if(sbt)sbt.style.background=c1;
 }
-function lighten(hex, amt) {
-  const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
-  const nr=Math.round(r+(255-r)*amt),ng=Math.round(g+(255-g)*amt),nb=Math.round(b+(255-b)*amt);
-  return '#'+[nr,ng,nb].map(x=>x.toString(16).padStart(2,'0')).join('');
-}
+function mix(h1,h2,t){const p=h=>[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];const[r1,g1,b1]=p(h1),[r2,g2,b2]=p(h2);return'#'+[Math.round(r1+(r2-r1)*t),Math.round(g1+(g2-g1)*t),Math.round(b1+(b2-b1)*t)].map(x=>x.toString(16).padStart(2,'0')).join('');}
 applyTheme();
-
-// ══════════════════════════════════════════
 // NAV
-// ══════════════════════════════════════════
-window._currentPage = 'home';
-const PAGE_TITLES = {home:'首頁',tasks:'執行清單',projects:'計畫庫',visions:'未來願景',cashflow:'現金流',assets:'實體資產',income:'收入分配',settings:'設定與自訂'};
-const PAGE_ACTIONS = {home:'+ 記帳',tasks:'+ 任務',projects:'+ 計畫',cashflow:'+ 記帳',assets:'+ 結算',income:'套用',settings:''};
-
-function nav(page) {
+window._curPage='home';
+const PAGE_BTN={home:'btn_new_tx',tasks:'btn_new_task',projects:'btn_new_proj',cashflow:'btn_new_tx',assets:'btn_update'};
+function nav(page){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-item,.mn-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('page-'+page).classList.add('active');
-  document.querySelectorAll('.nav-item,.mn-item').forEach(n=>{
-    if(n.getAttribute('onclick')&&n.getAttribute('onclick').includes("'"+page+"'")) n.classList.add('active');
-  });
-  const t = document.getElementById('topbar-title');
-  const d = document.getElementById('topbar-date');
-  const a = document.getElementById('topbar-action');
-  if(t) t.textContent = PAGE_TITLES[page]||page;
-  if(d) d.textContent = new Date().toLocaleDateString('zh-TW',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
-  if(a) { a.textContent = PAGE_ACTIONS[page]||''; a.style.display = PAGE_ACTIONS[page]?'':'none'; }
-  window._currentPage = page;
-  renderPage(page);
+  document.querySelectorAll('.nav-item,.mn-item').forEach(n=>{if(n.getAttribute('onclick')?.includes("'"+page+"'"))n.classList.add('active');});
+  st('tb-title',T('page_'+page));
+  const td=document.getElementById('tb-date');if(td)td.textContent=new Date().toLocaleDateString('zh-TW',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
+  const tb=document.getElementById('tb-btn');if(tb){const k=PAGE_BTN[page];if(k){tb.textContent=T(k);tb.style.display='';}else tb.style.display='none';}
+  window._curPage=page;renderPage(page);
 }
-
-function topbarAction() {
-  const p = window._currentPage;
-  if(p==='home'||p==='cashflow') openModal('expense-modal');
-  else if(p==='tasks') openModal('task-modal');
-  else if(p==='projects') openModal('proj-modal');
-  else if(p==='assets') openModal('asset-modal');
-  else if(p==='income') applyIncome();
+function topbarAct(){const p=window._curPage;if(p==='home'||p==='cashflow')openModal('expense-modal');else if(p==='tasks')openModal('task-modal');else if(p==='projects')openModal('proj-modal');else if(p==='assets')openModal('asset-modal');}
+function renderPage(page){
+  if(page==='home')renderHome();else if(page==='tasks')renderTasks();else if(page==='projects')renderProjects();
+  else if(page==='visions')renderVisions();else if(page==='cashflow'){renderVACs();renderExpenses();renderGoals();}
+  else if(page==='assets')renderAssets();else if(page==='income'){fillSchemeSelect();fillTypeSelects();calcIncome();renderIncomeRecords();}
+  else if(page==='settings')renderSettings();
 }
-
-function renderPage(page) {
-  if(page==='home') renderHome();
-  else if(page==='tasks') renderTasks();
-  else if(page==='projects') renderProjects();
-  else if(page==='visions') renderVisions();
-  else if(page==='cashflow') { renderVACs(); renderExpenses(); renderGoals(); }
-  else if(page==='assets') renderAssets();
-  else if(page==='income') { calcIncome(); renderIncomeRecords(); }
-  else if(page==='settings') renderSettings();
-}
-
-// ══════════════════════════════════════════
 // MODALS
-// ══════════════════════════════════════════
-function openModal(id) {
-  fillAccountSelects();
-  fillProjSelects();
-  document.getElementById(id).classList.add('open');
-  if(id==='asset-modal') renderAssetModalInputs();
-  document.querySelectorAll('#'+id+' input[type=date]').forEach(i=>{if(!i.value)i.value=today();});
-}
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function openModal(id){fillAccountSelects();fillProjSelects();fillTypeSelects();document.getElementById(id).classList.add('open');if(id==='asset-modal')renderAssetInputs();if(id==='scheme-modal'){fillSchemeAllocFields();document.getElementById('sch-edit-id').value='';}document.querySelectorAll('#'+id+' input[type=date]').forEach(i=>{if(!i.value)i.value=today();});}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
 document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
-
-function fillAccountSelects() {
-  const ids = ['p-account','v-account','e-account','dep-acct','g-account'];
-  ids.forEach(sid=>{
-    const sel=document.getElementById(sid); if(!sel)return;
-    const hasEmpty = ['p-account','v-account'].includes(sid);
-    sel.innerHTML = hasEmpty?'<option value="">不綁定</option>':'';
-    DB.virtualAccounts.forEach(v=>{ sel.innerHTML+=`<option value="${v.id}">${v.name}</option>`; });
-  });
-}
-function fillProjSelects() {
-  ['t-proj','g-proj'].forEach(sid=>{
-    const sel=document.getElementById(sid); if(!sel)return;
-    sel.innerHTML='<option value="">無</option>';
-    DB.projects.forEach(p=>{ sel.innerHTML+=`<option value="${p.id}">${p.emoji||''}${p.name}</option>`; });
-  });
-}
-
-// ══════════════════════════════════════════
+function fillAccountSelects(){['p-account','v-account','e-account','dep-acct','g-account'].forEach(sid=>{const sel=document.getElementById(sid);if(!sel)return;const hasEmpty=['p-account','v-account'].includes(sid);sel.innerHTML=hasEmpty?`<option value="">${T('lbl_none')}</option>`:'';DB.virtualAccounts.forEach(v=>{sel.innerHTML+=`<option value="${v.id}">${v.name}</option>`;});});}
+function fillProjSelects(){['t-proj','g-proj'].forEach(sid=>{const sel=document.getElementById(sid);if(!sel)return;sel.innerHTML=`<option value="">${T('lbl_none')}</option>`;DB.projects.forEach(p=>{sel.innerHTML+=`<option value="${p.id}">${p.emoji||''}${p.name}</option>`;});});}
+function fillSchemeSelect(){const sel=document.getElementById('inc-scheme');if(!sel)return;sel.innerHTML=DB.schemes.map(s=>`<option value="${s.id}">${s.name}${s.isDefault?' ★':''}</option>`).join('');}
 // HOME
-// ══════════════════════════════════════════
-function renderHome() {
-  const h=new Date().getHours();
-  // Task count
-  const td=today(), undone=DB.tasks.filter(t=>!t.done&&t.date===td);
-  document.getElementById('h-task-count').textContent = undone.length;
-  // Assets
-  const total=totalAssets(), target=DB.assetTarget||5800000;
-  document.getElementById('h-total-assets').textContent = fmtM(total);
-  document.getElementById('h-asset-pct').textContent = (total/target*100).toFixed(1)+'% 達成目標';
-  document.getElementById('h-asset-target').textContent = '目標 '+fmtM(target);
-  document.getElementById('h-prog').style.width = Math.min(total/target*100,100)+'%';
-  document.getElementById('h-prog-pct').textContent = (total/target*100).toFixed(1)+'%';
-  document.getElementById('h-prog-target').textContent = fmtM(target);
-  // Tasks
-  const allUndone=DB.tasks.filter(t=>!t.done).slice(0,6);
-  const display=undone.length?undone:allUndone;
-  const tel=document.getElementById('home-tasks');
-  tel.innerHTML = display.length ? display.map(t=>`
-    <div class="task-item">
-      <div class="task-cb ${t.done?'done':''}" onclick="toggleTask('${t.id}')"></div>
-      <span class="task-text ${t.done?'done':''}">${t.name}</span>
-      ${t.tag?`<span class="task-tag">${t.tag}</span>`:''}
-    </div>`).join('') : '<div class="empty"><div class="empty-icon">✓</div>今天沒有待辦</div>';
-  // Projects
-  const sixMo=new Date(); sixMo.setMonth(sixMo.getMonth()+6);
+function renderHome(){
+  const td=today(),undone=DB.tasks.filter(t=>!t.done&&t.date===td);
+  document.getElementById('h-tasks').textContent=undone.length;
+  const total=totalAssets(),target=DB.assetTarget||5800000,pct=total/target*100;
+  document.getElementById('h-assets').textContent=fmtM(total);
+  document.getElementById('h-pct').textContent=pct.toFixed(1)+T('pct_goal');
+  document.getElementById('h-target-lbl').textContent=T('goal_txt')+fmtM(target);
+  document.getElementById('h-prog').style.width=Math.min(pct,100)+'%';
+  document.getElementById('h-prog-pct').textContent=pct.toFixed(1)+'%';
+  document.getElementById('h-prog-target').textContent=fmtM(target);
+  const allUndone=DB.tasks.filter(t=>!t.done).slice(0,6),display=undone.length?undone:allUndone;
+  const doneT=DB.tasks.filter(t=>t.done&&t.date===td).length,totalT=DB.tasks.filter(t=>t.date===td).length;
+  document.getElementById('h-task-count').textContent=T('done_fmt').replace('{d}',doneT).replace('{t}',totalT);
+  document.getElementById('home-tasks').innerHTML=display.length?display.map(t=>`<div class="task-item"><div class="task-cb ${t.done?'done':''}" onclick="toggleTask('${t.id}')"></div><span class="task-text ${t.done?'done':''}">${t.name}</span>${t.tag?`<span class="task-tag">${t.tag}</span>`:''}</div>`).join(''):`<div class="empty"><div class="empty-icon">✓</div>${T('all_clear')}</div>`;
+  const sixMo=new Date();sixMo.setMonth(sixMo.getMonth()+6);
   const ap=DB.projects.filter(p=>p.status!=='done'&&p.type!=='long'&&(!p.endDate||new Date(p.endDate)<=sixMo)).slice(0,5);
-  document.getElementById('home-projects').innerHTML = ap.length ? ap.map(projCardHTML).join('') : '<div class="empty" style="grid-column:1/-1"><div class="empty-icon">◈</div>尚無計畫</div>';
-  // Alerts
-  const alerts=[];
-  DB.goals.forEach(g=>{
-    const bal=getVACBal(g.accountId), pct=g.targetAmount?bal/g.targetAmount*100:null;
-    if(pct!==null&&pct<50){ const v=DB.virtualAccounts.find(v=>v.id===g.accountId); alerts.push(`「${v?.name||''}」距 <b>${g.name}</b> 還差 ${fmtM(g.targetAmount-bal)}，目前 ${pct.toFixed(1)}%`); }
-  });
-  const ael=document.getElementById('home-alerts');
-  ael.innerHTML = alerts.length ? alerts.map(a=>`<div class="alert-box">⚠ ${a}</div>`).join('') : '<div style="font-size:13px;color:var(--text3)">目前所有目標進度良好 ✓</div>';
-  // Chart
+  document.getElementById('h-projs').innerHTML=ap.length?ap.map(projCardHTML).join(''):`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">◈</div>${T('no_active')}</div>`;
+  const alerts=[];DB.goals.forEach(g=>{const bal=getVACBal(g.accountId),p=g.targetAmount?bal/g.targetAmount*100:null;if(p!==null&&p<50){const v=DB.virtualAccounts.find(v=>v.id===g.accountId);alerts.push(`"${v?.name||''}" ${p.toFixed(1)}% → ${g.name}，${T('remaining')} ${fmtM(g.targetAmount-bal)}`);} });
+  document.getElementById('h-alerts').innerHTML=alerts.length?alerts.map(a=>`<div class="alert-box">⚠ ${a}</div>`).join(''):`<div style="font-size:13px;color:var(--text3)">${T('on_track')}</div>`;
   renderAssetChart();
-  // Visions
-  document.getElementById('home-visions').innerHTML = DB.visions.slice(0,3).map(visionCardHTML).join('');
+  document.getElementById('h-visions').innerHTML=DB.visions.slice(0,3).map(visionCardHTML).join('');
 }
-
-function renderAssetChart() {
-  const snaps=DB.snapshots.slice(-8), svg=document.getElementById('asset-svg');
-  if(snaps.length<2){ svg.innerHTML='<text x="200" y="40" text-anchor="middle" fill="#8AADC5" font-size="11" font-family="DM Sans">尚無足夠資料</text>'; return; }
-  const vals=snaps.map(s=>s.total), max=Math.max(...vals), min=Math.min(...vals), range=max-min||1;
-  const W=400,H=60,pad=8;
-  const pts=vals.map((v,i)=>{ const x=pad+(W-pad*2)*i/(vals.length-1),y=H-pad-(v-min)/range*(H-pad*2); return `${x},${y}`; }).join(' ');
-  const [lx,ly]=pts.split(' ').pop().split(',');
+function renderAssetChart(){
+  const snaps=DB.snapshots.slice(-8),svg=document.getElementById('asset-svg');
+  if(snaps.length<2){svg.innerHTML=`<text x="200" y="38" text-anchor="middle" fill="#8AADC5" font-size="11" font-family="DM Sans">${T('no_data')}</text>`;return;}
+  const vals=snaps.map(s=>s.total),max=Math.max(...vals),min=Math.min(...vals),range=max-min||1,W=400,H=55,pad=8;
+  const pts=vals.map((v,i)=>{const x=pad+(W-pad*2)*i/(vals.length-1),y=H-pad-(v-min)/range*(H-pad*2);return`${x},${y}`;}).join(' ');
+  const last=pts.split(' ').pop().split(',');
   const c1=getComputedStyle(document.documentElement).getPropertyValue('--c1').trim()||'#2B7FD4';
-  svg.innerHTML=`<polyline points="${pts}" stroke="${c1}" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="${pts} ${W-pad},${H} ${pad},${H}" fill="${c1}" opacity="0.08"/>
-    <circle cx="${lx}" cy="${ly}" r="3" fill="${c1}"/>`;
+  svg.innerHTML=`<polyline points="${pts}" stroke="${c1}" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><polygon points="${pts} ${W-pad},${H} ${pad},${H}" fill="${c1}" opacity="0.08"/><circle cx="${last[0]}" cy="${last[1]}" r="3" fill="${c1}"/>`;
 }
-
-// ══════════════════════════════════════════
 // TASKS
-// ══════════════════════════════════════════
-let _taskFilter='undone';
-function renderTasks(f) {
-  if(f) _taskFilter=f;
-  let tasks=[...DB.tasks];
-  if(_taskFilter==='today') tasks=tasks.filter(t=>t.date===today());
-  else if(_taskFilter==='done') tasks=tasks.filter(t=>t.done);
-  else tasks=tasks.filter(t=>!t.done);
-  const el=document.getElementById('task-list');
-  el.innerHTML = tasks.length ? tasks.map(t=>{
-    const p=DB.projects.find(p=>p.id===t.projectId);
-    return `<div class="task-item">
-      <div class="task-cb ${t.done?'done':''}" onclick="toggleTask('${t.id}')"></div>
-      <div style="flex:1">
-        <div class="task-text ${t.done?'done':''}">${t.name}</div>
-        <div style="font-size:11px;color:var(--text3);margin-top:1px">${t.date?fmtD(t.date):''}${p?' · '+(p.emoji||'')+p.name:''}${t.tag?' · '+t.tag:''}</div>
-      </div>
-      <span class="task-del" onclick="deleteTask('${t.id}')">×</span>
-    </div>`;
-  }).join('') : '<div class="empty"><div class="empty-icon">✓</div>沒有符合的任務</div>';
-}
-function filterTasks(f,btn) {
-  document.querySelectorAll('#page-tasks .btn').forEach(b=>b.classList.remove('btn-primary'));
-  btn.classList.add('btn-primary');
-  renderTasks(f);
-}
-function quickTask() {
-  const inp=document.getElementById('h-task-input'), name=inp.value.trim(); if(!name)return;
-  DB.tasks.push({id:uid(),name,date:today(),done:false,projectId:'',tag:''});
-  save(); inp.value=''; renderHome();
-}
-function saveTask() {
-  const name=document.getElementById('t-name').value.trim(); if(!name)return;
-  DB.tasks.push({id:uid(),name,date:document.getElementById('t-date').value,done:false,projectId:document.getElementById('t-proj').value,tag:document.getElementById('t-tag').value.trim()});
-  save(); closeModal('task-modal'); document.getElementById('t-name').value=''; renderTasks(); renderHome();
-}
-function toggleTask(id) {
-  const t=DB.tasks.find(t=>t.id===id); if(t){t.done=!t.done;save();}
-  renderPage(window._currentPage);
-}
-function deleteTask(id) { DB.tasks=DB.tasks.filter(t=>t.id!==id); save(); renderTasks(); }
-
-// ══════════════════════════════════════════
+let _tf='undone';
+function renderTasks(f){if(f)_tf=f;let tasks=[...DB.tasks];if(_tf==='today')tasks=tasks.filter(t=>t.date===today());else if(_tf==='done')tasks=tasks.filter(t=>t.done);else tasks=tasks.filter(t=>!t.done);document.getElementById('task-list').innerHTML=tasks.length?tasks.map(t=>{const p=DB.projects.find(p=>p.id===t.projectId);return`<div class="task-item"><div class="task-cb ${t.done?'done':''}" onclick="toggleTask('${t.id}')"></div><div style="flex:1"><div class="task-text ${t.done?'done':''}">${t.name}</div><div style="font-size:11px;color:var(--text3);margin-top:1px">${t.date?fmtD(t.date):''}${p?' · '+(p.emoji||'')+p.name:''}${t.tag?' · '+t.tag:''}</div></div><div class="task-actions"><span class="task-act-btn" onclick="editTask('${t.id}')">${T('btn_edit')}</span><span class="task-act-btn del" onclick="deleteTask('${t.id}')">${T('btn_del')}</span></div></div>`;}).join(''):`<div class="empty"><div class="empty-icon">✓</div>${T('no_tasks')}</div>`;}
+function filterTasks(f,btn){document.querySelectorAll('#page-tasks .btn').forEach(b=>b.classList.remove('btn-primary'));btn.classList.add('btn-primary');renderTasks(f);}
+function quickTask(){const i=document.getElementById('h-ti'),n=i.value.trim();if(!n)return;DB.tasks.push({id:uid(),name:n,date:today(),done:false,projectId:'',tag:''});save();i.value='';renderHome();}
+function editTask(id){const t=DB.tasks.find(t=>t.id===id);if(!t)return;st('task-modal-title',T('m_edit_task'));document.getElementById('t-edit-id').value=id;document.getElementById('t-name').value=t.name;document.getElementById('t-date').value=t.date||'';document.getElementById('t-tag').value=t.tag||'';fillProjSelects();document.getElementById('t-proj').value=t.projectId||'';openModal('task-modal');}
+function saveTask(){const name=document.getElementById('t-name').value.trim();if(!name)return;const editId=document.getElementById('t-edit-id').value;const data={name,date:document.getElementById('t-date').value,projectId:document.getElementById('t-proj').value,tag:document.getElementById('t-tag').value.trim()};if(editId){const t=DB.tasks.find(t=>t.id===editId);if(t)Object.assign(t,data);}else DB.tasks.push({id:uid(),done:false,...data});save();closeModal('task-modal');document.getElementById('t-name').value='';document.getElementById('t-edit-id').value='';st('task-modal-title',T('m_new_task'));renderTasks();renderHome();}
+function toggleTask(id){const t=DB.tasks.find(t=>t.id===id);if(t){t.done=!t.done;save();}renderPage(window._curPage);}
+function deleteTask(id){if(!confirm(T('c_del_task')))return;DB.tasks=DB.tasks.filter(t=>t.id!==id);save();renderTasks();}
 // PROJECTS
-// ══════════════════════════════════════════
-function projCardHTML(p) {
-  const pct=p.progress||0;
-  const smap={active:'進行中',planning:'規劃中',done:'已完成'};
-  const scls={active:'s-active',planning:'s-plan',done:'s-done'};
-  return `<div class="proj-card">
-    <div class="proj-emoji">${p.emoji||'📌'}</div>
-    <div class="proj-name">${p.name}</div>
-    <div class="proj-meta">${p.endDate?fmtD(p.endDate):'長期'}</div>
-    <div class="proj-bar"><div class="proj-bar-fill" style="width:${pct}%"></div></div>
-    <div class="proj-status ${scls[p.status]||'s-plan'}">${smap[p.status]||p.status}</div>
-  </div>`;
-}
-function renderProjects() {
-  const el=document.getElementById('proj-grid');
-  const projs=DB.projects.filter(p=>p.type!=='long');
-  el.innerHTML=projs.length?projs.map(projCardHTML).join(''):'<div class="empty" style="grid-column:1/-1"><div class="empty-icon">◈</div>尚無計畫</div>';
-}
-function saveProject() {
-  const name=document.getElementById('p-name').value.trim(); if(!name)return;
-  DB.projects.push({id:uid(),emoji:document.getElementById('p-emoji').value||'📌',name,type:document.getElementById('p-type').value,status:document.getElementById('p-status').value,startDate:document.getElementById('p-start').value,endDate:document.getElementById('p-end').value,accountId:document.getElementById('p-account').value,progress:0});
-  save(); closeModal('proj-modal'); document.getElementById('p-name').value=''; renderProjects();
-}
-
-// ══════════════════════════════════════════
+function projCardHTML(p){const pct=p.progress||0;const smap={active:T('p_active'),planning:T('p_planning'),done:T('p_done')};const scls={active:'s-active',planning:'s-plan',done:'s-done'};return`<div class="proj-card"><div class="card-actions"><span class="ca-btn" onclick="editProject('${p.id}')">${T('btn_edit')}</span><span class="ca-btn ca-del" onclick="deleteProject('${p.id}')">${T('btn_del')}</span></div><div class="proj-emoji">${p.emoji||'📌'}</div><div class="proj-name">${p.name}</div><div class="proj-meta">${p.endDate?fmtD(p.endDate):T('ongoing')}</div><div class="proj-bar"><div class="proj-fill" style="width:${pct}%"></div></div><div class="proj-status ${scls[p.status]||'s-plan'}">${smap[p.status]||p.status}</div></div>`;}
+function renderProjects(){const el=document.getElementById('proj-grid');const pp=DB.projects.filter(p=>p.type!=='long');el.innerHTML=pp.length?pp.map(projCardHTML).join(''):`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">◈</div>${T('no_proj')}</div>`;}
+function editProject(id){const p=DB.projects.find(p=>p.id===id);if(!p)return;st('proj-modal-title',T('m_edit_proj'));document.getElementById('p-edit-id').value=id;document.getElementById('p-emoji').value=p.emoji||'';document.getElementById('p-name').value=p.name;fillTypeSelects();document.getElementById('p-type').value=p.type||'short';document.getElementById('p-status').value=p.status||'planning';document.getElementById('p-start').value=p.startDate||'';document.getElementById('p-end').value=p.endDate||'';document.getElementById('p-prog').value=p.progress||0;fillAccountSelects();document.getElementById('p-account').value=p.accountId||'';openModal('proj-modal');}
+function saveProject(){const name=document.getElementById('p-name').value.trim();if(!name)return;const editId=document.getElementById('p-edit-id').value;const data={emoji:document.getElementById('p-emoji').value||'📌',name,type:document.getElementById('p-type').value,status:document.getElementById('p-status').value,startDate:document.getElementById('p-start').value,endDate:document.getElementById('p-end').value,progress:parseInt(document.getElementById('p-prog').value)||0,accountId:document.getElementById('p-account').value};if(editId){const p=DB.projects.find(p=>p.id===editId);if(p)Object.assign(p,data);}else DB.projects.push({id:uid(),...data});save();closeModal('proj-modal');document.getElementById('p-name').value='';document.getElementById('p-edit-id').value='';st('proj-modal-title',T('m_new_proj'));renderProjects();renderHome();}
+function deleteProject(id){if(!confirm(T('c_del_proj')))return;DB.projects=DB.projects.filter(p=>p.id!==id);save();renderProjects();}
 // VISIONS
-// ══════════════════════════════════════════
-function visionCardHTML(v) {
-  const bal=v.accountId?getVACBal(v.accountId):0, pct=v.goalAmount?Math.min(bal/v.goalAmount*100,100):null;
-  return `<div class="vision-card">
-    <div class="vision-icon">${v.emoji||'⭐'}</div>
-    <div class="vision-title">${v.name}</div>
-    <div class="vision-year">${v.year||''}</div>
-    <div class="vision-desc">${v.desc||''}</div>
-    ${pct!==null?`<div class="prog" style="margin-top:10px"><div class="prog-bar"><div class="prog-fill" style="width:${pct}%"></div></div><div class="prog-meta"><span>${fmtM(bal)}</span><span>${pct.toFixed(1)}%</span><span>${fmtM(v.goalAmount)}</span></div></div>`:''}
-  </div>`;
-}
-function renderVisions() {
-  const el=document.getElementById('vision-grid');
-  el.innerHTML=DB.visions.length?DB.visions.map(visionCardHTML).join(''):'<div class="empty" style="grid-column:1/-1"><div class="empty-icon">◎</div>尚無願景</div>';
-}
-function saveVision() {
-  const name=document.getElementById('v-name').value.trim(); if(!name)return;
-  const ga=parseFloat(document.getElementById('v-goal-amt').value)||null;
-  const v={id:uid(),emoji:document.getElementById('v-emoji').value||'⭐',name,year:document.getElementById('v-year').value,accountId:document.getElementById('v-account').value,desc:document.getElementById('v-desc').value.trim(),goalAmount:ga};
-  DB.visions.push(v);
-  if(ga&&v.accountId) DB.goals.push({id:uid(),name,accountId:v.accountId,targetAmount:ga,status:'active'});
-  save(); closeModal('vision-modal'); document.getElementById('v-name').value=''; renderVisions();
-}
-
-// ══════════════════════════════════════════
+function visionCardHTML(v){const bal=v.accountId?getVACBal(v.accountId):0,pct=v.goalAmount?Math.min(bal/v.goalAmount*100,100):null;return`<div class="vision-card"><div class="card-actions"><span class="ca-btn" onclick="editVision('${v.id}')">${T('btn_edit')}</span><span class="ca-btn ca-del" onclick="deleteVision('${v.id}')">${T('btn_del')}</span></div><div class="vision-icon">${v.emoji||'⭐'}</div><div class="vision-title">${v.name}</div><div class="vision-year">${v.year||''}</div><div class="vision-desc">${v.desc||''}</div>${pct!==null?`<div style="margin-top:10px"><div class="prog-bar" style="margin-top:0"><div class="prog-fill" style="width:${pct}%"></div></div><div class="prog-meta"><span>${fmtM(bal)}</span><span>${pct.toFixed(1)}%</span><span>${fmtM(v.goalAmount)}</span></div></div>`:''}</div>`;}
+function renderVisions(){document.getElementById('vision-grid').innerHTML=DB.visions.length?DB.visions.map(visionCardHTML).join(''):`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">◎</div>${T('no_visions')}</div>`;}
+function editVision(id){const v=DB.visions.find(v=>v.id===id);if(!v)return;st('vision-modal-title',T('m_edit_vision'));document.getElementById('v-edit-id').value=id;document.getElementById('v-emoji').value=v.emoji||'';document.getElementById('v-name').value=v.name;document.getElementById('v-year').value=v.year||'';document.getElementById('v-desc').value=v.desc||'';document.getElementById('v-goal-amt').value=v.goalAmount||'';fillAccountSelects();document.getElementById('v-account').value=v.accountId||'';openModal('vision-modal');}
+function saveVision(){const name=document.getElementById('v-name').value.trim();if(!name)return;const editId=document.getElementById('v-edit-id').value;const ga=parseFloat(document.getElementById('v-goal-amt').value)||null;const data={emoji:document.getElementById('v-emoji').value||'⭐',name,year:document.getElementById('v-year').value,accountId:document.getElementById('v-account').value,desc:document.getElementById('v-desc').value.trim(),goalAmount:ga};if(editId){const v=DB.visions.find(v=>v.id===editId);if(v)Object.assign(v,data);}else{const v={id:uid(),...data};DB.visions.push(v);if(ga&&v.accountId)DB.goals.push({id:uid(),name,accountId:v.accountId,targetAmount:ga,status:'active'});}save();closeModal('vision-modal');document.getElementById('v-name').value='';document.getElementById('v-edit-id').value='';st('vision-modal-title',T('m_new_vision'));renderVisions();renderHome();}
+function deleteVision(id){if(!confirm(T('c_del_vision')))return;DB.visions=DB.visions.filter(v=>v.id!==id);save();renderVisions();}
 // CASHFLOW
-// ══════════════════════════════════════════
-function cfTab(tab,btn) {
-  document.querySelectorAll('#page-cashflow .tab-btn').forEach(b=>b.classList.remove('active'));
-  document.querySelectorAll('#page-cashflow .tab-panel').forEach(p=>p.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('cf-'+tab).classList.add('active');
-}
-function renderVACs() {
-  const el=document.getElementById('vac-grid');
-  el.innerHTML=DB.virtualAccounts.map(v=>{
-    const bal=getVACBal(v.id);
-    const goals=DB.goals.filter(g=>g.accountId===v.id);
-    const goalsHTML=goals.length?`<div class="vac-goals">${goals.map(g=>{
-      const pct=g.targetAmount?Math.min(bal/g.targetAmount*100,100):0;
-      return `<div class="vac-goal"><div class="vac-goal-head"><span>${g.name}</span><span>${pct.toFixed(1)}%</span></div><div class="vac-gbar"><div class="vac-gfill" style="width:${pct}%"></div></div><div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-top:2px"><span>${fmtM(bal)}</span><span>${fmtM(g.targetAmount)}</span></div></div>`;
-    }).join('')}</div>`:'';
-    return `<div class="vac"><div class="vac-name">${v.name}</div><div class="vac-bal">${fmtM(bal)}</div><div class="vac-sub">累積撥入 ${fmtM(v.deposited)}</div>${goalsHTML}</div>`;
-  }).join('');
-}
-function renderExpenses() {
+function cfTab(tab,btn){document.querySelectorAll('#page-cashflow .tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('#page-cashflow .tab-panel').forEach(p=>p.classList.remove('active'));btn.classList.add('active');document.getElementById('cf-'+tab).classList.add('active');}
+function renderVACs(){document.getElementById('vac-grid').innerHTML=DB.virtualAccounts.map(v=>{const bal=getVACBal(v.id),goals=DB.goals.filter(g=>g.accountId===v.id);return`<div class="vac"><div class="card-actions"><span class="ca-btn" onclick="openDepositFor('${v.id}')">+</span></div><div class="vac-name">${v.name}</div><div class="vac-bal">${fmtM(bal)}</div><div class="vac-sub">${T('deposited')} ${fmtM(v.deposited)}</div>${goals.length?`<div class="vac-goals">${goals.map(g=>{const pct=g.targetAmount?Math.min(getVACBal(g.accountId)/g.targetAmount*100,100):0;return`<div class="vac-goal"><div class="vac-goal-hd"><span>${g.name}</span><span>${pct.toFixed(1)}%</span></div><div class="vac-gbar"><div class="vac-gfill" style="width:${pct}%"></div></div></div>`;}).join('')}</div>`:''}</div>`;}).join('');}
+function openDepositFor(vacId){openModal('deposit-modal');setTimeout(()=>{document.getElementById('dep-acct').value=vacId;},50);}
+function renderExpenses(){
   const el=document.getElementById('exp-list');
-  const sorted=[...DB.expenses].sort((a,b)=>(b.date||'').localeCompare(a.date||'')).slice(0,30);
-  const icons={餐飲:'🍜',交通:'🚌',購物:'🛍',娛樂:'🎵',醫療:'💊',其他:'📦'};
-  el.innerHTML=sorted.length?sorted.map(e=>{
-    const v=DB.virtualAccounts.find(v=>v.id===e.accountId);
-    return `<div class="exp-row"><div class="exp-icon">${icons[e.category]||'📦'}</div><div class="exp-info"><div class="exp-name">${e.name}</div><div class="exp-detail">${fmtD(e.date)} · ${v?.name||''} ${e.note?'· '+e.note:''}</div></div><div class="exp-right"><div class="exp-amt">-${fmtM(e.amount)}</div><div class="exp-del" onclick="deleteExp('${e.id}')">刪除</div></div></div>`;
-  }).join(''):'<div class="empty"><div class="empty-icon">💸</div>尚無消費記錄</div>';
+  const sorted=[...DB.expenses].sort((a,b)=>(b.date||'').localeCompare(a.date||'')).slice(0,40);
+  const catIcons={food:'🍜',transport:'🚌',shopping:'🛍',ent:'🎵',health:'💊',other:'📦',餐飲:'🍜',交通:'🚌',購物:'🛍',娛樂:'🎵',醫療:'💊',其他:'📦',Food:'🍜',Transport:'🚌',Shopping:'🛍',Entertainment:'🎵',Health:'💊',Other:'📦'};
+  el.innerHTML=sorted.length?sorted.map(e=>{const v=DB.virtualAccounts.find(v=>v.id===e.accountId),isIn=e.txType==='income_direct';return`<div class="exp-row"><div class="exp-icon ${isIn?'in-icon':''}">${isIn?'💰':(catIcons[e.category]||'📦')}</div><div class="exp-info"><div class="exp-name">${e.name}</div><div class="exp-detail">${fmtD(e.date)} · ${v?.name||''} ${e.note?'· '+e.note:''}</div></div><div style="display:flex;align-items:center;gap:8px"><div class="exp-amt ${isIn?'in':''}">${isIn?'+':'-'}${fmtM(e.amount)}</div><div class="exp-acts"><span class="icon-btn" onclick="editExpense('${e.id}')">${T('btn_edit')}</span><span class="icon-btn del" onclick="deleteExpense('${e.id}')">${T('btn_del')}</span></div></div></div>`;}).join(''):`<div class="empty"><div class="empty-icon">💸</div>${T('no_tx')}</div>`;
 }
-function renderGoals() {
-  const el=document.getElementById('goals-list');
-  el.innerHTML=DB.goals.length?DB.goals.map(g=>{
-    const v=DB.virtualAccounts.find(v=>v.id===g.accountId), bal=getVACBal(g.accountId);
-    const pct=g.targetAmount?Math.min(bal/g.targetAmount*100,100):0, diff=g.targetAmount-bal;
-    return `<div class="card" style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px"><div><div style="font-size:15px;font-weight:500">🚩 ${g.name}</div><div style="font-size:11px;color:var(--text3);margin-top:2px">${v?.name||'—'}</div></div><div style="text-align:right"><div style="font-size:13px;color:var(--c1)">${fmtM(bal)}</div><div style="font-size:11px;color:var(--text3)">目標 ${fmtM(g.targetAmount)}</div></div></div><div class="prog-bar"><div class="prog-fill" style="width:${pct}%"></div></div><div class="prog-meta"><span>${pct.toFixed(2)}%</span><span style="color:${diff>0?'var(--red)':'var(--green)'}">${diff>0?'還差 '+fmtM(diff):'已達成！'}</span></div><div style="text-align:right;margin-top:8px"><span style="font-size:11px;color:var(--text3);cursor:pointer" onclick="deleteGoal('${g.id}')">刪除</span></div></div>`;
-  }).join(''):'<div class="empty"><div class="empty-icon">🚩</div>尚無目標</div>';
-}
-function saveExpense() {
-  const name=document.getElementById('e-name').value.trim(), amount=parseFloat(document.getElementById('e-amount').value), accountId=document.getElementById('e-account').value;
-  if(!name||!amount||!accountId){alert('請填入名稱、金額、帳戶');return;}
-  DB.expenses.push({id:uid(),name,amount,date:document.getElementById('e-date').value||today(),accountId,category:document.getElementById('e-cat').value,note:document.getElementById('e-note').value.trim()});
-  save(); closeModal('expense-modal'); document.getElementById('e-name').value=''; document.getElementById('e-amount').value=''; document.getElementById('e-note').value='';
-  renderVACs(); renderExpenses(); renderGoals(); renderHome();
-}
-function deleteExp(id) { DB.expenses=DB.expenses.filter(e=>e.id!==id); save(); renderExpenses(); renderVACs(); renderGoals(); renderHome(); }
-function saveDeposit() {
-  const accountId=document.getElementById('dep-acct').value, amount=parseFloat(document.getElementById('dep-amt').value);
-  if(!accountId||!amount){alert('請選擇帳戶並輸入金額');return;}
-  const v=DB.virtualAccounts.find(v=>v.id===accountId); if(v) v.deposited+=amount;
-  save(); closeModal('deposit-modal'); document.getElementById('dep-amt').value=''; renderVACs(); renderHome();
-}
-function saveGoal() {
-  const name=document.getElementById('g-name').value.trim(), accountId=document.getElementById('g-account').value, amt=parseFloat(document.getElementById('g-amt').value);
-  if(!name||!accountId||!amt){alert('請填入名稱、帳戶、目標金額');return;}
-  DB.goals.push({id:uid(),name,accountId,targetAmount:amt,projectId:document.getElementById('g-proj').value,status:'active'});
-  save(); closeModal('goal-modal'); document.getElementById('g-name').value=''; document.getElementById('g-amt').value=''; renderGoals(); renderHome();
-}
-function deleteGoal(id) { DB.goals=DB.goals.filter(g=>g.id!==id); save(); renderGoals(); renderHome(); }
-
-// ══════════════════════════════════════════
+function renderGoals(){document.getElementById('goals-list').innerHTML=DB.goals.length?DB.goals.map(g=>{const v=DB.virtualAccounts.find(v=>v.id===g.accountId),bal=getVACBal(g.accountId);const pct=g.targetAmount?Math.min(bal/g.targetAmount*100,100):0,diff=g.targetAmount-bal;return`<div class="card" style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px"><div><div style="font-size:15px;font-weight:500">🚩 ${g.name}</div><div style="font-size:11px;color:var(--text3);margin-top:2px">${v?.name||'—'}</div></div><div style="text-align:right"><div style="font-size:13px;color:var(--c1)">${fmtM(bal)}</div><div style="font-size:11px;color:var(--text3)">${T('goal_col')} ${fmtM(g.targetAmount)}</div></div></div><div class="prog-bar" style="margin-top:0"><div class="prog-fill" style="width:${pct}%"></div></div><div class="prog-meta"><span>${pct.toFixed(2)}%</span><span style="color:${diff>0?'var(--red)':'var(--green)'}">${diff>0?T('remaining')+' '+fmtM(diff):T('goal_reached')}</span></div><div style="display:flex;gap:6px;margin-top:10px"><span class="icon-btn" onclick="editGoal('${g.id}')">${T('btn_edit')}</span><span class="icon-btn del" onclick="deleteGoal('${g.id}')">${T('btn_del')}</span></div></div>`;}).join(''):`<div class="empty"><div class="empty-icon">🚩</div>${T('no_goals')}</div>`;}
+function toggleExpType(){const t=document.getElementById('e-type').value,af=document.getElementById('e-account-field');if(af)af.style.display=t==='income_direct'?'none':'';}
+function saveExpense(){const name=document.getElementById('e-name').value.trim(),amount=parseFloat(document.getElementById('e-amount').value),txType=document.getElementById('e-type').value,accountId=document.getElementById('e-account').value;if(!name||!amount){alert(T('err_fill'));return;}if(txType!=='income_direct'&&!accountId){alert(T('err_acct'));return;}const editId=document.getElementById('e-edit-id').value;const data={name,amount,date:document.getElementById('e-date').value||today(),accountId,category:document.getElementById('e-cat').value,note:document.getElementById('e-note').value.trim(),txType};if(editId){const e=DB.expenses.find(e=>e.id===editId);if(e)Object.assign(e,data);}else DB.expenses.push({id:uid(),...data});save();closeModal('expense-modal');['e-name','e-amount','e-note'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});document.getElementById('e-edit-id').value='';renderVACs();renderExpenses();renderGoals();renderHome();}
+function editExpense(id){const e=DB.expenses.find(e=>e.id===id);if(!e)return;st('exp-modal-title',T('m_edit_tx'));document.getElementById('e-edit-id').value=id;document.getElementById('e-type').value=e.txType||'expense';document.getElementById('e-name').value=e.name;document.getElementById('e-amount').value=e.amount;document.getElementById('e-date').value=e.date||'';document.getElementById('e-cat').value=e.category||'other';document.getElementById('e-note').value=e.note||'';fillAccountSelects();document.getElementById('e-account').value=e.accountId||'';toggleExpType();openModal('expense-modal');}
+function deleteExpense(id){if(!confirm(T('c_del_tx')))return;DB.expenses=DB.expenses.filter(e=>e.id!==id);save();renderExpenses();renderVACs();renderGoals();renderHome();}
+function saveDeposit(){const accountId=document.getElementById('dep-acct').value,amount=parseFloat(document.getElementById('dep-amt').value);if(!accountId||!amount){alert(T('err_all'));return;}const v=DB.virtualAccounts.find(v=>v.id===accountId);if(v)v.deposited+=amount;save();closeModal('deposit-modal');document.getElementById('dep-amt').value='';document.getElementById('dep-note').value='';renderVACs();renderHome();}
+function editGoal(id){const g=DB.goals.find(g=>g.id===id);if(!g)return;st('goal-modal-title',T('m_edit_goal'));document.getElementById('g-edit-id').value=id;document.getElementById('g-name').value=g.name;document.getElementById('g-amt').value=g.targetAmount||'';fillAccountSelects();document.getElementById('g-account').value=g.accountId||'';fillProjSelects();document.getElementById('g-proj').value=g.projectId||'';openModal('goal-modal');}
+function saveGoal(){const name=document.getElementById('g-name').value.trim(),accountId=document.getElementById('g-account').value,amt=parseFloat(document.getElementById('g-amt').value);if(!name||!accountId||!amt){alert(T('err_all'));return;}const editId=document.getElementById('g-edit-id').value;const data={name,accountId,targetAmount:amt,projectId:document.getElementById('g-proj').value,status:'active'};if(editId){const g=DB.goals.find(g=>g.id===editId);if(g)Object.assign(g,data);}else DB.goals.push({id:uid(),...data});save();closeModal('goal-modal');document.getElementById('g-name').value='';document.getElementById('g-edit-id').value='';st('goal-modal-title',T('m_new_goal'));renderGoals();renderHome();}
+function deleteGoal(id){if(!confirm(T('c_del_goal')))return;DB.goals=DB.goals.filter(g=>g.id!==id);save();renderGoals();renderHome();}
 // ASSETS
-// ══════════════════════════════════════════
-function renderAssets() {
-  const el=document.getElementById('asset-list');
-  el.innerHTML=DB.assets.map(a=>`<div class="acc-row"><div class="acc-dot" style="background:${a.color}"></div><span class="acc-name">${a.name}<span class="acc-code">${a.code}</span></span><span class="acc-val">${fmtM(a.amount)}</span></div>`).join('');
-  const total=totalAssets(), target=DB.assetTarget||5800000, pct=total/target*100;
-  document.getElementById('asset-total').textContent=fmtM(total);
-  document.getElementById('asset-prog').style.width=Math.min(pct,100)+'%';
-  document.getElementById('asset-prog-pct').textContent=pct.toFixed(1)+'%';
-  document.getElementById('asset-prog-target').textContent='目標 '+fmtM(target);
-  const snaps=[...DB.snapshots].reverse().slice(0,6);
-  document.getElementById('snap-list').innerHTML=snaps.length?snaps.map(s=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px"><span style="color:var(--text3)">${s.date}</span><span style="color:var(--c1)">${fmtM(s.total)}</span></div>`).join(''):'<div class="empty">尚無快照</div>';
-}
-function renderAssetModalInputs() {
-  document.getElementById('asset-modal-inputs').innerHTML=DB.assets.map(a=>`<div class="field"><label>${a.name} (${a.code})</label><input type="number" id="ai-${a.id}" value="${a.amount}" step="any" placeholder="0"></div>`).join('');
-}
-function saveAssets() {
-  DB.assets.forEach(a=>{ const v=parseFloat(document.getElementById('ai-'+a.id)?.value)||0; a.amount=v; });
-  DB.snapshots.push({date:new Date().toLocaleDateString('zh-TW'),total:totalAssets()});
-  save(); closeModal('asset-modal'); renderAssets(); renderHome();
-}
-
-// ══════════════════════════════════════════
+function renderAssets(){document.getElementById('asset-list').innerHTML=DB.assets.map(a=>`<div class="acc-row"><div class="acc-dot" style="background:${a.color}"></div><span class="acc-name">${a.name}<span class="acc-code">${a.code}</span></span><span class="acc-val">${fmtM(a.amount)}</span></div>`).join('');const total=totalAssets(),target=DB.assetTarget||5800000,pct=total/target*100;document.getElementById('asset-total').textContent=fmtM(total);document.getElementById('asset-prog').style.width=Math.min(pct,100)+'%';document.getElementById('asset-prog-pct').textContent=pct.toFixed(1)+'%';document.getElementById('asset-prog-target').textContent=T('goal_col')+fmtM(target);const snaps=[...DB.snapshots].reverse().slice(0,6);document.getElementById('snap-list').innerHTML=snaps.length?snaps.map(s=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px"><span style="color:var(--text3)">${s.date}</span><span style="color:var(--c1)">${fmtM(s.total)}</span></div>`).join(''):`<div class="empty">${T('no_snaps')}</div>`;}
+function renderAssetInputs(){document.getElementById('asset-modal-inputs').innerHTML=DB.assets.map(a=>`<div class="field"><label>${a.name} (${a.code})</label><input type="number" id="ai-${a.id}" value="${a.amount}" step="any"></div>`).join('');}
+function saveAssets(){DB.assets.forEach(a=>{const v=parseFloat(document.getElementById('ai-'+a.id)?.value)||0;a.amount=v;});DB.snapshots.push({date:new Date().toLocaleDateString('zh-TW'),total:totalAssets()});save();closeModal('asset-modal');renderAssets();renderHome();}
 // INCOME
-// ══════════════════════════════════════════
-const FIXED_ALLOC_IDS = {
-  '小確幸':'v1','必需品':'v2','變漂亮':'v3',
-  '學習':'v5','短期旅遊':'v6','長期旅遊':'v7',
-};
 let _lastCalc=null;
-
-function updateIncTypes() {
-  const src=document.getElementById('inc-src').value;
-  const te=document.getElementById('inc-type');
-  te.innerHTML=src==='parents'?'<option value="extra">額外</option><option value="hongbao">紅包</option>':'<option value="salary">正職</option><option value="bonus_annual">年終</option><option value="bonus_perf">績效</option><option value="extra">額外</option>';
-  calcIncome();
-}
-
-function calcIncome() {
+function updateIncTypes(){const src=document.getElementById('inc-src')?.value,te=document.getElementById('inc-type');if(!te)return;te.innerHTML=src==='parents'?`<option value="extra">${T('t_extra')}</option><option value="hongbao">${T('t_red')}</option>`:`<option value="salary">${T('t_salary')}</option><option value="bonus_annual">${T('t_year')}</option><option value="bonus_perf">${T('t_perf')}</option><option value="extra">${T('t_extra')}</option>`;calcIncome();}
+function calcIncome(){
   const raw=parseFloat(document.getElementById('inc-amt')?.value)||0;
-  const src=document.getElementById('inc-src')?.value, type=document.getElementById('inc-type')?.value;
-  const rule=document.getElementById('inc-rule'), result=document.getElementById('inc-result');
+  const src=document.getElementById('inc-src')?.value,type=document.getElementById('inc-type')?.value;
+  const schemeId=document.getElementById('inc-scheme')?.value;
+  const scheme=schemeId?getSchemeById(schemeId):getDefaultScheme();
+  const rule=document.getElementById('inc-rule'),result=document.getElementById('inc-result');
   if(!rule||!result)return;
-  const social=DB.rules?.socialFixed||2000, filial=DB.rules?.filialFixed||2000;
-  if(type==='hongbao'){rule.textContent='🧧 父母紅包 → 全額存入儲蓄';if(!raw){result.innerHTML='';return;}
-    _lastCalc=[{name:'儲蓄',id:'v9',amount:raw,pct:'100%',special:true}];result.innerHTML=resultHTML(_lastCalc,raw);return;}
-  if(src==='parents')rule.textContent='父母 · 額外 → 固定 30%，剩下 70% 進孝親';
-  else if(type==='salary')rule.textContent=`自己 · 正職 → 固定 30%，再存社交 ${fmtM(social)}、孝親 ${fmtM(filial)}，其餘進儲蓄`;
-  else rule.textContent='自己 · 非正職 → 固定 30%，剩下 70% 進儲蓄';
+  const social=scheme.socialFixed??2000,filial=scheme.filialFixed??2000;
+  if(type==='hongbao'){rule.textContent=T('rule_red');if(!raw){result.innerHTML='';return;}const savings=DB.virtualAccounts.find(v=>v.id==='v9');_lastCalc=[{name:savings?.name||'儲蓄',id:'v9',amount:raw,pct:'100%',special:true}];result.innerHTML=resultHTML(_lastCalc,raw);return;}
+  if(src==='parents')rule.textContent=T('rule_parents');
+  else if(type==='salary')rule.textContent=T('rule_salary').replace('{s}',fmtM(social)).replace('{f}',fmtM(filial));
+  else rule.textContent=T('rule_other');
   if(!raw){result.innerHTML='';return;}
-  const rows=[]; let rem=raw;
-  DB.virtualAccounts.forEach(v=>{
-    if(!v.pct||v.pct<=0)return;
-    const amt=raw*v.pct; rows.push({name:v.name,id:v.id,amount:amt,pct:(v.pct*100)+'%',special:false}); rem-=amt;
-  });
-  if(src==='parents'){rows.push({name:'孝親',id:'v8',amount:rem,pct:'70%（剩餘）',special:true});}
-  else if(type==='salary'){rows.push({name:'社交',id:'v4',amount:social,pct:fmtM(social)+' 固定',special:true});rows.push({name:'孝親',id:'v8',amount:filial,pct:fmtM(filial)+' 固定',special:true});rows.push({name:'儲蓄',id:'v9',amount:Math.max(0,rem-social-filial),pct:'剩餘',special:true});}
-  else{rows.push({name:'儲蓄',id:'v9',amount:rem,pct:'70%（剩餘）',special:true});}
-  _lastCalc=rows; result.innerHTML=resultHTML(rows,raw);
+  const rows=[];let rem=raw;
+  DB.virtualAccounts.forEach(v=>{const pct=scheme.alloc?.[v.id]??v.pct;if(!pct||pct<=0)return;const amt=raw*pct;rows.push({name:v.name,id:v.id,amount:amt,pct:(pct*100).toFixed(1)+'%',special:false});rem-=amt;});
+  const v8=DB.virtualAccounts.find(v=>v.id==='v8'),v4=DB.virtualAccounts.find(v=>v.id==='v4'),v9=DB.virtualAccounts.find(v=>v.id==='v9');
+  if(src==='parents')rows.push({name:v8?.name||'孝親',id:'v8',amount:rem,pct:'70%',special:true});
+  else if(type==='salary'){rows.push({name:v4?.name||'社交',id:'v4',amount:social,pct:T('fixed_lbl'),special:true});rows.push({name:v8?.name||'孝親',id:'v8',amount:filial,pct:T('fixed_lbl'),special:true});rows.push({name:v9?.name||'儲蓄',id:'v9',amount:Math.max(0,rem-social-filial),pct:T('remainder'),special:true});}
+  else rows.push({name:v9?.name||'儲蓄',id:'v9',amount:rem,pct:'70%',special:true});
+  _lastCalc=rows;result.innerHTML=resultHTML(rows,raw);
 }
-
-function resultHTML(rows,total) {
-  return `<div>${rows.map(r=>`<div class="formula-row"><div><div class="formula-name">${r.name}</div><div class="formula-pct">${r.pct}</div></div><div class="formula-amt ${r.special?'special':''}">${fmtM(r.amount)}</div></div>`).join('')}</div><div class="total-strip"><span class="total-lbl">合計</span><span style="font-size:16px;font-weight:500;color:var(--c1)">${fmtM(total)}</span></div>`;
-}
-
-function applyIncome() {
-  if(!_lastCalc||!_lastCalc.length){alert('請先輸入收入金額');return;}
-  _lastCalc.forEach(r=>{ const v=DB.virtualAccounts.find(v=>v.id===r.id); if(v)v.deposited+=r.amount; });
-  save(); saveIncome(); alert('✓ 已套用到各虛擬帳戶！'); renderPage('cashflow'); renderHome();
-}
-function saveIncome() {
-  const raw=parseFloat(document.getElementById('inc-amt')?.value)||0; if(!raw)return;
-  const src=document.getElementById('inc-src').value, type=document.getElementById('inc-type').value;
-  const srcL=src==='self'?'自己':'父母';
-  const typeM={salary:'正職',bonus_annual:'年終',bonus_perf:'績效',extra:'額外',hongbao:'紅包'};
-  DB.incomeRecords.push({id:uid(),date:today(),amount:raw,source:srcL,type:typeM[type]||type,allocation:_lastCalc?[..._lastCalc]:[]});
-  save(); renderIncomeRecords();
-}
-function renderIncomeRecords() {
-  const el=document.getElementById('income-records'); if(!el)return;
-  const recs=[...DB.incomeRecords].reverse();
-  el.innerHTML=recs.length?recs.slice(0,10).map(r=>`<div style="padding:12px 0;border-bottom:1px solid var(--border)"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><div><span style="font-size:14px;font-weight:500">${fmtM(r.amount)}</span><span style="font-size:11px;color:var(--text3);margin-left:8px">${r.source} · ${r.type}</span></div><span style="font-size:11px;color:var(--text3)">${fmtD(r.date)}</span></div>${r.allocation?`<div style="display:flex;flex-wrap:wrap;gap:5px">${r.allocation.map(a=>`<span style="font-size:10px;padding:2px 7px;border-radius:20px;background:var(--c3);color:var(--c1)">${a.name} ${fmtM(a.amount)}</span>`).join('')}</div>`:''}</div>`).join(''):'<div class="empty">尚無收入記錄</div>';
-}
-
-// ══════════════════════════════════════════
+function resultHTML(rows,total){return`<div>${rows.map(r=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)"><div><div style="font-size:13px;color:var(--text2)">${r.name}</div><div style="font-size:11px;color:var(--text3)">${r.pct}</div></div><div style="font-size:13px;font-weight:500;color:${r.special?'var(--green)':'var(--c1)'}">${fmtM(r.amount)}</div></div>`).join('')}</div><div class="total-strip"><span class="total-lbl">${T('total_in')}</span><span style="font-size:16px;font-weight:500;color:var(--c1)">${fmtM(total)}</span></div>`;}
+function applyIncome(){if(!_lastCalc?.length){alert(T('err_amt'));return;}_lastCalc.forEach(r=>{const v=DB.virtualAccounts.find(v=>v.id===r.id);if(v)v.deposited+=r.amount;});save();saveIncome();alert(T('ok_applied'));renderPage('cashflow');renderHome();}
+function saveIncome(){const raw=parseFloat(document.getElementById('inc-amt')?.value)||0;if(!raw)return;const schemeId=document.getElementById('inc-scheme')?.value;const scheme=schemeId?getSchemeById(schemeId):getDefaultScheme();DB.incomeRecords.push({id:uid(),date:today(),amount:raw,source:document.getElementById('inc-src').value,type:document.getElementById('inc-type').value,schemeName:scheme.name,allocation:_lastCalc?[..._lastCalc]:[]});save();renderIncomeRecords();}
+function renderIncomeRecords(){const el=document.getElementById('income-records');if(!el)return;const recs=[...DB.incomeRecords].reverse();el.innerHTML=recs.length?recs.slice(0,10).map(r=>`<div style="padding:11px 0;border-bottom:1px solid var(--border)"><div style="display:flex;justify-content:space-between;margin-bottom:5px"><div><span style="font-size:14px;font-weight:500">${fmtM(r.amount)}</span><span style="font-size:11px;color:var(--text3);margin-left:8px">${r.source} · ${r.type} · ${r.schemeName||''}</span></div><div style="display:flex;align-items:center;gap:6px"><span style="font-size:11px;color:var(--text3)">${fmtD(r.date)}</span><span class="icon-btn del" onclick="deleteIncomeRecord('${r.id}')">${T('btn_del')}</span></div></div>${r.allocation?`<div style="display:flex;flex-wrap:wrap;gap:5px">${r.allocation.map(a=>`<span style="font-size:10px;padding:2px 7px;border-radius:20px;background:var(--c3);color:var(--c1)">${a.name} ${fmtM(a.amount)}</span>`).join('')}</div>`:''}</div>`).join(''):`<div class="empty">${T('no_income')}</div>`;}
+function deleteIncomeRecord(id){if(!confirm(T('c_del_rec')))return;DB.incomeRecords=DB.incomeRecords.filter(r=>r.id!==id);save();renderIncomeRecords();}
+// SCHEMES
+function fillSchemeAllocFields(){const el=document.getElementById('sch-alloc-fields');if(!el)return;el.innerHTML=`<div style="font-size:12px;color:var(--text3);margin:10px 0 6px">${T('lbl_sch_alloc')}</div>`+DB.virtualAccounts.filter(v=>v.pct>0).map(v=>`<div class="input-row" style="align-items:center"><div class="field" style="flex:1;margin-bottom:6px"><label>${v.name}</label><input type="number" id="sch-a-${v.id}" placeholder="${(v.pct*100).toFixed(1)}" step="any" min="0" max="100"></div><span style="font-size:12px;color:var(--text3);padding-top:16px">%</span></div>`).join('');document.getElementById('sch-social').value=2000;document.getElementById('sch-filial').value=2000;}
+function addScheme(){st('scheme-modal-title',T('m_new_scheme'));document.getElementById('sch-edit-id').value='';document.getElementById('sch-name').value='';document.getElementById('sch-desc').value='';fillSchemeAllocFields();openModal('scheme-modal');}
+function saveScheme(){const name=document.getElementById('sch-name').value.trim();if(!name){alert(T('err_scheme'));return;}const editId=document.getElementById('sch-edit-id').value;const alloc={};DB.virtualAccounts.forEach(v=>{const inp=document.getElementById('sch-a-'+v.id);if(inp&&inp.value)alloc[v.id]=parseFloat(inp.value)/100;});const data={name,desc:document.getElementById('sch-desc').value.trim(),socialFixed:parseFloat(document.getElementById('sch-social').value)||2000,filialFixed:parseFloat(document.getElementById('sch-filial').value)||2000,alloc};if(editId){const s=DB.schemes.find(s=>s.id===editId);if(s)Object.assign(s,data);}else DB.schemes.push({id:uid(),isDefault:DB.schemes.length===0,...data});save();closeModal('scheme-modal');renderSettings();fillSchemeSelect();}
+function setDefaultScheme(id){DB.schemes.forEach(s=>s.isDefault=(s.id===id));save();renderSettings();fillSchemeSelect();}
+function deleteScheme(id){if(DB.schemes.length<=1){alert(T('keep_scheme'));return;}if(!confirm(T('c_del_scheme')))return;DB.schemes=DB.schemes.filter(s=>s.id!==id);if(!DB.schemes.find(s=>s.isDefault))DB.schemes[0].isDefault=true;save();renderSettings();fillSchemeSelect();}
+function editScheme(id){const s=DB.schemes.find(s=>s.id===id);if(!s)return;st('scheme-modal-title',T('m_edit_scheme'));document.getElementById('sch-edit-id').value=id;document.getElementById('sch-name').value=s.name;document.getElementById('sch-desc').value=s.desc||'';fillSchemeAllocFields();setTimeout(()=>{if(s.alloc)Object.entries(s.alloc).forEach(([vid,pct])=>{const inp=document.getElementById('sch-a-'+vid);if(inp)inp.value=(pct*100).toFixed(1);});document.getElementById('sch-social').value=s.socialFixed||2000;document.getElementById('sch-filial').value=s.filialFixed||2000;},50);openModal('scheme-modal');}
 // SETTINGS
-// ══════════════════════════════════════════
-function renderSettings() {
-  const c=DB.colors||DEFAULT_COLORS;
-  document.getElementById('color-settings').innerHTML=`
-    <div class="settings-row"><div><div class="settings-row-label">主色（按鈕、強調）</div></div><div class="settings-row-ctrl"><input type="color" id="sc1" value="${c.c1||'#2B7FD4'}" style="width:44px;height:32px;padding:2px;cursor:pointer;border-radius:6px"></div></div>
-    <div class="settings-row"><div><div class="settings-row-label">副色（漸層、次要）</div></div><div class="settings-row-ctrl"><input type="color" id="sc2" value="${c.c2||'#5BAEE8'}" style="width:44px;height:32px;padding:2px;cursor:pointer;border-radius:6px"></div></div>
-    <div class="settings-row"><div><div class="settings-row-label">底色（背景、卡片底）</div></div><div class="settings-row-ctrl"><input type="color" id="sc3" value="${c.c3||'#E8F3FB'}" style="width:44px;height:32px;padding:2px;cursor:pointer;border-radius:6px"></div></div>`;
-  // VAC settings
-  document.getElementById('vac-settings').innerHTML=DB.virtualAccounts.map((v,i)=>`
-    <div class="settings-row" id="vac-row-${i}">
-      <div class="settings-row-ctrl" style="gap:6px;flex:1">
-        <input type="text" value="${v.name}" id="vac-n-${i}" style="width:80px">
-        <input type="number" value="${(v.pct*100)}" id="vac-p-${i}" placeholder="%" step="any" style="width:60px"> %
-        <span style="font-size:11px;color:var(--text3)">(0=固定規則)</span>
-        <span style="font-size:18px;cursor:pointer;color:var(--text3)" onclick="removeVAC(${i})">×</span>
-      </div>
-    </div>`).join('');
-  // Alloc rules
-  const r=DB.rules||DEFAULT_RULES;
-  document.getElementById('s-social').value=r.socialFixed||2000;
-  document.getElementById('s-filial').value=r.filialFixed||2000;
-  // Asset settings
-  document.getElementById('asset-settings').innerHTML=DB.assets.map((a,i)=>`
-    <div class="settings-row">
-      <div class="settings-row-ctrl" style="gap:6px;flex:1">
-        <input type="text" value="${a.code}" id="ast-c-${i}" style="width:36px">
-        <input type="text" value="${a.name}" id="ast-n-${i}" style="flex:1">
-        <input type="color" value="${a.color}" id="ast-col-${i}" style="width:36px;height:30px;padding:2px;cursor:pointer;border-radius:4px">
-        <span style="font-size:18px;cursor:pointer;color:var(--text3)" onclick="removeAsset(${i})">×</span>
-      </div>
-    </div>`).join('');
-  // Target
+function renderSettings(){
+  const c=DB.colors||{};
+  document.getElementById('sc1').value=c.c1||'#2B7FD4';document.getElementById('sc2').value=c.c2||'#5BAEE8';document.getElementById('sc3').value=c.c3||'#E8F3FB';
+  document.getElementById('vac-settings').innerHTML=DB.virtualAccounts.map((v,i)=>`<div class="settings-row"><div class="settings-row-ctrl" style="gap:6px;flex:1;flex-wrap:wrap"><input type="text" value="${v.name}" id="vn-${i}" style="width:90px"><input type="number" value="${(v.pct*100)}" id="vp-${i}" step="any" style="width:60px"><span style="font-size:11px;color:var(--text3)">${T('pct_hint')}</span><span style="font-size:18px;cursor:pointer;color:var(--text3)" onclick="removeVAC(${i})">×</span></div></div>`).join('');
+  document.getElementById('scheme-settings').innerHTML=DB.schemes.map(s=>`<div class="scheme-card ${s.isDefault?'default-scheme':''}"><div class="scheme-name">${s.name}${s.isDefault?`<span class="scheme-badge">${T('badge_def')}</span>`:''}</div><div class="scheme-desc">${s.desc||''}</div><div class="scheme-actions">${!s.isDefault?`<button class="btn btn-sm" onclick="setDefaultScheme('${s.id}')">${T('btn_set_def')}</button>`:''}<button class="btn btn-sm" onclick="editScheme('${s.id}')">${T('btn_edit')}</button>${DB.schemes.length>1?`<button class="btn btn-sm btn-danger" onclick="deleteScheme('${s.id}')">${T('btn_del')}</button>`:''}</div></div>`).join('');
+  document.getElementById('asset-settings').innerHTML=DB.assets.map((a,i)=>`<div class="settings-row"><div class="settings-row-ctrl" style="gap:6px;flex:1;flex-wrap:wrap"><input type="text" value="${a.code}" id="ac-${i}" style="width:36px"><input type="text" value="${a.name}" id="an-${i}" style="flex:1;min-width:100px"><input type="color" value="${a.color}" id="acol-${i}" style="width:36px;height:30px;padding:2px;cursor:pointer;border-radius:4px;border:1px solid var(--border2)"><span style="font-size:18px;cursor:pointer;color:var(--text3)" onclick="removeAsset(${i})">×</span></div></div>`).join('');
   document.getElementById('s-target').value=DB.assetTarget||5800000;
+  const su=document.getElementById('s-user'),sb=document.getElementById('s-auth-btn');
+  if(su)su.textContent=window._fbUser?(window._fbUser.displayName||window._fbUser.email):T('not_signed');
+  if(sb)sb.textContent=window._fbUser?T('sign_out'):T('sign_in');
+  const zh=document.getElementById('lang-zh'),en=document.getElementById('lang-en');
+  if(zh)zh.className='lang-btn'+(_lang==='zh'?' active':'');if(en)en.className='lang-btn'+(_lang==='en'?' active':'');
 }
-function applyColors() {
-  DB.colors={c1:document.getElementById('sc1').value,c2:document.getElementById('sc2').value,c3:document.getElementById('sc3').value};
-  save(); applyTheme(); alert('✓ 配色已套用！');
-}
-function addVAC() {
-  DB.virtualAccounts.push({id:uid(),name:'新帳戶',deposited:0,pct:0});
-  save(); renderSettings();
-}
-function removeVAC(i) {
-  if(DB.virtualAccounts.length<=1){alert('至少保留一個帳戶');return;}
-  DB.virtualAccounts.splice(i,1); save(); renderSettings();
-}
-function saveVACSettings() {
-  DB.virtualAccounts.forEach((v,i)=>{
-    const n=document.getElementById('vac-n-'+i)?.value.trim(), p=parseFloat(document.getElementById('vac-p-'+i)?.value)||0;
-    if(n)v.name=n; v.pct=p/100;
-  });
-  save(); alert('✓ 帳戶設定已儲存！'); renderSettings();
-}
-function saveAllocSettings() {
-  if(!DB.rules)DB.rules={};
-  DB.rules.socialFixed=parseFloat(document.getElementById('s-social').value)||2000;
-  DB.rules.filialFixed=parseFloat(document.getElementById('s-filial').value)||2000;
-  save(); alert('✓ 分配規則已儲存！');
-}
-function addAssetAccount() {
-  DB.assets.push({id:uid(),code:'?',name:'新帳戶',amount:0,color:'#8AADC5'});
-  save(); renderSettings();
-}
-function removeAsset(i) {
-  DB.assets.splice(i,1); save(); renderSettings();
-}
-function saveAssetSettings() {
-  DB.assets.forEach((a,i)=>{
-    const c=document.getElementById('ast-c-'+i)?.value.trim(), n=document.getElementById('ast-n-'+i)?.value.trim(), col=document.getElementById('ast-col-'+i)?.value;
-    if(c)a.code=c; if(n)a.name=n; if(col)a.color=col;
-  });
-  save(); alert('✓ 實體帳戶設定已儲存！'); renderSettings();
-}
-function saveTargetSetting() {
-  DB.assetTarget=parseFloat(document.getElementById('s-target').value)||5800000;
-  save(); alert('✓ 目標已儲存！');
-}
-
-// ══════════════════════════════════════════
-// APP INIT
-// ══════════════════════════════════════════
-function showApp() {
-  document.getElementById('appShell').style.display='flex';
+function applyColors(){DB.colors={c1:document.getElementById('sc1').value,c2:document.getElementById('sc2').value,c3:document.getElementById('sc3').value};save();applyTheme();alert(T('ok_colors'));}
+function addVAC(){DB.virtualAccounts.push({id:uid(),name:T('new_acct'),deposited:0,pct:0});save();renderSettings();}
+function removeVAC(i){if(DB.virtualAccounts.length<=1){alert(T('keep_acct'));return;}if(!confirm(T('c_remove_acct')))return;DB.virtualAccounts.splice(i,1);save();renderSettings();}
+function saveVACSettings(){DB.virtualAccounts.forEach((v,i)=>{const n=document.getElementById('vn-'+i)?.value.trim(),p=parseFloat(document.getElementById('vp-'+i)?.value)||0;if(n)v.name=n;v.pct=p/100;});save();alert(T('ok_saved'));renderSettings();}
+function addAsset(){DB.assets.push({id:uid(),code:'?',name:T('new_acct'),amount:0,color:'#8AADC5'});save();renderSettings();}
+function removeAsset(i){if(!confirm(T('c_remove_acct')))return;DB.assets.splice(i,1);save();renderSettings();}
+function saveAssetSettings(){DB.assets.forEach((a,i)=>{const c=document.getElementById('ac-'+i)?.value.trim(),n=document.getElementById('an-'+i)?.value.trim(),col=document.getElementById('acol-'+i)?.value;if(c)a.code=c;if(n)a.name=n;if(col)a.color=col;});save();alert(T('ok_saved'));renderSettings();}
+function saveTarget(){DB.assetTarget=parseFloat(document.getElementById('s-target').value)||5800000;save();alert(T('ok_saved'));}
+// INIT
+function showApp(){
+  document.getElementById('appShell').style.display='grid';
   document.getElementById('mobileNav').style.display='block';
-  const date=document.getElementById('topbar-date');
-  if(date) date.textContent=new Date().toLocaleDateString('zh-TW',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
-  renderHome();
-  calcIncome();
+  const td=document.getElementById('tb-date');if(td)td.textContent=new Date().toLocaleDateString('zh-TW',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
+  applyLang();applyTheme();renderHome();fillSchemeSelect();fillTypeSelects();
 }
-
-function skipLogin() {
-  document.getElementById('loginScreen').style.display='none';
-  showApp();
-}
-
-// PWA manifest
-const manifest={name:'Life OS',short_name:'Life OS',start_url:'.',display:'standalone',background_color:'#EEF4FB',theme_color:'#2B7FD4',icons:[{src:'https://raw.githubusercontent.com/googlefonts/noto-emoji/main/png/72/emoji_u1f3e0.png',sizes:'72x72',type:'image/png'},{src:'https://raw.githubusercontent.com/googlefonts/noto-emoji/main/png/144/emoji_u1f3e0.png',sizes:'144x144',type:'image/png'}]};
-const mblob=new Blob([JSON.stringify(manifest)],{type:'application/json'});
-const murl=URL.createObjectURL(mblob);
-document.getElementById('manifest-link').href=murl;
-
-// Check if already authed (Firebase will call showApp via onAuthStateChanged)
-// If no Firebase, check localStorage
-setTimeout(()=>{
-  if(document.getElementById('loginScreen').style.display!=='none' && !window._fbUser) {
-    // Show login screen - handled by Firebase onAuthStateChanged
-  }
-},2000);
+function skipLogin(){document.getElementById('loginScreen').style.display='none';showApp();}
+const mf={name:'Life OS',short_name:'Life OS',start_url:'.',display:'standalone',background_color:'#EEF4FB',theme_color:'#2B7FD4',orientation:'portrait',icons:[{src:'https://em-content.zobj.net/source/google/387/house_1f3e0.png',sizes:'192x192',type:'image/png'}]};
+document.getElementById('manifest-link').href=URL.createObjectURL(new Blob([JSON.stringify(mf)],{type:'application/json'}));
+applyLang();
 </script>
 </body>
 </html>
