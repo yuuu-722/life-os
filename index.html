@@ -710,7 +710,12 @@ const cfg={apiKey:"AIzaSyA2rHPAQT-eaJnvoUuNHBZdIo88b0Olhmk",authDomain:"life-os-
 const app=initializeApp(cfg),auth=getAuth(app),db=getFirestore(app),provider=new GoogleAuthProvider();
 const isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 window._doSignIn=async()=>{document.getElementById('loginBtn').style.display='none';document.getElementById('loginLoading').style.display='block';try{if(isMobile)await signInWithRedirect(auth,provider);else await signInWithPopup(auth,provider);}catch(e){console.error(e);document.getElementById('loginBtn').style.display='flex';document.getElementById('loginLoading').style.display='none';}};
-getRedirectResult(auth).catch(e=>console.error(e));
+getRedirectResult(auth).then(result=>{
+  if(result?.user){
+    document.getElementById('loginScreen').style.display='none';
+    showApp();
+  }
+}).catch(e=>console.error(e));
 window._doSignOut=async()=>{await signOut(auth);updateAuthUI(null);};
 window._saveToFB=async(data)=>{if(!window._fbUser)return;try{await setDoc(doc(db,'users',window._fbUser.uid),JSON.parse(JSON.stringify(data)));}catch(e){console.error(e);}};
 window._loadFromFB=async(uid)=>{try{const snap=await getDoc(doc(db,'users',uid));if(snap.exists()){const d=snap.data();window.DB={...window.DB,...d};applyTheme();applyLang();renderPage(window._curPage||'home');}}catch(e){console.error(e);}};
