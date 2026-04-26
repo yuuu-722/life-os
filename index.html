@@ -12,269 +12,193 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-:root{
-  --c1:#2B7FD4;--c2:#5BAEE8;--c3:#E8F3FB;
-  --bg:#EEF4FB;--bg3:#FFFFFF;
-  --border:#D6E8F5;--border2:#C2D9EE;
-  --text:#1A2E42;--text2:#4A6B85;--text3:#8AADC5;
-  --red:#E05C5C;--green:#3BAD7A;--warn:#E8A020;
-  --r:14px;--r-sm:9px;
-  --font:'DM Sans',sans-serif;--font-d:'Playfair Display',serif;
-  --safe-bot:env(safe-area-inset-bottom,0px);
-  --safe-top:env(safe-area-inset-top,0px);
-}
+:root{--c1:#2B7FD4;--c2:#5BAEE8;--c3:#E8F3FB;--bg:#EEF4FB;--bg3:#FFFFFF;--border:#D6E8F5;--border2:#C2D9EE;--text:#1A2E42;--text2:#4A6B85;--text3:#8AADC5;--red:#E05C5C;--green:#3BAD7A;--r:14px;--r-sm:9px;--font:'DM Sans',sans-serif;--font-d:'Playfair Display',serif;--safe-top:env(safe-area-inset-top,0px);--safe-bot:env(safe-area-inset-bottom,0px)}
 html,body{height:100%;font-family:var(--font);background:var(--bg);color:var(--text);overflow:hidden}
 .app{display:grid;grid-template-columns:220px 1fr;height:100dvh;overflow:hidden}
-/* Sidebar */
 .sidebar{background:var(--bg3);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
-.sb-top{padding:22px 18px 16px;border-bottom:1px solid var(--border);background:var(--c1)}
-.sb-logo{font-family:var(--font-d);font-size:21px;color:#fff;font-style:italic}
-.sb-sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:2px}
-.sb-user{display:flex;align-items:center;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.2)}
-.sb-avatar{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;flex-shrink:0;overflow:hidden}
+.sb-top{padding:24px 20px 18px;border-bottom:1px solid var(--border);background:var(--c1)}
+.sb-logo{font-family:var(--font-d);font-size:22px;color:#fff;font-style:italic}
+.sb-sub{font-size:11px;color:rgba(255,255,255,.65);margin-top:2px}
+.sb-user{display:flex;align-items:center;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.2)}
+.sb-avatar{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;flex-shrink:0;overflow:hidden}
 .sb-avatar img{width:100%;height:100%;object-fit:cover}
-.sb-name{font-size:11px;color:rgba(255,255,255,.8);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.sb-auth{font-size:10px;color:rgba(255,255,255,.5);cursor:pointer;white-space:nowrap;flex-shrink:0}
+.sb-name{font-size:12px;color:rgba(255,255,255,.85);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sb-auth{font-size:11px;color:rgba(255,255,255,.55);cursor:pointer;white-space:nowrap;flex-shrink:0}
 .sb-auth:hover{color:#fff}
-.nav{flex:1;padding:10px 8px;overflow-y:auto}
-.nav-sec{margin-bottom:14px}
-.nav-lbl{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);padding:0 8px;margin-bottom:3px}
-.nav-item{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:var(--r-sm);cursor:pointer;font-size:13px;color:var(--text2);transition:all .15s;margin-bottom:1px}
+.nav{flex:1;padding:12px 10px;overflow-y:auto}
+.nav-sec{margin-bottom:16px}
+.nav-sec-label{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);padding:0 8px;margin-bottom:4px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:var(--r-sm);cursor:pointer;font-size:13.5px;color:var(--text2);transition:all .15s;margin-bottom:1px}
 .nav-item:hover{background:var(--c3);color:var(--c1)}
 .nav-item.active{background:var(--c3);color:var(--c1);font-weight:500}
-.nav-item .ni{width:15px;text-align:center;font-size:13px}
-.sb-bottom{padding:10px 14px;border-top:1px solid var(--border)}
-.sb-settings{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text3);cursor:pointer;padding:7px 6px;border-radius:var(--r-sm);transition:all .15s}
+.nav-item .ni{width:16px;text-align:center}
+.sb-bottom{padding:12px 16px;border-top:1px solid var(--border)}
+.sb-settings{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text3);cursor:pointer;padding:8px 6px;border-radius:var(--r-sm);transition:all .15s}
 .sb-settings:hover{color:var(--c1);background:var(--c3)}
-/* Main */
 .main{display:flex;flex-direction:column;overflow:hidden;min-width:0}
-.topbar{padding:12px 22px;background:var(--bg3);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.topbar-left .page-title{font-family:var(--font-d);font-size:19px;font-style:italic}
+.topbar{padding:14px 24px;background:var(--bg3);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.topbar-left .page-title{font-family:var(--font-d);font-size:20px;font-style:italic}
 .topbar-left .page-date{font-size:11px;color:var(--text3);margin-top:1px}
-.content{flex:1;overflow-y:auto;padding:22px 26px}
+.content{flex:1;overflow-y:auto;padding:24px 28px}
 .page{display:none}.page.active{display:block}
-/* Cards */
-.card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;margin-bottom:10px}
-.card-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.card-title{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--text3)}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.g-auto{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:8px}
-.stat{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px}
-.stat-lbl{font-size:11px;color:var(--text3);margin-bottom:3px}
-.stat-val{font-size:21px;font-weight:300}
+.card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;margin-bottom:12px}
+.card-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.card-title{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--text3)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.g-auto{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.stat{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:16px}
+.stat-lbl{font-size:11px;color:var(--text3);margin-bottom:4px}
+.stat-val{font-size:22px;font-weight:300}
 .stat-sub{font-size:11px;color:var(--text3);margin-top:2px}
-/* Progress */
-.prog-bar{height:4px;background:var(--border);border-radius:2px;overflow:hidden;margin:6px 0 3px}
+.prog-bar{height:4px;background:var(--border);border-radius:2px;overflow:hidden;margin:8px 0 4px}
 .prog-fill{height:100%;border-radius:2px;background:var(--c1);transition:width .5s}
 .prog-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--text3)}
-/* Chart */
-.chart-wrap{height:70px;margin:8px 0 4px}
+.chart-wrap{height:75px;margin:10px 0 4px}
 .chart-wrap svg{width:100%;height:100%}
-/* Tasks */
-.task-item{display:flex;align-items:flex-start;gap:9px;padding:8px 0;border-bottom:1px solid var(--border)}
+.task-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)}
 .task-item:last-child{border-bottom:none}
-.task-cb{width:17px;height:17px;border:2px solid var(--border2);border-radius:5px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;margin-top:1px}
+.task-cb{width:18px;height:18px;border:2px solid var(--border2);border-radius:5px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
 .task-cb.done{background:var(--green);border-color:var(--green)}
-.task-cb.done::after{content:'✓';font-size:9px;color:#fff;font-weight:700}
-.task-cb.repeat{border-color:var(--c1);border-style:dashed}
-.task-body{flex:1;min-width:0}
-.task-name{font-size:13.5px;line-height:1.4}
-.task-name.done{text-decoration:line-through;color:var(--text3)}
-.task-meta{font-size:11px;color:var(--text3);margin-top:2px}
-.task-tag{display:inline-block;font-size:10px;padding:1px 6px;border-radius:20px;background:var(--c3);color:var(--c1);margin-left:4px}
-.task-repeat-badge{display:inline-block;font-size:9px;padding:1px 5px;border-radius:20px;background:rgba(43,127,212,.1);color:var(--c1);border:1px solid rgba(43,127,212,.2)}
-.task-actions{display:flex;gap:5px;opacity:0;transition:opacity .15s;flex-shrink:0}
+.task-cb.done::after{content:"✓";font-size:10px;color:#fff;font-weight:700}
+.task-text{flex:1;font-size:14px}
+.task-text.done{text-decoration:line-through;color:var(--text3)}
+.task-tag{font-size:10px;padding:2px 7px;border-radius:20px;background:var(--c3);color:var(--c1)}
+.task-actions{display:flex;gap:6px;opacity:0;transition:opacity .15s}
 .task-item:hover .task-actions{opacity:1}
-.task-act-btn{font-size:10px;color:var(--text3);cursor:pointer;padding:2px 5px;border-radius:3px}
+.task-act-btn{font-size:11px;color:var(--text3);cursor:pointer;padding:2px 6px;border-radius:4px}
 .task-act-btn:hover{background:var(--border);color:var(--text)}
 .task-act-btn.del:hover{color:var(--red)}
-/* Project cards */
-.proj-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:14px;position:relative;transition:border-color .2s,box-shadow .15s}
-.proj-card:hover{border-color:var(--c2);box-shadow:0 2px 10px rgba(43,127,212,.07)}
-.proj-emoji{font-size:19px;margin-bottom:7px}
-.proj-name{font-size:13.5px;font-weight:500;margin-bottom:2px}
+.proj-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:15px;cursor:pointer;transition:border-color .2s,box-shadow .2s;position:relative}
+.proj-card:hover{border-color:var(--c2);box-shadow:0 3px 12px rgba(43,127,212,.08)}
+.proj-emoji{font-size:20px;margin-bottom:8px}
+.proj-name{font-size:14px;font-weight:500;margin-bottom:2px}
 .proj-meta{font-size:11px;color:var(--text3)}
-.proj-bar{height:2px;background:var(--border);border-radius:1px;margin-top:9px}
+.proj-bar{height:2px;background:var(--border);border-radius:1px;margin-top:10px}
 .proj-fill{height:100%;border-radius:1px;background:var(--c1)}
 .proj-status{font-size:10px;padding:2px 7px;border-radius:20px;display:inline-block;margin-top:7px}
 .s-active{background:rgba(43,127,212,.1);color:var(--c1)}
 .s-plan{background:rgba(91,174,232,.1);color:var(--c2)}
 .s-done{background:rgba(59,173,122,.1);color:var(--green)}
-.card-actions{display:flex;gap:5px;position:absolute;top:8px;right:8px;opacity:0;transition:opacity .15s}
+.card-actions{display:flex;gap:6px;position:absolute;top:10px;right:10px;opacity:0;transition:opacity .15s}
 .proj-card:hover .card-actions,.vision-card:hover .card-actions,.vac:hover .card-actions{opacity:1}
-.ca-btn{font-size:10px;padding:2px 7px;border-radius:4px;cursor:pointer;background:var(--bg3);border:1px solid var(--border2);color:var(--text2)}
+.ca-btn{font-size:11px;padding:3px 8px;border-radius:4px;cursor:pointer;background:var(--bg3);border:1px solid var(--border2);color:var(--text2)}
 .ca-btn:hover{border-color:var(--c1);color:var(--c1)}
 .ca-del{color:var(--red);border-color:rgba(224,92,92,.3)}
 .ca-del:hover{background:rgba(224,92,92,.05);border-color:var(--red)}
-/* Vision */
-.vision-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:14px;transition:border-color .2s;position:relative}
+.vision-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:16px;transition:border-color .2s;position:relative}
 .vision-card:hover{border-color:var(--c1)}
-.vision-icon{font-size:22px;margin-bottom:7px}
-.vision-title{font-size:13.5px;font-weight:500;margin-bottom:2px}
+.vision-icon{font-size:24px;margin-bottom:8px}
+.vision-title{font-size:14px;font-weight:500;margin-bottom:2px}
 .vision-year{font-size:11px;color:var(--c1);font-weight:500}
-.vision-desc{font-size:11px;color:var(--text3);margin-top:3px;line-height:1.5}
-/* VAC */
-.vac{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:14px;position:relative}
-.vac-name{font-size:11px;color:var(--text3);margin-bottom:3px;font-weight:500}
-.vac-bal{font-size:19px;font-weight:300}
+.vision-desc{font-size:12px;color:var(--text3);margin-top:4px;line-height:1.6}
+.acc-row{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--border)}
+.acc-row:last-child{border-bottom:none}
+.acc-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.acc-name{flex:1;font-size:13px}
+.acc-code{font-size:11px;color:var(--text3);margin-left:3px}
+.acc-val{font-size:13px;font-weight:500}
+.vac{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:15px;position:relative}
+.vac-name{font-size:11px;color:var(--text3);margin-bottom:4px;font-weight:500}
+.vac-bal{font-size:20px;font-weight:300}
 .vac-sub{font-size:11px;color:var(--text3);margin-top:1px}
-.vac-goals{margin-top:9px;border-top:1px solid var(--border);padding-top:7px}
-.vac-goal{margin-bottom:5px}
+.vac-goals{margin-top:10px;border-top:1px solid var(--border);padding-top:8px}
+.vac-goal{margin-bottom:6px}
 .vac-goal-hd{display:flex;justify-content:space-between;font-size:11px;color:var(--text2);margin-bottom:3px}
 .vac-gbar{height:2px;background:var(--border);border-radius:1px;overflow:hidden}
 .vac-gfill{height:100%;background:var(--c1);border-radius:1px}
-/* Expenses */
-.exp-row{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--border)}
+.exp-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)}
 .exp-row:last-child{border-bottom:none}
-.exp-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;background:var(--c3)}
+.exp-icon{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;background:var(--c3)}
 .exp-icon.in-icon{background:rgba(59,173,122,.1)}
 .exp-info{flex:1;min-width:0}
 .exp-name{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.exp-detail{font-size:10px;color:var(--text3);margin-top:1px}
+.exp-detail{font-size:11px;color:var(--text3);margin-top:1px}
 .exp-amt{font-size:13px;font-weight:500;color:var(--red);white-space:nowrap}
 .exp-amt.in{color:var(--green)}
 .exp-acts{display:flex;gap:4px;opacity:0;transition:opacity .15s;flex-shrink:0}
 .exp-row:hover .exp-acts{opacity:1}
-/* Acc row */
-.acc-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
-.acc-row:last-child{border-bottom:none}
-.acc-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.acc-name{flex:1;font-size:13px}
-.acc-code{font-size:10px;color:var(--text3);margin-left:3px}
-.acc-val{font-size:13px;font-weight:500}
-/* Alert */
-.alert-box{background:rgba(43,127,212,.06);border:1px solid rgba(43,127,212,.2);border-radius:var(--r-sm);padding:10px 13px;font-size:12px;color:var(--c1);line-height:1.6;margin-bottom:7px}
-/* Total strip */
-.total-strip{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0 0;border-top:1px solid var(--border2);margin-top:7px}
+.alert-box{background:rgba(43,127,212,.06);border:1px solid rgba(43,127,212,.2);border-radius:var(--r-sm);padding:11px 14px;font-size:12.5px;color:var(--c1);line-height:1.6;margin-bottom:8px}
+.total-strip{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0 0;border-top:1px solid var(--border2);margin-top:8px}
 .total-lbl{font-size:12px;color:var(--text3)}
-.total-val{font-family:var(--font-d);font-size:21px;color:var(--c1)}
-/* Tabs */
-.tab-nav{display:flex;gap:2px;border-bottom:1px solid var(--border);margin-bottom:16px}
-.tab-btn{padding:7px 13px;font-size:12.5px;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;background:none;border-top:none;border-left:none;border-right:none;font-family:var(--font)}
+.total-val{font-family:var(--font-d);font-size:22px;color:var(--c1)}
+.tab-nav{display:flex;gap:2px;border-bottom:1px solid var(--border);margin-bottom:18px}
+.tab-btn{padding:8px 14px;font-size:13px;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;background:none;border-top:none;border-left:none;border-right:none;font-family:var(--font)}
 .tab-btn:hover{color:var(--c1)}
 .tab-btn.active{color:var(--c1);border-bottom-color:var(--c1)}
 .tab-panel{display:none}.tab-panel.active{display:block}
-/* Buttons */
-.btn{padding:7px 15px;border-radius:var(--r-sm);font-size:13px;cursor:pointer;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);font-family:var(--font);transition:all .15s}
+.btn{padding:8px 16px;border-radius:var(--r-sm);font-size:13px;cursor:pointer;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);font-family:var(--font);transition:all .15s}
 .btn:hover{border-color:var(--c1);color:var(--c1)}
 .btn-primary{background:var(--c1);color:#fff;border-color:var(--c1)}
 .btn-primary:hover{background:var(--c2);border-color:var(--c2);color:#fff}
 .btn-danger{background:transparent;color:var(--red);border-color:rgba(224,92,92,.3)}
 .btn-danger:hover{background:rgba(224,92,92,.05);border-color:var(--red)}
-.btn-sm{padding:4px 10px;font-size:11px}
-.btn-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
-.icon-btn{padding:3px 9px;border-radius:var(--r-sm);font-size:11px;cursor:pointer;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);font-family:var(--font);transition:all .15s}
+.btn-sm{padding:5px 12px;font-size:12px}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.icon-btn{padding:4px 10px;border-radius:var(--r-sm);font-size:11px;cursor:pointer;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);font-family:var(--font);transition:all .15s}
 .icon-btn:hover{border-color:var(--c1);color:var(--c1)}
 .icon-btn.del{color:var(--red);border-color:rgba(224,92,92,.25)}
 .icon-btn.del:hover{background:rgba(224,92,92,.05)}
-/* Toggle */
-.toggle-row{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text3);cursor:pointer;margin-bottom:10px}
-.toggle{width:34px;height:18px;background:var(--border2);border-radius:9px;position:relative;transition:background .15s;flex-shrink:0}
-.toggle.on{background:var(--c1)}
-.toggle::after{content:'';width:14px;height:14px;background:#fff;border-radius:50%;position:absolute;top:2px;left:2px;transition:transform .15s;box-shadow:0 1px 3px rgba(0,0,0,.15)}
-.toggle.on::after{transform:translateX(16px)}
-/* Forms */
-.field{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
-.field label{font-size:11px;color:var(--text3);font-weight:500}
-input[type=text],input[type=number],input[type=date],input[type=time],select,textarea{width:100%;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--r-sm);font-size:13.5px;font-family:var(--font);color:var(--text);background:var(--bg);outline:none;transition:border-color .15s}
+.field{display:flex;flex-direction:column;gap:5px;margin-bottom:11px}
+.field label{font-size:12px;color:var(--text3);font-weight:500}
+input[type=text],input[type=number],input[type=date],select,textarea{width:100%;padding:8px 11px;border:1px solid var(--border2);border-radius:var(--r-sm);font-size:14px;font-family:var(--font);color:var(--text);background:var(--bg);outline:none;transition:border-color .15s}
 input:focus,select:focus,textarea:focus{border-color:var(--c1)}
-.input-row{display:flex;gap:8px}.input-row .field{flex:1}
-.quick-add{display:flex;gap:7px;margin-top:9px}
+.input-row{display:flex;gap:10px}.input-row .field{flex:1}
+.quick-add{display:flex;gap:8px;margin-top:10px}
 .quick-add input{flex:1}
-.quick-add button{padding:7px 13px;background:var(--c1);color:#fff;border:none;border-radius:var(--r-sm);font-size:13px;cursor:pointer;font-family:var(--font);white-space:nowrap}
-/* Modal */
+.quick-add button{padding:8px 14px;background:var(--c1);color:#fff;border:none;border-radius:var(--r-sm);font-size:13px;cursor:pointer;font-family:var(--font)}
 .modal-overlay{position:fixed;inset:0;background:rgba(26,46,66,.4);display:none;align-items:center;justify-content:center;z-index:200;backdrop-filter:blur(5px)}
 .modal-overlay.open{display:flex}
-.modal{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);padding:22px;width:420px;max-width:calc(100vw - 24px);max-height:90dvh;overflow-y:auto;box-shadow:0 14px 44px rgba(43,127,212,.12)}
-.modal-title{font-family:var(--font-d);font-size:18px;margin-bottom:14px}
-.modal-actions{display:flex;gap:7px;margin-top:14px}
+.modal{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);padding:24px;width:420px;max-width:calc(100vw - 28px);max-height:90dvh;overflow-y:auto;box-shadow:0 16px 48px rgba(43,127,212,.12)}
+.modal-title{font-family:var(--font-d);font-size:19px;margin-bottom:16px}
+.modal-actions{display:flex;gap:8px;margin-top:16px}
 .modal-actions .btn{flex:1}
-/* Settings */
-.settings-section{margin-bottom:22px}
-.settings-title{font-size:11px;font-weight:500;color:var(--text);margin-bottom:9px;padding-bottom:7px;border-bottom:1px solid var(--border);letter-spacing:.05em;text-transform:uppercase}
-.settings-row{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--border)}
+.settings-section{margin-bottom:24px}
+.settings-title{font-size:12px;font-weight:500;color:var(--text);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border);letter-spacing:.04em;text-transform:uppercase}
+.settings-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)}
 .settings-row:last-child{border-bottom:none}
 .settings-row-info{flex:1}
 .settings-row-lbl{font-size:13px}
 .settings-row-sub{font-size:11px;color:var(--text3);margin-top:1px}
-.settings-row-ctrl{display:flex;align-items:center;gap:5px;flex-shrink:0}
-/* Scheme card */
-.scheme-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);padding:11px;margin-bottom:7px}
-.scheme-card.default-scheme{border-color:var(--c1);background:rgba(43,127,212,.03)}
-.scheme-name{font-size:13px;font-weight:500;display:flex;align-items:center;gap:5px;margin-bottom:2px}
-.scheme-badge{font-size:9px;padding:1px 5px;border-radius:20px;background:var(--c1);color:#fff}
+.settings-row-ctrl{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.scheme-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);padding:12px;margin-bottom:8px}
+.scheme-card.default-scheme{border-color:var(--c1);background:rgba(43,127,212,.04)}
+.scheme-name{font-size:13px;font-weight:500;margin-bottom:2px;display:flex;align-items:center;gap:6px}
+.scheme-badge{font-size:10px;padding:1px 6px;border-radius:20px;background:var(--c1);color:#fff}
 .scheme-desc{font-size:11px;color:var(--text3)}
-.scheme-actions{display:flex;gap:5px;margin-top:7px}
-/* Heatmap */
-.heatmap-wrap{overflow-x:auto;padding-bottom:4px}
-.heatmap{display:flex;gap:2px}
-.heatmap-col{display:flex;flex-direction:column;gap:2px}
-.heatmap-cell{width:11px;height:11px;border-radius:2px;background:var(--border)}
-.heatmap-cell.l1{background:rgba(43,127,212,.2)}
-.heatmap-cell.l2{background:rgba(43,127,212,.45)}
-.heatmap-cell.l3{background:rgba(43,127,212,.7)}
-.heatmap-cell.l4{background:var(--c1)}
-.heatmap-months{display:flex;gap:2px;margin-bottom:3px;padding-left:0}
-.hm-month{font-size:9px;color:var(--text3)}
-.streak-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(43,127,212,.08);border:1px solid rgba(43,127,212,.2);border-radius:20px;padding:3px 10px;font-size:12px;color:var(--c1);font-weight:500}
-/* Habit card */
-.habit-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:8px}
-.habit-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.habit-name{font-size:14px;font-weight:500}
-.habit-freq{font-size:11px;color:var(--text3);margin-top:1px}
-.habit-check-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-.habit-check{width:30px;height:30px;border-radius:8px;border:1.5px solid var(--border2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--text3);transition:all .15s;flex-direction:column;gap:1px}
-.habit-check.done{background:var(--c1);border-color:var(--c1);color:#fff}
-.habit-check-day{font-size:9px}
-/* Mobile nav */
-.mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--bg3);border-top:1px solid var(--border);padding:5px 0;padding-bottom:max(5px,var(--safe-bot));z-index:100}
+.scheme-actions{display:flex;gap:6px;margin-top:8px}
+.mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--bg3);border-top:1px solid var(--border);padding:6px 0;padding-bottom:max(6px,var(--safe-bot));z-index:100}
 .mn-inner{display:flex;justify-content:space-around}
-.mn-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px 8px;cursor:pointer;font-size:9px;color:var(--text3);border-radius:var(--r-sm)}
+.mn-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px 8px;cursor:pointer;font-size:10px;color:var(--text3);border-radius:var(--r-sm)}
 .mn-item.active{color:var(--c1)}
-.mn-icon{font-size:19px}
-/* Login */
-.login-screen{position:fixed;inset:0;background:var(--c1);display:flex;align-items:center;justify-content:center;z-index:300;flex-direction:column;gap:18px;padding:24px}
-.login-logo{font-family:var(--font-d);font-size:42px;color:#fff;font-style:italic}
-.login-sub{font-size:14px;color:rgba(255,255,255,.72);text-align:center;line-height:1.7;white-space:pre-line}
-.login-btn{display:flex;align-items:center;gap:11px;background:#fff;color:var(--text);padding:13px 26px;border-radius:50px;font-size:14.5px;font-weight:500;cursor:pointer;border:none;font-family:var(--font);box-shadow:0 5px 20px rgba(0,0,0,.14);transition:transform .15s}
+.mn-icon{font-size:20px}
+.login-screen{position:fixed;inset:0;background:var(--c1);display:flex;align-items:center;justify-content:center;z-index:300;flex-direction:column;gap:20px;padding:24px}
+.login-logo{font-family:var(--font-d);font-size:44px;color:#fff;font-style:italic}
+.login-sub{font-size:14px;color:rgba(255,255,255,.75);text-align:center;line-height:1.7;white-space:pre-line}
+.login-btn{display:flex;align-items:center;gap:12px;background:#fff;color:var(--text);padding:14px 28px;border-radius:50px;font-size:15px;font-weight:500;cursor:pointer;border:none;font-family:var(--font);box-shadow:0 6px 24px rgba(0,0,0,.15);transition:transform .15s}
 .login-btn:hover{transform:translateY(-1px)}
-.login-btn svg{width:18px;height:18px}
-.login-offline{font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;text-decoration:underline}
-.login-loading{font-size:13px;color:rgba(255,255,255,.65);display:none}
-.empty{text-align:center;padding:32px 20px;color:var(--text3);font-size:13px}
-.empty-icon{font-size:30px;margin-bottom:7px;opacity:.3}
-/* Lang */
-.lang-switch{display:flex;gap:5px}
-.lang-btn{padding:4px 12px;border-radius:20px;font-size:12px;cursor:pointer;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);font-family:var(--font);transition:all .15s}
+.login-btn svg{width:20px;height:20px}
+.login-offline{font-size:12px;color:rgba(255,255,255,.55);cursor:pointer;text-decoration:underline}
+.login-loading{font-size:13px;color:rgba(255,255,255,.7);display:none}
+.empty{text-align:center;padding:36px 20px;color:var(--text3);font-size:13px}
+.empty-icon{font-size:32px;margin-bottom:8px;opacity:.35}
+.lang-switch{display:flex;gap:6px}
+.lang-btn{padding:5px 14px;border-radius:20px;font-size:12px;cursor:pointer;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);font-family:var(--font);transition:all .15s}
 .lang-btn.active{background:var(--c1);color:#fff;border-color:var(--c1)}
-/* Income result */
-.alloc-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border)}
-.alloc-row:last-child{border-bottom:none}
-.alloc-name{font-size:13px;color:var(--text2)}
-.alloc-pct{font-size:10px;color:var(--text3)}
-.alloc-amt{font-size:13px;font-weight:500;color:var(--c1)}
-.alloc-amt.special{color:var(--green)}
-/* Weekday picker */
-.weekday-picker{display:flex;gap:4px;flex-wrap:wrap}
-.wd-btn{padding:4px 8px;border-radius:5px;font-size:11px;cursor:pointer;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);font-family:var(--font);transition:all .15s}
-.wd-btn.selected{background:var(--c1);color:#fff;border-color:var(--c1)}
-/* Animations */
-@keyframes fadeUp{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .page.active>*{animation:fadeUp .2s ease both}
 .page.active>*:nth-child(2){animation-delay:.04s}
 .page.active>*:nth-child(3){animation-delay:.08s}
-/* Responsive */
 @media(max-width:768px){
   .app{grid-template-columns:1fr}.sidebar{display:none}
-  .topbar{padding:9px 14px;padding-top:max(9px,var(--safe-top))}
-  .content{padding:12px 12px 88px}
+  .topbar{padding:10px 16px;padding-top:max(10px,var(--safe-top))}
+  .content{padding:14px 14px 90px}
   .mobile-nav{display:block}
   .g2,.g3{grid-template-columns:1fr}
-  .g-auto{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
-  .task-actions{opacity:1}.card-actions{opacity:1;position:static;margin-top:7px}.exp-acts{opacity:1}
+  .g-auto{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+  .task-actions{opacity:1}.card-actions{opacity:1;position:static;margin-top:8px}.exp-acts{opacity:1}
 }
-@media(min-width:769px){.topbar{display:none}.content{padding:22px 26px}}
+@media(min-width:769px){.topbar{display:none}.content{padding:26px 30px}}
 </style>
 </head>
 <body>
@@ -288,7 +212,6 @@ input:focus,select:focus,textarea:focus{border-color:var(--c1)}
   <div class="login-loading" id="loginLoading"></div>
   <div class="login-offline" id="login-offline" onclick="skipLogin()"></div>
 </div>
-
 <div class="app" id="appShell" style="display:none">
   <aside class="sidebar">
     <div class="sb-top">
@@ -302,18 +225,17 @@ input:focus,select:focus,textarea:focus{border-color:var(--c1)}
     </div>
     <nav class="nav">
       <div class="nav-sec">
-        <div class="nav-lbl" id="nav-lbl-daily"></div>
+        <div class="nav-sec-label" id="nav-lbl-daily"></div>
         <div class="nav-item active" onclick="nav('home')"><span class="ni">⌂</span><span id="nav-home"></span></div>
-        <div class="nav-item" onclick="nav('habits')"><span class="ni">◉</span><span id="nav-habits"></span></div>
         <div class="nav-item" onclick="nav('tasks')"><span class="ni">✓</span><span id="nav-tasks"></span></div>
       </div>
       <div class="nav-sec">
-        <div class="nav-lbl" id="nav-lbl-plans"></div>
+        <div class="nav-sec-label" id="nav-lbl-plans"></div>
         <div class="nav-item" onclick="nav('projects')"><span class="ni">◈</span><span id="nav-projects"></span></div>
         <div class="nav-item" onclick="nav('visions')"><span class="ni">◎</span><span id="nav-visions"></span></div>
       </div>
       <div class="nav-sec">
-        <div class="nav-lbl" id="nav-lbl-finance"></div>
+        <div class="nav-sec-label" id="nav-lbl-finance"></div>
         <div class="nav-item" onclick="nav('cashflow')"><span class="ni">⬡</span><span id="nav-cashflow"></span></div>
         <div class="nav-item" onclick="nav('assets')"><span class="ni">△</span><span id="nav-assets"></span></div>
         <div class="nav-item" onclick="nav('income')"><span class="ni">↑</span><span id="nav-income"></span></div>
@@ -323,7 +245,6 @@ input:focus,select:focus,textarea:focus{border-color:var(--c1)}
       <div class="sb-settings" onclick="nav('settings')">⚙ <span id="nav-settings"></span></div>
     </div>
   </aside>
-
   <main class="main">
     <div class="topbar">
       <div class="topbar-left">
@@ -333,79 +254,45 @@ input:focus,select:focus,textarea:focus{border-color:var(--c1)}
       <button class="btn btn-primary btn-sm" id="tb-btn" onclick="topbarAct()" style="display:none"></button>
     </div>
     <div class="content">
-
-      <!-- HOME -->
       <div id="page-home" class="page active">
-        <div class="g2" style="margin-bottom:10px">
+        <div class="g2" style="margin-bottom:12px">
           <div class="stat"><div class="stat-lbl" id="h-lbl-tasks"></div><div class="stat-val" id="h-tasks">—</div><div class="stat-sub" id="h-sub-tasks"></div></div>
-          <div class="stat"><div class="stat-lbl" id="h-lbl-assets"></div><div class="stat-val" id="h-assets">—</div><div class="stat-sub" id="h-pct"></div></div>
+          <div class="stat"><div class="stat-lbl" id="h-lbl-assets"></div><div class="stat-val" id="h-assets">—</div><div class="stat-sub" id="h-pct">—</div></div>
         </div>
         <div class="card">
           <div class="card-hd"><span class="card-title" id="h-today-title"></span><span id="h-task-count" style="font-size:11px;color:var(--text3)"></span></div>
           <div id="home-tasks"></div>
           <div class="quick-add"><input type="text" id="h-ti" onkeydown="if(event.key==='Enter')quickTask()"><button onclick="quickTask()" id="h-add-btn"></button></div>
         </div>
-        <div class="card-title" id="h-habits-title" style="margin:4px 0 8px"></div>
-        <div id="h-habits-today" style="margin-bottom:10px"></div>
-        <div class="card-title" id="h-projs-title" style="margin-bottom:8px"></div>
-        <div class="g-auto" id="h-projs" style="margin-bottom:10px"></div>
-        <div class="card-title" id="h-alerts-title" style="margin-bottom:7px"></div>
-        <div id="h-alerts" style="margin-bottom:10px"></div>
+        <div class="card-title" id="h-projs-title" style="margin:4px 0 10px"></div>
+        <div class="g-auto" id="h-projs" style="margin-bottom:12px"></div>
+        <div class="card-title" id="h-alerts-title" style="margin-bottom:8px"></div>
+        <div id="h-alerts" style="margin-bottom:12px"></div>
         <div class="card">
           <div class="card-hd"><span class="card-title" id="h-growth-title"></span><span style="font-size:11px;color:var(--text3)" id="h-target-lbl"></span></div>
-          <div class="chart-wrap"><svg id="asset-svg" viewBox="0 0 400 60" preserveAspectRatio="none" fill="none"></svg></div>
+          <div class="chart-wrap"><svg id="asset-svg" viewBox="0 0 400 65" preserveAspectRatio="none" fill="none"></svg></div>
           <div class="prog-bar"><div class="prog-fill" id="h-prog" style="width:0%"></div></div>
           <div class="prog-meta"><span>0</span><span id="h-prog-pct"></span><span id="h-prog-target"></span></div>
         </div>
-        <div class="g3" style="margin-top:10px" id="h-visions"></div>
+        <div class="g3" style="margin-top:12px" id="h-visions"></div>
       </div>
-
-      <!-- HABITS -->
-      <div id="page-habits" class="page">
-        <div class="btn-row">
-          <button class="btn btn-primary btn-sm" id="btn-new-habit" onclick="openModal('habit-modal')"></button>
-          <div class="toggle-row" style="margin-bottom:0" onclick="toggleShowDoneHabits()">
-            <div class="toggle" id="toggle-done-habits"></div>
-            <span id="lbl-show-done-habits"></span>
-          </div>
-        </div>
-        <div id="habit-list"></div>
-      </div>
-
-      <!-- TASKS -->
       <div id="page-tasks" class="page">
         <div class="btn-row">
           <button class="btn btn-primary btn-sm" id="btn-new-task" onclick="openModal('task-modal')"></button>
           <button class="btn btn-sm" id="btn-f-pending" onclick="filterTasks('undone',this)"></button>
           <button class="btn btn-sm" id="btn-f-today" onclick="filterTasks('today',this)"></button>
           <button class="btn btn-sm" id="btn-f-done" onclick="filterTasks('done',this)"></button>
-          <div class="toggle-row" style="margin-bottom:0" onclick="toggleShowDoneTasks()">
-            <div class="toggle" id="toggle-done-tasks"></div>
-            <span id="lbl-show-done"></span>
-          </div>
         </div>
         <div class="card" id="task-list"></div>
       </div>
-
-      <!-- PROJECTS -->
       <div id="page-projects" class="page">
-        <div class="btn-row">
-          <button class="btn btn-primary btn-sm" id="btn-new-proj" onclick="openModal('proj-modal')"></button>
-          <div class="toggle-row" style="margin-bottom:0" onclick="toggleShowDoneProj()">
-            <div class="toggle" id="toggle-done-proj"></div>
-            <span id="lbl-show-done-proj"></span>
-          </div>
-        </div>
+        <div class="btn-row"><button class="btn btn-primary btn-sm" id="btn-new-proj" onclick="openModal('proj-modal')"></button></div>
         <div class="g-auto" id="proj-grid"></div>
       </div>
-
-      <!-- VISIONS -->
       <div id="page-visions" class="page">
         <div class="btn-row"><button class="btn btn-primary btn-sm" id="btn-new-vision" onclick="openModal('vision-modal')"></button></div>
         <div class="g3" id="vision-grid"></div>
       </div>
-
-      <!-- CASHFLOW -->
       <div id="page-cashflow" class="page">
         <div class="tab-nav">
           <button class="tab-btn active" id="cf-tab-accts" onclick="cfTab('accounts',this)"></button>
@@ -428,8 +315,6 @@ input:focus,select:focus,textarea:focus{border-color:var(--c1)}
           <div id="goals-list"></div>
         </div>
       </div>
-
-      <!-- ASSETS -->
       <div id="page-assets" class="page">
         <div class="btn-row"><button class="btn btn-primary btn-sm" id="btn-update-assets" onclick="openModal('asset-modal')"></button></div>
         <div class="card">
@@ -438,26 +323,26 @@ input:focus,select:focus,textarea:focus{border-color:var(--c1)}
           <div class="prog-bar"><div class="prog-fill" id="asset-prog" style="width:0%"></div></div>
           <div class="prog-meta"><span>0</span><span id="asset-prog-pct"></span><span id="asset-prog-target"></span></div>
         </div>
-        <div style="margin-top:12px"><div class="card-title" id="snap-title" style="margin-bottom:7px"></div><div class="card" id="snap-list"></div></div>
+        <div style="margin-top:14px"><div class="card-title" id="snap-title" style="margin-bottom:8px"></div><div class="card" id="snap-list"></div></div>
       </div>
-
-      <!-- INCOME -->
       <div id="page-income" class="page">
         <div class="card">
-          <div class="card-hd"><span class="card-title" id="income-calc-title"></span><select id="inc-scheme" onchange="calcIncome()" style="font-size:12px;padding:3px 8px;width:auto"></select></div>
+          <div class="card-hd"><span class="card-title" id="income-calc-title"></span></div>
           <div class="input-row">
-            <div class="field"><label id="lbl-amount"></label><input type="number" id="inc-amt" step="any" oninput="calcIncome()" style="font-size:18px;font-weight:300"></div>
+            <div class="field"><label id="lbl-amount"></label><input type="number" id="inc-amt" step="any" oninput="calcIncome()"></div>
             <div class="field"><label id="lbl-source"></label><select id="inc-src" onchange="updateIncTypes();calcIncome()"></select></div>
             <div class="field"><label id="lbl-type"></label><select id="inc-type" onchange="calcIncome()"></select></div>
           </div>
-          <div id="inc-rule" style="font-size:11px;color:var(--text3);padding:7px 10px;background:var(--bg);border-radius:var(--r-sm);margin-bottom:11px;line-height:1.7"></div>
+          <div class="field"><label id="lbl-scheme"></label><select id="inc-scheme" onchange="calcIncome()"></select></div>
+          <div id="inc-rule" style="font-size:12px;color:var(--text3);padding:9px 11px;background:var(--bg);border-radius:var(--r-sm);margin-bottom:12px;line-height:1.7"></div>
           <div id="inc-result"></div>
-          <button class="btn btn-primary" id="btn-apply-income" onclick="applyIncome()" style="width:100%;margin-top:11px"></button>
+          <div style="display:flex;gap:8px;margin-top:12px">
+            <button class="btn btn-primary" id="btn-apply-income" onclick="applyIncome()"></button>
+            <button class="btn" id="btn-save-income" onclick="saveIncome()"></button>
+          </div>
         </div>
-        <div style="margin-top:12px"><div class="card-title" id="income-history-title" style="margin-bottom:7px"></div><div class="card" id="income-records"></div></div>
+        <div style="margin-top:14px"><div class="card-title" id="income-history-title" style="margin-bottom:8px"></div><div class="card" id="income-records"></div></div>
       </div>
-
-      <!-- SETTINGS -->
       <div id="page-settings" class="page">
         <div class="settings-section">
           <div class="settings-title">Language / 語言</div>
@@ -468,15 +353,15 @@ input:focus,select:focus,textarea:focus{border-color:var(--c1)}
         </div>
         <div class="settings-section">
           <div class="settings-title" id="s-title-colors"></div>
-          <div class="settings-row"><div class="settings-row-info"><div class="settings-row-lbl" id="s-lbl-c1"></div></div><div class="settings-row-ctrl"><input type="color" id="sc1" style="width:38px;height:28px;padding:2px;cursor:pointer;border-radius:5px;border:1px solid var(--border2)"></div></div>
-          <div class="settings-row"><div class="settings-row-info"><div class="settings-row-lbl" id="s-lbl-c2"></div></div><div class="settings-row-ctrl"><input type="color" id="sc2" style="width:38px;height:28px;padding:2px;cursor:pointer;border-radius:5px;border:1px solid var(--border2)"></div></div>
-          <div class="settings-row"><div class="settings-row-info"><div class="settings-row-lbl" id="s-lbl-c3"></div></div><div class="settings-row-ctrl"><input type="color" id="sc3" style="width:38px;height:28px;padding:2px;cursor:pointer;border-radius:5px;border:1px solid var(--border2)"></div></div>
-          <button class="btn btn-primary btn-sm" id="btn-apply-colors" style="margin-top:9px" onclick="applyColors()"></button>
+          <div class="settings-row"><div class="settings-row-info"><div class="settings-row-lbl" id="s-lbl-c1"></div></div><div class="settings-row-ctrl"><input type="color" id="sc1" style="width:40px;height:30px;padding:2px;cursor:pointer;border-radius:6px;border:1px solid var(--border2)"></div></div>
+          <div class="settings-row"><div class="settings-row-info"><div class="settings-row-lbl" id="s-lbl-c2"></div></div><div class="settings-row-ctrl"><input type="color" id="sc2" style="width:40px;height:30px;padding:2px;cursor:pointer;border-radius:6px;border:1px solid var(--border2)"></div></div>
+          <div class="settings-row"><div class="settings-row-info"><div class="settings-row-lbl" id="s-lbl-c3"></div></div><div class="settings-row-ctrl"><input type="color" id="sc3" style="width:40px;height:30px;padding:2px;cursor:pointer;border-radius:6px;border:1px solid var(--border2)"></div></div>
+          <button class="btn btn-primary btn-sm" id="btn-apply-colors" style="margin-top:10px" onclick="applyColors()"></button>
         </div>
         <div class="settings-section">
           <div class="settings-title" id="s-title-vac"></div>
           <div id="vac-settings"></div>
-          <div style="display:flex;gap:7px;margin-top:9px">
+          <div style="display:flex;gap:8px;margin-top:10px">
             <button class="btn btn-sm" id="btn-add-vac" onclick="addVAC()"></button>
             <button class="btn btn-primary btn-sm" id="btn-save-vac" onclick="saveVACSettings()"></button>
           </div>
@@ -484,12 +369,12 @@ input:focus,select:focus,textarea:focus{border-color:var(--c1)}
         <div class="settings-section">
           <div class="settings-title" id="s-title-schemes"></div>
           <div id="scheme-settings"></div>
-          <button class="btn btn-sm" id="btn-add-scheme" style="margin-top:9px" onclick="addScheme()"></button>
+          <button class="btn btn-sm" id="btn-add-scheme" style="margin-top:10px" onclick="addScheme()"></button>
         </div>
         <div class="settings-section">
           <div class="settings-title" id="s-title-assets"></div>
           <div id="asset-settings"></div>
-          <div style="display:flex;gap:7px;margin-top:9px">
+          <div style="display:flex;gap:8px;margin-top:10px">
             <button class="btn btn-sm" id="btn-add-asset" onclick="addAsset()"></button>
             <button class="btn btn-primary btn-sm" id="btn-save-assets" onclick="saveAssetSettings()"></button>
           </div>
@@ -498,9 +383,9 @@ input:focus,select:focus,textarea:focus{border-color:var(--c1)}
           <div class="settings-title" id="s-title-target"></div>
           <div class="settings-row">
             <div class="settings-row-info"><div class="settings-row-lbl" id="s-lbl-target"></div></div>
-            <div class="settings-row-ctrl"><input type="number" id="s-target" style="width:120px" step="any"></div>
+            <div class="settings-row-ctrl"><input type="number" id="s-target" style="width:130px" step="any"></div>
           </div>
-          <button class="btn btn-primary btn-sm" id="btn-save-target" style="margin-top:9px" onclick="saveTarget()"></button>
+          <button class="btn btn-primary btn-sm" id="btn-save-target" style="margin-top:10px" onclick="saveTarget()"></button>
         </div>
         <div class="settings-section">
           <div class="settings-title" id="s-title-account"></div>
@@ -510,297 +395,68 @@ input:focus,select:focus,textarea:focus{border-color:var(--c1)}
           </div>
         </div>
       </div>
-
     </div>
   </main>
 </div>
-
 <nav class="mobile-nav" id="mobileNav" style="display:none">
   <div class="mn-inner">
     <div class="mn-item active" onclick="nav('home')"><div class="mn-icon">⌂</div><span id="mn-home"></span></div>
-    <div class="mn-item" onclick="nav('habits')"><div class="mn-icon">◉</div><span id="mn-habits"></span></div>
     <div class="mn-item" onclick="nav('cashflow')"><div class="mn-icon">⬡</div><span id="mn-cashflow"></span></div>
     <div class="mn-item" onclick="nav('projects')"><div class="mn-icon">◈</div><span id="mn-projects"></span></div>
+    <div class="mn-item" onclick="nav('assets')"><div class="mn-icon">△</div><span id="mn-assets"></span></div>
     <div class="mn-item" onclick="nav('settings')"><div class="mn-icon">⚙</div><span id="mn-settings"></span></div>
   </div>
 </nav>
-
 <!-- MODALS -->
-<div class="modal-overlay" id="task-modal"><div class="modal">
-  <div class="modal-title" id="task-modal-title"></div>
-  <input type="hidden" id="t-edit-id">
-  <div class="field"><label id="lbl-t-name"></label><input type="text" id="t-name"></div>
-  <div class="input-row">
-    <div class="field"><label id="lbl-t-date"></label><input type="date" id="t-date"></div>
-    <div class="field"><label id="lbl-t-proj"></label><select id="t-proj"></select></div>
-  </div>
-  <div class="field"><label id="lbl-t-goal"></label><select id="t-goal"></select></div>
-  <div class="field"><label id="lbl-t-tag"></label><input type="text" id="t-tag"></div>
-  <div class="settings-row" style="padding:7px 0">
-    <div class="settings-row-info"><div class="settings-row-lbl" id="lbl-t-repeat"></div></div>
-    <div class="toggle" id="toggle-t-repeat" onclick="toggleTaskRepeat()"></div>
-  </div>
-  <div id="repeat-settings" style="display:none">
-    <div class="field"><label id="lbl-t-freq"></label>
-      <select id="t-freq" onchange="updateFreqUI()">
-        <option value="daily" id="opt-daily"></option>
-        <option value="weekly" id="opt-weekly"></option>
-        <option value="monthly" id="opt-monthly"></option>
-      </select>
-    </div>
-    <div id="weekday-picker-wrap" class="field" style="display:none">
-      <label id="lbl-t-weekdays"></label>
-      <div class="weekday-picker" id="weekday-picker"></div>
-    </div>
-    <div id="monthday-wrap" class="field" style="display:none">
-      <label id="lbl-t-monthday"></label>
-      <input type="number" id="t-monthday" min="1" max="31" placeholder="1">
-    </div>
-    <div class="field"><label id="lbl-t-times"></label><input type="number" id="t-times" min="1" value="1"></div>
-  </div>
-  <div class="modal-actions">
-    <button class="btn" id="btn-task-cancel" onclick="closeModal('task-modal')"></button>
-    <button class="btn btn-primary" id="btn-task-save" onclick="saveTask()"></button>
-  </div>
-</div></div>
-
-<div class="modal-overlay" id="proj-modal"><div class="modal">
-  <div class="modal-title" id="proj-modal-title"></div>
-  <input type="hidden" id="p-edit-id">
-  <div class="input-row">
-    <div class="field" style="flex:0 0 58px"><label>Emoji</label><input type="text" id="p-emoji" maxlength="2"></div>
-    <div class="field"><label id="lbl-p-name"></label><input type="text" id="p-name"></div>
-  </div>
-  <div class="input-row">
-    <div class="field"><label id="lbl-p-type"></label><select id="p-type"></select></div>
-    <div class="field"><label id="lbl-p-status"></label><select id="p-status"></select></div>
-  </div>
-  <div class="input-row">
-    <div class="field"><label id="lbl-p-start"></label><input type="date" id="p-start"></div>
-    <div class="field"><label id="lbl-p-end"></label><input type="date" id="p-end"></div>
-  </div>
-  <div class="field"><label id="lbl-p-prog"></label><input type="number" id="p-prog" min="0" max="100"></div>
-  <div class="field"><label id="lbl-p-account"></label><select id="p-account"></select></div>
-  <div class="modal-actions">
-    <button class="btn" id="btn-proj-cancel" onclick="closeModal('proj-modal')"></button>
-    <button class="btn btn-primary" id="btn-proj-save" onclick="saveProject()"></button>
-  </div>
-</div></div>
-
-<div class="modal-overlay" id="goal-modal"><div class="modal">
-  <div class="modal-title" id="goal-modal-title"></div>
-  <input type="hidden" id="g-edit-id">
-  <div class="field"><label id="lbl-g-name"></label><input type="text" id="g-name"></div>
-  <div class="field"><label id="lbl-g-proj"></label><select id="g-proj"></select></div>
-  <div class="field"><label id="lbl-g-account"></label><select id="g-account"></select></div>
-  <div class="field"><label id="lbl-g-amt"></label><input type="number" id="g-amt" step="any"></div>
-  <div class="modal-actions">
-    <button class="btn" id="btn-goal-cancel" onclick="closeModal('goal-modal')"></button>
-    <button class="btn btn-primary" id="btn-goal-save" onclick="saveGoal()"></button>
-  </div>
-</div></div>
-
-<div class="modal-overlay" id="vision-modal"><div class="modal">
-  <div class="modal-title" id="vision-modal-title"></div>
-  <input type="hidden" id="v-edit-id">
-  <div class="input-row">
-    <div class="field" style="flex:0 0 58px"><label>Emoji</label><input type="text" id="v-emoji" maxlength="2"></div>
-    <div class="field"><label id="lbl-v-name"></label><input type="text" id="v-name"></div>
-  </div>
-  <div class="input-row">
-    <div class="field"><label id="lbl-v-year"></label><input type="number" id="v-year"></div>
-    <div class="field"><label id="lbl-v-account"></label><select id="v-account"></select></div>
-  </div>
-  <div class="field"><label id="lbl-v-desc"></label><input type="text" id="v-desc"></div>
-  <div class="field"><label id="lbl-v-goal-amt"></label><input type="number" id="v-goal-amt" step="any"></div>
-  <div class="modal-actions">
-    <button class="btn" id="btn-vision-cancel" onclick="closeModal('vision-modal')"></button>
-    <button class="btn btn-primary" id="btn-vision-save" onclick="saveVision()"></button>
-  </div>
-</div></div>
-
-<div class="modal-overlay" id="expense-modal"><div class="modal">
-  <div class="modal-title" id="exp-modal-title"></div>
-  <input type="hidden" id="e-edit-id">
-  <div class="input-row">
-    <div class="field"><label id="lbl-e-type"></label><select id="e-type" onchange="toggleExpType()"></select></div>
-    <div class="field"><label id="lbl-e-cat"></label><select id="e-cat"></select></div>
-  </div>
-  <div class="field"><label id="lbl-e-name"></label><input type="text" id="e-name"></div>
-  <div class="input-row">
-    <div class="field"><label id="lbl-e-amount"></label><input type="number" id="e-amount" step="any"></div>
-    <div class="field"><label id="lbl-e-date"></label><input type="date" id="e-date"></div>
-  </div>
-  <div class="field" id="e-account-field"><label id="lbl-e-account"></label><select id="e-account"></select></div>
-  <div class="field"><label id="lbl-e-note"></label><input type="text" id="e-note"></div>
-  <div class="modal-actions">
-    <button class="btn" id="btn-exp-cancel" onclick="closeModal('expense-modal')"></button>
-    <button class="btn btn-primary" id="btn-exp-save" onclick="saveExpense()"></button>
-  </div>
-</div></div>
-
-<div class="modal-overlay" id="deposit-modal"><div class="modal">
-  <div class="modal-title" id="deposit-modal-title"></div>
-  <div class="field"><label id="lbl-dep-acct"></label><select id="dep-acct"></select></div>
-  <div class="field"><label id="lbl-dep-amt"></label><input type="number" id="dep-amt" step="any"></div>
-  <div class="field"><label id="lbl-dep-note"></label><input type="text" id="dep-note"></div>
-  <div class="modal-actions">
-    <button class="btn" id="btn-dep-cancel" onclick="closeModal('deposit-modal')"></button>
-    <button class="btn btn-primary" id="btn-dep-save" onclick="saveDeposit()"></button>
-  </div>
-</div></div>
-
-<div class="modal-overlay" id="asset-modal"><div class="modal">
-  <div class="modal-title" id="asset-modal-title"></div>
-  <div id="asset-modal-inputs"></div>
-  <div class="modal-actions">
-    <button class="btn" id="btn-asset-cancel" onclick="closeModal('asset-modal')"></button>
-    <button class="btn btn-primary" id="btn-asset-save" onclick="saveAssets()"></button>
-  </div>
-</div></div>
-
-<div class="modal-overlay" id="scheme-modal"><div class="modal">
-  <div class="modal-title" id="scheme-modal-title"></div>
-  <input type="hidden" id="sch-edit-id">
-  <div class="field"><label id="lbl-sch-name"></label><input type="text" id="sch-name"></div>
-  <div class="field"><label id="lbl-sch-desc"></label><input type="text" id="sch-desc"></div>
-  <div id="sch-alloc-fields"></div>
-  <div class="field" style="margin-top:9px"><label id="lbl-sch-social"></label><input type="number" id="sch-social" step="any"></div>
-  <div class="field"><label id="lbl-sch-filial"></label><input type="number" id="sch-filial" step="any"></div>
-  <div class="modal-actions">
-    <button class="btn" id="btn-sch-cancel" onclick="closeModal('scheme-modal')"></button>
-    <button class="btn btn-primary" id="btn-sch-save" onclick="saveScheme()"></button>
-  </div>
-</div></div>
-
-<div class="modal-overlay" id="habit-modal"><div class="modal">
-  <div class="modal-title" id="habit-modal-title"></div>
-  <input type="hidden" id="hb-edit-id">
-  <div class="input-row">
-    <div class="field" style="flex:0 0 58px"><label>Emoji</label><input type="text" id="hb-emoji" maxlength="2" placeholder="🏃"></div>
-    <div class="field"><label id="lbl-hb-name"></label><input type="text" id="hb-name"></div>
-  </div>
-  <div class="field"><label id="lbl-hb-freq"></label>
-    <select id="hb-freq" onchange="updateHabitFreqUI()">
-      <option value="daily" id="hb-opt-daily"></option>
-      <option value="weekly" id="hb-opt-weekly"></option>
-      <option value="monthly" id="hb-opt-monthly"></option>
-    </select>
-  </div>
-  <div id="hb-weekday-wrap" class="field" style="display:none">
-    <label id="lbl-hb-weekdays"></label>
-    <div class="weekday-picker" id="hb-weekday-picker"></div>
-  </div>
-  <div id="hb-monthday-wrap" class="field" style="display:none">
-    <label id="lbl-hb-monthday"></label>
-    <input type="number" id="hb-monthday" min="1" max="31" placeholder="1">
-  </div>
-  <div class="field"><label id="lbl-hb-times"></label><input type="number" id="hb-times" min="1" value="1"></div>
-  <div class="field"><label id="lbl-hb-proj"></label><select id="hb-proj"></select></div>
-  <div class="modal-actions">
-    <button class="btn" id="btn-hb-cancel" onclick="closeModal('habit-modal')"></button>
-    <button class="btn btn-primary" id="btn-hb-save" onclick="saveHabit()"></button>
-  </div>
-</div></div>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
-<script>
+<div class="modal-overlay" id="task-modal"><div class="modal"><div class="modal-title" id="task-modal-title"></div><input type="hidden" id="t-edit-id"><div class="field"><label id="lbl-t-name"></label><input type="text" id="t-name"></div><div class="input-row"><div class="field"><label id="lbl-t-date"></label><input type="date" id="t-date"></div><div class="field"><label id="lbl-t-proj"></label><select id="t-proj"></select></div></div><div class="field"><label id="lbl-t-tag"></label><input type="text" id="t-tag"></div><div class="modal-actions"><button class="btn" id="btn-task-cancel" onclick="closeModal('task-modal')"></button><button class="btn btn-primary" id="btn-task-save" onclick="saveTask()"></button></div></div></div>
+<div class="modal-overlay" id="proj-modal"><div class="modal"><div class="modal-title" id="proj-modal-title"></div><input type="hidden" id="p-edit-id"><div class="input-row"><div class="field" style="flex:0 0 60px"><label>Emoji</label><input type="text" id="p-emoji" maxlength="2"></div><div class="field"><label id="lbl-p-name"></label><input type="text" id="p-name"></div></div><div class="input-row"><div class="field"><label id="lbl-p-type"></label><select id="p-type"></select></div><div class="field"><label id="lbl-p-status"></label><select id="p-status"></select></div></div><div class="input-row"><div class="field"><label id="lbl-p-start"></label><input type="date" id="p-start"></div><div class="field"><label id="lbl-p-end"></label><input type="date" id="p-end"></div></div><div class="field"><label id="lbl-p-prog"></label><input type="number" id="p-prog" min="0" max="100"></div><div class="field"><label id="lbl-p-account"></label><select id="p-account"></select></div><div class="modal-actions"><button class="btn" id="btn-proj-cancel" onclick="closeModal('proj-modal')"></button><button class="btn btn-primary" id="btn-proj-save" onclick="saveProject()"></button></div></div></div>
+<div class="modal-overlay" id="vision-modal"><div class="modal"><div class="modal-title" id="vision-modal-title"></div><input type="hidden" id="v-edit-id"><div class="input-row"><div class="field" style="flex:0 0 60px"><label>Emoji</label><input type="text" id="v-emoji" maxlength="2"></div><div class="field"><label id="lbl-v-name"></label><input type="text" id="v-name"></div></div><div class="input-row"><div class="field"><label id="lbl-v-year"></label><input type="number" id="v-year"></div><div class="field"><label id="lbl-v-account"></label><select id="v-account"></select></div></div><div class="field"><label id="lbl-v-desc"></label><input type="text" id="v-desc"></div><div class="field"><label id="lbl-v-goal-amt"></label><input type="number" id="v-goal-amt" step="any"></div><div class="modal-actions"><button class="btn" id="btn-vision-cancel" onclick="closeModal('vision-modal')"></button><button class="btn btn-primary" id="btn-vision-save" onclick="saveVision()"></button></div></div></div>
+<div class="modal-overlay" id="expense-modal"><div class="modal"><div class="modal-title" id="exp-modal-title"></div><input type="hidden" id="e-edit-id"><div class="input-row"><div class="field"><label id="lbl-e-type"></label><select id="e-type" onchange="toggleExpType()"></select></div><div class="field"><label id="lbl-e-cat"></label><select id="e-cat"></select></div></div><div class="field"><label id="lbl-e-name"></label><input type="text" id="e-name"></div><div class="input-row"><div class="field"><label id="lbl-e-amount"></label><input type="number" id="e-amount" step="any"></div><div class="field"><label id="lbl-e-date"></label><input type="date" id="e-date"></div></div><div class="field" id="e-account-field"><label id="lbl-e-account"></label><select id="e-account"></select></div><div class="field"><label id="lbl-e-note"></label><input type="text" id="e-note"></div><div class="modal-actions"><button class="btn" id="btn-exp-cancel" onclick="closeModal('expense-modal')"></button><button class="btn btn-primary" id="btn-exp-save" onclick="saveExpense()"></button></div></div></div>
+<div class="modal-overlay" id="deposit-modal"><div class="modal"><div class="modal-title" id="deposit-modal-title"></div><div class="field"><label id="lbl-dep-acct"></label><select id="dep-acct"></select></div><div class="field"><label id="lbl-dep-amt"></label><input type="number" id="dep-amt" step="any"></div><div class="field"><label id="lbl-dep-note"></label><input type="text" id="dep-note"></div><div class="modal-actions"><button class="btn" id="btn-dep-cancel" onclick="closeModal('deposit-modal')"></button><button class="btn btn-primary" id="btn-dep-save" onclick="saveDeposit()"></button></div></div></div>
+<div class="modal-overlay" id="goal-modal"><div class="modal"><div class="modal-title" id="goal-modal-title"></div><input type="hidden" id="g-edit-id"><div class="field"><label id="lbl-g-name"></label><input type="text" id="g-name"></div><div class="field"><label id="lbl-g-account"></label><select id="g-account"></select></div><div class="field"><label id="lbl-g-amt"></label><input type="number" id="g-amt" step="any"></div><div class="field"><label id="lbl-g-proj"></label><select id="g-proj"></select></div><div class="modal-actions"><button class="btn" id="btn-goal-cancel" onclick="closeModal('goal-modal')"></button><button class="btn btn-primary" id="btn-goal-save" onclick="saveGoal()"></button></div></div></div>
+<div class="modal-overlay" id="asset-modal"><div class="modal"><div class="modal-title" id="asset-modal-title"></div><div id="asset-modal-inputs"></div><div class="modal-actions"><button class="btn" id="btn-asset-cancel" onclick="closeModal('asset-modal')"></button><button class="btn btn-primary" id="btn-asset-save" onclick="saveAssets()"></button></div></div></div>
+<div class="modal-overlay" id="scheme-modal"><div class="modal"><div class="modal-title" id="scheme-modal-title"></div><input type="hidden" id="sch-edit-id"><div class="field"><label id="lbl-sch-name"></label><input type="text" id="sch-name"></div><div class="field"><label id="lbl-sch-desc"></label><input type="text" id="sch-desc"></div><div id="sch-alloc-fields"></div><div class="field" style="margin-top:10px"><label id="lbl-sch-social"></label><input type="number" id="sch-social" step="any"></div><div class="field"><label id="lbl-sch-filial"></label><input type="number" id="sch-filial" step="any"></div><div class="modal-actions"><button class="btn" id="btn-sch-cancel" onclick="closeModal('scheme-modal')"></button><button class="btn btn-primary" id="btn-sch-save" onclick="saveScheme()"></button></div></div></div>
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+import{getAuth,GoogleAuthProvider,signInWithPopup,signInWithRedirect,getRedirectResult,signOut,onAuthStateChanged}from"https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import{getFirestore,doc,getDoc,setDoc}from"https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 const cfg={apiKey:"AIzaSyA2rHPAQT-eaJnvoUuNHBZdIo88b0Olhmk",authDomain:"life-os-01-byyu.firebaseapp.com",projectId:"life-os-01-byyu",storageBucket:"life-os-01-byyu.firebasestorage.app",messagingSenderId:"904924111847",appId:"1:904924111847:web:8301a7bf43e13f5ef0d342"};
-firebase.initializeApp(cfg);
-const auth=firebase.auth(),db=firebase.firestore(),provider=new firebase.auth.GoogleAuthProvider();
+const app=initializeApp(cfg),auth=getAuth(app),db=getFirestore(app),provider=new GoogleAuthProvider();
 const isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-window._doSignIn=async()=>{
-  document.getElementById('loginBtn').style.display='none';
-  document.getElementById('loginLoading').style.display='block';
-  try{
-    if(isMobile){await auth.signInWithRedirect(provider);}
-    else{await auth.signInWithPopup(provider);}
-  }catch(e){
-    console.error(e);
-    document.getElementById('loginBtn').style.display='flex';
-    document.getElementById('loginLoading').style.display='none';
-  }
-};
-
-auth.getRedirectResult().then(result=>{
-  if(result&&result.user){
-    document.getElementById('loginScreen').style.display='none';
-    window.showApp&&window.showApp();
-  }
-}).catch(e=>console.error('redirect:',e));
-
-window._doSignOut=async()=>{await auth.signOut();updateAuthUI(null);};
-
-window._saveToFB=async(data)=>{
-  if(!window._fbUser)return;
-  try{await db.collection('users').doc(window._fbUser.uid).set(JSON.parse(JSON.stringify(data)));}
-  catch(e){console.error(e);}
-};
-
-window._loadFromFB=async(uid)=>{
-  try{
-    const snap=await db.collection('users').doc(uid).get();
-    if(snap.exists){
-      const d=snap.data();
-      window.DB={...window.DB,...d};
-      applyTheme();applyLang();renderPage(window._curPage||'home');
-    }
-  }catch(e){console.error(e);}
-};
-
+window._doSignIn=async()=>{document.getElementById('loginBtn').style.display='none';document.getElementById('loginLoading').style.display='block';try{if(isMobile){await signInWithRedirect(auth,provider);}else{await signInWithPopup(auth,provider);}}catch(e){console.error(e);document.getElementById('loginBtn').style.display='flex';document.getElementById('loginLoading').style.display='none';}};
+getRedirectResult(auth).catch(e=>console.error(e));
+window._doSignOut=async()=>{await signOut(auth);updateAuthUI(null);};
+window._saveToFB=async(data)=>{if(!window._fbUser)return;try{await setDoc(doc(db,'users',window._fbUser.uid),JSON.parse(JSON.stringify(data)));}catch(e){console.error(e);}};
+window._loadFromFB=async(uid)=>{try{const snap=await getDoc(doc(db,'users',uid));if(snap.exists()){const d=snap.data();window.DB={...window.DB,...d};applyTheme();applyLang();renderPage(window._curPage||'home');}}catch(e){console.error(e);}};
 function updateAuthUI(user){
   const av=document.getElementById('sb-av'),nm=document.getElementById('sb-nm'),au=document.getElementById('sb-auth'),su=document.getElementById('s-user'),sb=document.getElementById('s-auth-btn');
-  if(user){
-    if(av)av.innerHTML=user.photoURL?`<img src="${user.photoURL}">`:(user.displayName?.[0]||'U');
-    if(nm)nm.textContent=user.displayName||user.email;
-    if(au)au.textContent=T('sign_out');
-    if(su)su.textContent=user.displayName||user.email;
-    if(sb)sb.textContent=T('sign_out');
-  }else{
-    if(av)av.textContent='?';
-    if(nm)nm.textContent=T('not_signed');
-    if(au)au.textContent=T('sign_in');
-    if(su)su.textContent=T('not_signed');
-    if(sb)sb.textContent=T('sign_in');
-  }
+  if(user){if(av)av.innerHTML=user.photoURL?`<img src="${user.photoURL}">`:(user.displayName?.[0]||'U');if(nm)nm.textContent=user.displayName||user.email;if(au)au.textContent=T('sign_out');if(su)su.textContent=user.displayName||user.email;if(sb)sb.textContent=T('sign_out');}
+  else{if(av)av.textContent='?';if(nm)nm.textContent=T('not_signed');if(au)au.textContent=T('sign_in');if(su)su.textContent=T('not_signed');if(sb)sb.textContent=T('sign_in');}
 }
-
-auth.onAuthStateChanged(user=>{
-  window._fbUser=user;
-  updateAuthUI(user);
-  if(user){
-    window._loadFromFB(user.uid);
-    document.getElementById('loginScreen').style.display='none';
-    window.showApp&&window.showApp();
-  }
-});
-
+onAuthStateChanged(auth,user=>{window._fbUser=user;updateAuthUI(user);if(user){window._loadFromFB(user.uid);document.getElementById('loginScreen').style.display='none';showApp();}});
 window.doSignIn=()=>window._doSignIn();
 window.handleAuth=()=>window._fbUser?window._doSignOut():window._doSignIn();
 </script>
 <script>
-// ═══ i18n ═══
+// i18n
 const LANGS={
 zh:{
   app_sub:'你的個人控制台',login_sub:'你的個人控制台\n記帳、計畫、資產，一站管理',
-  login_google:'使用 Google 帳號登入',signing_in:'登入中...',use_offline:'先離線使用',
-  nav_daily:'每日',nav_home:'首頁',nav_habits:'打卡',nav_tasks:'任務',nav_plans:'計畫',
-  nav_projects:'計畫庫',nav_visions:'未來願景',nav_finance:'財務',nav_cashflow:'現金流',
-  nav_assets:'實體資產',nav_income:'收入分配',nav_settings:'設定',
-  page_home:'首頁',page_habits:'每日打卡',page_tasks:'任務',page_projects:'計畫庫',
-  page_visions:'未來願景',page_cashflow:'現金流',page_assets:'實體資產',page_income:'收入分配',page_settings:'設定',
-  h_tasks:'今日任務',h_pending:'未完成',h_assets:'總資產',h_today:'今日',
-  h_habits:'今日打卡',h_projs:'重要計畫',h_impulse:'防衝動警示',h_growth:'資產成長',
+  login_google:'使用 Google 帳號登入',signing_in:'登入中...',use_offline:'先離線使用（資料不會同步）',
+  nav_daily:'每日',nav_home:'首頁',nav_tasks:'執行清單',nav_plans:'計畫',nav_projects:'計畫庫',
+  nav_visions:'未來願景',nav_finance:'財務',nav_cashflow:'現金流',nav_assets:'實體資產',
+  nav_income:'收入分配',nav_settings:'設定',
+  page_home:'首頁',page_tasks:'執行清單',page_projects:'計畫庫',page_visions:'未來願景',
+  page_cashflow:'現金流',page_assets:'實體資產',page_income:'收入分配',page_settings:'設定',
+  h_tasks:'今日待辦',h_pending:'未完成',h_assets:'總資產',h_today:'今日',
+  h_projs:'重要計畫',h_impulse:'防衝動警示',h_growth:'資產成長',
   add_ph:'快速新增任務...',btn_add:'新增',
-  btn_new_habit:'+ 新增打卡項目',btn_new_task:'+ 新增任務',
-  btn_pending:'未完成',btn_today:'今天',btn_done:'已完成',
+  btn_new_task:'+ 新增任務',btn_pending:'未完成',btn_today:'今天',btn_done:'已完成',
   btn_new_proj:'+ 新增計畫',btn_new_vision:'+ 新增願景',
   cf_accts:'虛擬帳戶',cf_tx:'消費記錄',cf_goals:'目標',
   btn_deposit:'+ 撥款',btn_new_tx:'+ 記帳',btn_new_goal:'+ 新增目標',
   btn_update:'+ 月底結算',lbl_snaps:'更新記錄',lbl_total:'💰 總資產淨值',
-  income_title:'收入分配',btn_apply:'確認套用到帳戶 →',lbl_hist:'收入記錄',
+  income_title:'收入分配計算機',btn_apply:'套用到虛擬帳戶 →',btn_save_rec:'存入記錄',lbl_hist:'收入記錄',
   lbl_amt:'金額',lbl_src:'來源',lbl_type:'類型',lbl_scheme:'分配方案',
   src_self:'自己',src_parents:'父母',
   t_salary:'正職',t_year:'年終',t_perf:'績效',t_extra:'額外',t_red:'紅包',
@@ -815,198 +471,135 @@ zh:{
   m_new_task:'新增任務',m_edit_task:'編輯任務',m_new_proj:'新增計畫',m_edit_proj:'編輯計畫',
   m_new_vision:'新增願景',m_edit_vision:'編輯願景',m_new_tx:'新增記帳',m_edit_tx:'編輯記帳',
   m_deposit:'撥款入帳',m_new_goal:'新增目標',m_edit_goal:'編輯目標',
-  m_assets:'更新實體帳戶',m_snap:'儲存並快照',m_new_scheme:'新增分配方案',m_edit_scheme:'編輯方案',
-  m_new_habit:'新增打卡項目',m_edit_habit:'編輯打卡項目',
-  lbl_name:'名稱',lbl_date:'日期',lbl_proj:'所屬計畫',lbl_goal_link:'所屬目標',lbl_tag:'標籤',
+  m_assets:'更新實體帳戶',m_snap:'儲存並快照',m_new_scheme:'新增分配方案',m_edit_scheme:'編輯分配方案',
+  lbl_name:'名稱',lbl_date:'日期',lbl_proj:'所屬計畫',lbl_tag:'標籤',
   lbl_status:'狀態',lbl_start:'開始日期',lbl_end:'截止日期',lbl_prog:'進度 (%)',
   lbl_account:'綁定帳戶（選填）',lbl_year:'目標年份',lbl_desc:'描述',lbl_goal_amt:'目標金額（選填）',
   lbl_cat:'類別',lbl_acct:'扣除帳戶',lbl_note:'備註（選填）',lbl_dep_acct:'帳戶',
   lbl_dep_amt:'撥入金額',lbl_dep_note:'備註',lbl_g_name:'目標名稱',lbl_g_acct:'綁定帳戶',
-  lbl_g_amt:'目標金額',lbl_g_proj:'所屬計畫（選填）',
+  lbl_g_amt:'目標金額',lbl_g_proj:'綁定計畫（選填）',
   lbl_sch_name:'方案名稱',lbl_sch_desc:'描述',lbl_sch_social:'社交固定金額（自己正職）',
   lbl_sch_filial:'孝親固定金額（自己正職）',lbl_sch_alloc:'自訂分配比例（留空使用帳戶預設值）：',
-  lbl_hb_name:'打卡項目名稱',lbl_hb_freq:'頻率',lbl_hb_weekdays:'執行星期',lbl_hb_monthday:'執行日期（每月幾號）',
-  lbl_hb_times:'每次執行次數',lbl_hb_proj:'關聯計畫（選填）',
-  lbl_repeat:'設為重複打卡',lbl_freq:'重複頻率',lbl_weekdays:'執行星期',lbl_monthday:'執行日（幾號）',lbl_times:'每次次數',
-  freq_daily:'每天',freq_weekly:'每週',freq_monthly:'每月',
-  wd:['日','一','二','三','四','五','六'],
   p_short:'短期計畫',p_long:'長期願景',p_planning:'規劃中',p_active:'進行中',p_done:'已完成',
   btn_cancel:'取消',btn_set_def:'設為預設',btn_edit:'編輯',btn_del:'刪除',badge_def:'預設',lbl_none:'無',
-  show_done:'顯示已完成',hide_done:'隱藏已完成',
   c_del_task:'確定刪除這個任務？',c_del_proj:'確定刪除這個計畫？',c_del_vision:'確定刪除這個願景？',
   c_del_tx:'確定刪除這筆記錄？',c_del_goal:'確定刪除這個目標？',c_del_rec:'確定刪除這筆收入記錄？',
-  c_remove_acct:'確定移除這個帳戶？',c_del_scheme:'確定刪除這個方案？',c_del_habit:'確定刪除這個打卡項目？',
+  c_remove_acct:'確定移除這個帳戶？',c_del_scheme:'確定刪除這個方案？',
   keep_acct:'至少保留一個帳戶',keep_scheme:'至少保留一個方案',
   ok_applied:'✓ 已套用到各虛擬帳戶！',ok_colors:'✓ 配色已套用！',ok_saved:'✓ 已儲存！',
   err_amt:'請先輸入收入金額',err_fill:'請填入名稱和金額',err_acct:'請選擇帳戶',err_all:'請填入所有欄位',err_scheme:'請輸入方案名稱',
   no_data:'尚無足夠資料',no_tasks:'沒有符合的任務',no_proj:'尚無計畫',no_visions:'尚無願景',
-  no_tx:'尚無消費記錄',no_goals:'尚無目標',no_snaps:'尚無快照',no_income:'尚無收入記錄',
-  no_active:'尚無進行中的計畫',no_habits:'尚無打卡項目',
+  no_tx:'尚無消費記錄',no_goals:'尚無目標',no_snaps:'尚無快照',no_income:'尚無收入記錄',no_active:'尚無進行中的計畫',
   all_clear:'今天沒有待辦 ✓',on_track:'目前所有目標進度良好 ✓',
   deposited:'累積撥入：',goal_col:'目標：',goal_reached:'已達成！🎉',remaining:'還差',
   total_in:'收入合計',remainder:'剩餘',fixed_lbl:'固定',ongoing:'長期',
   rule_red:'🧧 父母紅包 → 全額存入儲蓄',
-  rule_parents:'父母 · 額外 → 固定比例後，剩餘進孝親',
-  rule_salary:'自己 · 正職 → 固定比例後，存社交 {s}、孝親 {f}，其餘進儲蓄',
-  rule_other:'自己 · 非正職 → 固定比例後，剩餘進儲蓄',
+  rule_parents:'父母 · 額外 → 固定 30%，剩下 70% 進孝親',
+  rule_salary:'自己 · 正職 → 固定 30%，再存社交 {s}、孝親 {f}，其餘進儲蓄',
+  rule_other:'自己 · 非正職 → 固定 30%，剩下 70% 進儲蓄',
   pct_hint:'% (0=固定規則)',new_acct:'新帳戶',done_fmt:'{d}/{t} 今日完成',pct_goal:'% 達成目標',goal_txt:'目標：',
-  streak:'連續',days:'天',times_done:'次',
 },
 en:{
-  app_sub:'Personal Command Center',login_sub:'Your personal command center\nBudget, plans, assets — all in one',
-  login_google:'Sign in with Google',signing_in:'Signing in...',use_offline:'Use offline',
-  nav_daily:'Daily',nav_home:'Home',nav_habits:'Habits',nav_tasks:'Tasks',nav_plans:'Plans',
-  nav_projects:'Projects',nav_visions:'Visions',nav_finance:'Finance',nav_cashflow:'Cash Flow',
-  nav_assets:'Assets',nav_income:'Income',nav_settings:'Settings',
-  page_home:'Home',page_habits:'Habits',page_tasks:'Tasks',page_projects:'Projects',
-  page_visions:'Visions',page_cashflow:'Cash Flow',page_assets:'Assets',page_income:'Income',page_settings:'Settings',
+  app_sub:'Personal Command Center',login_sub:'Your personal command center\nBudget, plans, assets — all in one place',
+  login_google:'Sign in with Google',signing_in:'Signing in...',use_offline:"Use offline (data won't sync)",
+  nav_daily:'Daily',nav_home:'Home',nav_tasks:'Tasks',nav_plans:'Plans',nav_projects:'Projects',
+  nav_visions:'Visions',nav_finance:'Finance',nav_cashflow:'Cash Flow',nav_assets:'Assets',
+  nav_income:'Income',nav_settings:'Settings',
+  page_home:'Home',page_tasks:'Tasks',page_projects:'Projects',page_visions:'Visions',
+  page_cashflow:'Cash Flow',page_assets:'Assets',page_income:'Income',page_settings:'Settings',
   h_tasks:"Today's Tasks",h_pending:'pending',h_assets:'Net Worth',h_today:'Today',
-  h_habits:"Today's Habits",h_projs:'Active Projects',h_impulse:'Impulse Control',h_growth:'Net Worth Growth',
+  h_projs:'Active Projects',h_impulse:'Impulse Control',h_growth:'Net Worth Growth',
   add_ph:'Add a task...',btn_add:'Add',
-  btn_new_habit:'+ New Habit',btn_new_task:'+ New Task',
-  btn_pending:'Pending',btn_today:'Today',btn_done:'Done',
+  btn_new_task:'+ New Task',btn_pending:'Pending',btn_today:'Today',btn_done:'Done',
   btn_new_proj:'+ New Project',btn_new_vision:'+ New Vision',
   cf_accts:'Accounts',cf_tx:'Transactions',cf_goals:'Goals',
   btn_deposit:'+ Deposit',btn_new_tx:'+ Transaction',btn_new_goal:'+ New Goal',
   btn_update:'+ Update Balances',lbl_snaps:'Snapshots',lbl_total:'💰 Total Net Worth',
-  income_title:'Income Allocation',btn_apply:'Confirm & Apply to Accounts →',lbl_hist:'Income History',
-  lbl_amt:'Amount',lbl_src:'Source',lbl_type:'Type',lbl_scheme:'Scheme',
+  income_title:'Income Allocator',btn_apply:'Apply to Accounts →',btn_save_rec:'Save Record',lbl_hist:'Income History',
+  lbl_amt:'Amount',lbl_src:'Source',lbl_type:'Type',lbl_scheme:'Allocation Scheme',
   src_self:'Self',src_parents:'Parents',
-  t_salary:'Salary',t_year:'Year-end',t_perf:'Performance',t_extra:'Extra',t_red:'Red Envelope',
+  t_salary:'Salary',t_year:'Year-end Bonus',t_perf:'Performance',t_extra:'Extra',t_red:'Red Envelope',
   tx_out:'Expense',tx_in:'Direct Income',
   cat_food:'Food',cat_transport:'Transport',cat_shopping:'Shopping',cat_ent:'Entertainment',cat_health:'Health',cat_other:'Other',
   s_colors:'Theme Colors',s_vac:'Virtual Accounts',s_schemes:'Allocation Schemes',s_assets:'Physical Accounts',
   s_target:'Asset Goal',s_account:'Account',
-  c1:'Primary (buttons)',c2:'Secondary',c3:'Background',btn_colors:'Apply',
+  c1:'Primary (buttons, accents)',c2:'Secondary',c3:'Background tint',btn_colors:'Apply Colors',
   btn_add_vac:'+ Add Account',btn_save:'Save',btn_add_scheme:'+ New Scheme',btn_add_asset:'+ Add Account',
   lbl_target:'Target Net Worth',s_user_sub:'Firebase sync',
   sign_in:'Sign in',sign_out:'Sign out',not_signed:'Not signed in',
   m_new_task:'New Task',m_edit_task:'Edit Task',m_new_proj:'New Project',m_edit_proj:'Edit Project',
   m_new_vision:'New Vision',m_edit_vision:'Edit Vision',m_new_tx:'New Transaction',m_edit_tx:'Edit Transaction',
-  m_deposit:'Deposit',m_new_goal:'New Goal',m_edit_goal:'Edit Goal',
-  m_assets:'Update Balances',m_snap:'Save & Snapshot',m_new_scheme:'New Scheme',m_edit_scheme:'Edit Scheme',
-  m_new_habit:'New Habit',m_edit_habit:'Edit Habit',
-  lbl_name:'Name',lbl_date:'Date',lbl_proj:'Project',lbl_goal_link:'Goal',lbl_tag:'Tag',
-  lbl_status:'Status',lbl_start:'Start',lbl_end:'End',lbl_prog:'Progress (%)',
-  lbl_account:'Linked Account',lbl_year:'Target Year',lbl_desc:'Description',lbl_goal_amt:'Goal Amount',
-  lbl_cat:'Category',lbl_acct:'Account',lbl_note:'Note',lbl_dep_acct:'Account',
+  m_deposit:'Deposit to Account',m_new_goal:'New Goal',m_edit_goal:'Edit Goal',
+  m_assets:'Update Account Balances',m_snap:'Save & Snapshot',m_new_scheme:'New Allocation Scheme',m_edit_scheme:'Edit Scheme',
+  lbl_name:'Name',lbl_date:'Date',lbl_proj:'Project',lbl_tag:'Tag',
+  lbl_status:'Status',lbl_start:'Start Date',lbl_end:'End Date',lbl_prog:'Progress (%)',
+  lbl_account:'Linked Account (optional)',lbl_year:'Target Year',lbl_desc:'Description',lbl_goal_amt:'Goal Amount (optional)',
+  lbl_cat:'Category',lbl_acct:'Account',lbl_note:'Note (optional)',lbl_dep_acct:'Account',
   lbl_dep_amt:'Amount',lbl_dep_note:'Note',lbl_g_name:'Goal Name',lbl_g_acct:'Linked Account',
-  lbl_g_amt:'Target Amount',lbl_g_proj:'Project (optional)',
-  lbl_sch_name:'Name',lbl_sch_desc:'Description',lbl_sch_social:'Fixed: Social',
-  lbl_sch_filial:'Fixed: Filial',lbl_sch_alloc:'Custom allocation % (blank = use account default):',
-  lbl_hb_name:'Habit Name',lbl_hb_freq:'Frequency',lbl_hb_weekdays:'Days of week',lbl_hb_monthday:'Day of month',
-  lbl_hb_times:'Times per session',lbl_hb_proj:'Linked Project',
-  lbl_repeat:'Set as repeating',lbl_freq:'Frequency',lbl_weekdays:'Days of week',lbl_monthday:'Day of month',lbl_times:'Times',
-  freq_daily:'Daily',freq_weekly:'Weekly',freq_monthly:'Monthly',
-  wd:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+  lbl_g_amt:'Target Amount',lbl_g_proj:'Linked Project (optional)',
+  lbl_sch_name:'Scheme Name',lbl_sch_desc:'Description',lbl_sch_social:'Fixed: Social (self/salary)',
+  lbl_sch_filial:'Fixed: Filial (self/salary)',lbl_sch_alloc:'Custom allocation % (leave blank to use account default):',
   p_short:'Short-term',p_long:'Long-term Vision',p_planning:'Planning',p_active:'Active',p_done:'Done',
   btn_cancel:'Cancel',btn_set_def:'Set Default',btn_edit:'Edit',btn_del:'Delete',badge_def:'Default',lbl_none:'None',
-  show_done:'Show completed',hide_done:'Hide completed',
   c_del_task:'Delete this task?',c_del_proj:'Delete this project?',c_del_vision:'Delete this vision?',
   c_del_tx:'Delete this transaction?',c_del_goal:'Delete this goal?',c_del_rec:'Delete this record?',
-  c_remove_acct:'Remove this account?',c_del_scheme:'Delete this scheme?',c_del_habit:'Delete this habit?',
+  c_remove_acct:'Remove this account?',c_del_scheme:'Delete this scheme?',
   keep_acct:'Keep at least one account',keep_scheme:'Keep at least one scheme',
   ok_applied:'✓ Applied to accounts!',ok_colors:'✓ Colors applied!',ok_saved:'✓ Saved!',
-  err_amt:'Please enter an amount',err_fill:'Please fill in name and amount',err_acct:'Please select an account',err_all:'Please fill in all fields',err_scheme:'Please enter a scheme name',
+  err_amt:'Please enter an amount first',err_fill:'Please fill in name and amount',err_acct:'Please select an account',err_all:'Please fill in all fields',err_scheme:'Please enter a scheme name',
   no_data:'Not enough data yet',no_tasks:'No tasks here',no_proj:'No projects yet',no_visions:'No visions yet',
-  no_tx:'No transactions yet',no_goals:'No goals yet',no_snaps:'No snapshots yet',no_income:'No income records yet',
-  no_active:'No active projects',no_habits:'No habits yet',
+  no_tx:'No transactions yet',no_goals:'No goals yet',no_snaps:'No snapshots yet',no_income:'No income records yet',no_active:'No active projects',
   all_clear:'All clear! ✓',on_track:'All goals on track ✓',
-  deposited:'Deposited:',goal_col:'Goal:',goal_reached:'Reached! 🎉',remaining:'remaining',
-  total_in:'Total',remainder:'remainder',fixed_lbl:'fixed',ongoing:'Ongoing',
+  deposited:'Deposited:',goal_col:'Goal:',goal_reached:'Goal reached! 🎉',remaining:'remaining',
+  total_in:'Total Input',remainder:'remainder',fixed_lbl:'fixed',ongoing:'Ongoing',
   rule_red:'🧧 Red Envelope → 100% to Savings',
-  rule_parents:'Parents · Extra → Fixed %, rest to Filial',
-  rule_salary:'Self · Salary → Fixed %, Social {s}, Filial {f}, rest to Savings',
-  rule_other:'Self · Non-salary → Fixed %, rest to Savings',
-  pct_hint:'% (0=fixed)',new_acct:'New Account',done_fmt:'{d}/{t} done today',pct_goal:'% of goal',goal_txt:'Goal:',
-  streak:'Streak',days:'days',times_done:'done',
+  rule_parents:'Parents · Extra → Fixed 30%, remaining 70% to Filial',
+  rule_salary:'Self · Salary → Fixed 30%, then Social {s}, Filial {f}, rest to Savings',
+  rule_other:'Self · Non-salary → Fixed 30%, remaining 70% to Savings',
+  pct_hint:'% (0 = fixed rule)',new_acct:'New Account',done_fmt:'{d}/{t} done today',pct_goal:'% of goal',goal_txt:'Goal:',
 }};
-
 let _lang=localStorage.getItem('lifeos_lang')||'zh';
 const T=k=>(LANGS[_lang]||LANGS.zh)[k]||(LANGS.en)[k]||k;
 function setLang(l){_lang=l;localStorage.setItem('lifeos_lang',l);applyLang();renderPage(window._curPage||'home');}
 function st(id,txt){const e=document.getElementById(id);if(e)e.textContent=txt;}
 function sa(id,attr,val){const e=document.getElementById(id);if(e)e.setAttribute(attr,val);}
-
 function fillTypeSelects(){
   const src=document.getElementById('inc-src');if(src){const v=src.value;src.innerHTML=`<option value="self">${T('src_self')}</option><option value="parents">${T('src_parents')}</option>`;src.value=v||'self';}
   const pt=document.getElementById('p-type');if(pt){const v=pt.value;pt.innerHTML=`<option value="short">${T('p_short')}</option><option value="long">${T('p_long')}</option>`;pt.value=v||'short';}
   const ps=document.getElementById('p-status');if(ps){const v=ps.value;ps.innerHTML=`<option value="planning">${T('p_planning')}</option><option value="active">${T('p_active')}</option><option value="done">${T('p_done')}</option>`;ps.value=v||'planning';}
   const et=document.getElementById('e-type');if(et){const v=et.value;et.innerHTML=`<option value="expense">${T('tx_out')}</option><option value="income_direct">${T('tx_in')}</option>`;et.value=v||'expense';}
   const ec=document.getElementById('e-cat');if(ec){const v=ec.value;ec.innerHTML=['food','transport','shopping','ent','health','other'].map(c=>`<option value="${c}">${T('cat_'+c)}</option>`).join('');if(v)ec.value=v;}
-  const hf=document.getElementById('hb-freq');if(hf){const v=hf.value;hf.innerHTML=`<option value="daily">${T('freq_daily')}</option><option value="weekly">${T('freq_weekly')}</option><option value="monthly">${T('freq_monthly')}</option>`;hf.value=v||'daily';}
-  const tf=document.getElementById('t-freq');if(tf){const v=tf.value;tf.innerHTML=`<option value="daily">${T('freq_daily')}</option><option value="weekly">${T('freq_weekly')}</option><option value="monthly">${T('freq_monthly')}</option>`;tf.value=v||'daily';}
   updateIncTypes();
-  buildWeekdayPickers();
 }
-
-function buildWeekdayPickers(){
-  ['weekday-picker','hb-weekday-picker'].forEach(pid=>{
-    const el=document.getElementById(pid);if(!el)return;
-    const selected=el.dataset.selected?el.dataset.selected.split(',').map(Number):[];
-    el.innerHTML=T('wd').map((d,i)=>`<div class="wd-btn${selected.includes(i)?' selected':''}" onclick="toggleWD(this,${i})">${d}</div>`).join('');
-  });
-}
-
-function toggleWD(el,i){
-  el.classList.toggle('selected');
-}
-
 function applyLang(){
   st('login-sub',T('login_sub'));st('login-google-text',T('login_google'));st('loginLoading',T('signing_in'));st('login-offline',T('use_offline'));
   st('sb-sub',T('app_sub'));
   st('nav-lbl-daily',T('nav_daily'));st('nav-lbl-plans',T('nav_plans'));st('nav-lbl-finance',T('nav_finance'));
-  ['home','habits','tasks','projects','visions','cashflow','assets','income','settings'].forEach(p=>{st('nav-'+p,T('nav_'+p));});
-  st('mn-home',T('nav_home'));st('mn-habits',T('nav_habits'));st('mn-cashflow',T('nav_cashflow'));st('mn-projects',T('nav_projects'));st('mn-settings',T('nav_settings'));
+  ['home','tasks','projects','visions','cashflow','assets','income','settings'].forEach(p=>{st('nav-'+p,T('nav_'+p));});
+  st('mn-home',T('nav_home'));st('mn-cashflow',T('nav_cashflow'));st('mn-projects',T('nav_projects'));st('mn-assets',T('nav_assets'));st('mn-settings',T('nav_settings'));
   st('tb-title',T('page_'+(window._curPage||'home')));
   st('h-lbl-tasks',T('h_tasks'));st('h-sub-tasks',T('h_pending'));st('h-lbl-assets',T('h_assets'));
-  st('h-today-title',T('h_today'));st('h-habits-title',T('h_habits'));st('h-projs-title',T('h_projs'));
-  st('h-alerts-title',T('h_impulse'));st('h-growth-title',T('h_growth'));
+  st('h-today-title',T('h_today'));st('h-projs-title',T('h_projs'));st('h-alerts-title',T('h_impulse'));st('h-growth-title',T('h_growth'));
   sa('h-ti','placeholder',T('add_ph'));st('h-add-btn',T('btn_add'));
-  st('btn-new-habit',T('btn_new_habit'));
   st('btn-new-task',T('btn_new_task'));st('btn-f-pending',T('btn_pending'));st('btn-f-today',T('btn_today'));st('btn-f-done',T('btn_done'));
   st('btn-new-proj',T('btn_new_proj'));st('btn-new-vision',T('btn_new_vision'));
   st('cf-tab-accts',T('cf_accts'));st('cf-tab-tx',T('cf_tx'));st('cf-tab-goals',T('cf_goals'));
   st('btn-deposit',T('btn_deposit'));st('btn-new-tx',T('btn_new_tx'));st('btn-new-tx2',T('btn_new_tx'));st('btn-new-goal',T('btn_new_goal'));
   st('btn-update-assets',T('btn_update'));st('snap-title',T('lbl_snaps'));st('assets-total-lbl',T('lbl_total'));
-  st('income-calc-title',T('income_title'));st('btn-apply-income',T('btn_apply'));st('income-history-title',T('lbl_hist'));
-  st('lbl-amount',T('lbl_amt'));st('lbl-source',T('lbl_src'));st('lbl-type',T('lbl_type'));
-  st('s-title-colors',T('s_colors'));st('s-title-vac',T('s_vac'));st('s-title-schemes',T('s_schemes'));
-  st('s-title-assets',T('s_assets'));st('s-title-target',T('s_target'));st('s-title-account',T('s_account'));
+  st('income-calc-title',T('income_title'));st('btn-apply-income',T('btn_apply'));st('btn-save-income',T('btn_save_rec'));st('income-history-title',T('lbl_hist'));
+  st('lbl-amount',T('lbl_amt'));st('lbl-source',T('lbl_src'));st('lbl-type',T('lbl_type'));st('lbl-scheme',T('lbl_scheme'));
+  st('s-title-colors',T('s_colors'));st('s-title-vac',T('s_vac'));st('s-title-schemes',T('s_schemes'));st('s-title-assets',T('s_assets'));st('s-title-target',T('s_target'));st('s-title-account',T('s_account'));
   st('s-lbl-c1',T('c1'));st('s-lbl-c2',T('c2'));st('s-lbl-c3',T('c3'));st('btn-apply-colors',T('btn_colors'));
-  st('btn-add-vac',T('btn_add_vac'));st('btn-save-vac',T('btn_save'));st('btn-add-scheme',T('btn_add_scheme'));
-  st('btn-add-asset',T('btn_add_asset'));st('btn-save-assets',T('btn_save'));
+  st('btn-add-vac',T('btn_add_vac'));st('btn-save-vac',T('btn_save'));st('btn-add-scheme',T('btn_add_scheme'));st('btn-add-asset',T('btn_add_asset'));st('btn-save-assets',T('btn_save'));
   st('s-lbl-target',T('lbl_target'));st('btn-save-target',T('btn_save'));st('s-user-sub',T('s_user_sub'));
-  st('task-modal-title',T('m_new_task'));st('lbl-t-name',T('lbl_name'));st('lbl-t-date',T('lbl_date'));
-  st('lbl-t-proj',T('lbl_proj'));st('lbl-t-goal',T('lbl_goal_link'));st('lbl-t-tag',T('lbl_tag'));
-  st('lbl-t-repeat',T('lbl_repeat'));st('lbl-t-freq',T('lbl_freq'));st('lbl-t-weekdays',T('lbl_weekdays'));
-  st('lbl-t-monthday',T('lbl_monthday'));st('lbl-t-times',T('lbl_times'));
-  st('btn-task-cancel',T('btn_cancel'));st('btn-task-save',T('btn_save'));
-  st('proj-modal-title',T('m_new_proj'));st('lbl-p-name',T('lbl_name'));st('lbl-p-type',T('lbl_type'));
-  st('lbl-p-status',T('lbl_status'));st('lbl-p-start',T('lbl_start'));st('lbl-p-end',T('lbl_end'));
-  st('lbl-p-prog',T('lbl_prog'));st('lbl-p-account',T('lbl_account'));
-  st('btn-proj-cancel',T('btn_cancel'));st('btn-proj-save',T('btn_save'));
-  st('goal-modal-title',T('m_new_goal'));st('lbl-g-name',T('lbl_g_name'));st('lbl-g-proj',T('lbl_g_proj'));
-  st('lbl-g-account',T('lbl_g_acct'));st('lbl-g-amt',T('lbl_g_amt'));
-  st('btn-goal-cancel',T('btn_cancel'));st('btn-goal-save',T('btn_save'));
-  st('vision-modal-title',T('m_new_vision'));st('lbl-v-name',T('lbl_name'));st('lbl-v-year',T('lbl_year'));
-  st('lbl-v-account',T('lbl_account'));st('lbl-v-desc',T('lbl_desc'));st('lbl-v-goal-amt',T('lbl_goal_amt'));
-  st('btn-vision-cancel',T('btn_cancel'));st('btn-vision-save',T('btn_save'));
-  st('exp-modal-title',T('m_new_tx'));st('lbl-e-type',T('lbl_type'));st('lbl-e-cat',T('lbl_cat'));
-  st('lbl-e-name',T('lbl_name'));st('lbl-e-amount',T('lbl_amt'));st('lbl-e-date',T('lbl_date'));
-  st('lbl-e-account',T('lbl_acct'));st('lbl-e-note',T('lbl_note'));
-  st('btn-exp-cancel',T('btn_cancel'));st('btn-exp-save',T('btn_save'));
-  st('deposit-modal-title',T('m_deposit'));st('lbl-dep-acct',T('lbl_dep_acct'));
-  st('lbl-dep-amt',T('lbl_dep_amt'));st('lbl-dep-note',T('lbl_dep_note'));
-  st('btn-dep-cancel',T('btn_cancel'));st('btn-dep-save',T('btn_save'));
+  st('task-modal-title',T('m_new_task'));st('lbl-t-name',T('lbl_name'));st('lbl-t-date',T('lbl_date'));st('lbl-t-proj',T('lbl_proj'));st('lbl-t-tag',T('lbl_tag'));st('btn-task-cancel',T('btn_cancel'));st('btn-task-save',T('btn_save'));
+  st('proj-modal-title',T('m_new_proj'));st('lbl-p-name',T('lbl_name'));st('lbl-p-type',T('lbl_type'));st('lbl-p-status',T('lbl_status'));st('lbl-p-start',T('lbl_start'));st('lbl-p-end',T('lbl_end'));st('lbl-p-prog',T('lbl_prog'));st('lbl-p-account',T('lbl_account'));st('btn-proj-cancel',T('btn_cancel'));st('btn-proj-save',T('btn_save'));
+  st('vision-modal-title',T('m_new_vision'));st('lbl-v-name',T('lbl_name'));st('lbl-v-year',T('lbl_year'));st('lbl-v-account',T('lbl_account'));st('lbl-v-desc',T('lbl_desc'));st('lbl-v-goal-amt',T('lbl_goal_amt'));st('btn-vision-cancel',T('btn_cancel'));st('btn-vision-save',T('btn_save'));
+  st('exp-modal-title',T('m_new_tx'));st('lbl-e-type',T('lbl_type'));st('lbl-e-cat',T('lbl_cat'));st('lbl-e-name',T('lbl_name'));st('lbl-e-amount',T('lbl_amt'));st('lbl-e-date',T('lbl_date'));st('lbl-e-account',T('lbl_acct'));st('lbl-e-note',T('lbl_note'));st('btn-exp-cancel',T('btn_cancel'));st('btn-exp-save',T('btn_save'));
+  st('deposit-modal-title',T('m_deposit'));st('lbl-dep-acct',T('lbl_dep_acct'));st('lbl-dep-amt',T('lbl_dep_amt'));st('lbl-dep-note',T('lbl_dep_note'));st('btn-dep-cancel',T('btn_cancel'));st('btn-dep-save',T('btn_save'));
+  st('goal-modal-title',T('m_new_goal'));st('lbl-g-name',T('lbl_g_name'));st('lbl-g-account',T('lbl_g_acct'));st('lbl-g-amt',T('lbl_g_amt'));st('lbl-g-proj',T('lbl_g_proj'));st('btn-goal-cancel',T('btn_cancel'));st('btn-goal-save',T('btn_save'));
   st('asset-modal-title',T('m_assets'));st('btn-asset-cancel',T('btn_cancel'));st('btn-asset-save',T('m_snap'));
-  st('scheme-modal-title',T('m_new_scheme'));st('lbl-sch-name',T('lbl_sch_name'));st('lbl-sch-desc',T('lbl_sch_desc'));
-  st('lbl-sch-social',T('lbl_sch_social'));st('lbl-sch-filial',T('lbl_sch_filial'));
-  st('btn-sch-cancel',T('btn_cancel'));st('btn-sch-save',T('btn_save'));
-  st('habit-modal-title',T('m_new_habit'));st('lbl-hb-name',T('lbl_hb_name'));st('lbl-hb-freq',T('lbl_hb_freq'));
-  st('lbl-hb-weekdays',T('lbl_hb_weekdays'));st('lbl-hb-monthday',T('lbl_hb_monthday'));
-  st('lbl-hb-times',T('lbl_hb_times'));st('lbl-hb-proj',T('lbl_hb_proj'));
-  st('btn-hb-cancel',T('btn_cancel'));st('btn-hb-save',T('btn_save'));
+  st('scheme-modal-title',T('m_new_scheme'));st('lbl-sch-name',T('lbl_sch_name'));st('lbl-sch-desc',T('lbl_sch_desc'));st('lbl-sch-social',T('lbl_sch_social'));st('lbl-sch-filial',T('lbl_sch_filial'));st('btn-sch-cancel',T('btn_cancel'));st('btn-sch-save',T('btn_save'));
   const zh=document.getElementById('lang-zh'),en=document.getElementById('lang-en');
   if(zh)zh.className='lang-btn'+(_lang==='zh'?' active':'');if(en)en.className='lang-btn'+(_lang==='en'?' active':'');
   fillTypeSelects();
@@ -1014,55 +607,37 @@ function applyLang(){
   if(window._fbUser){if(su)su.textContent=window._fbUser.displayName||window._fbUser.email;if(sb)sb.textContent=T('sign_out');if(au)au.textContent=T('sign_out');}
   else{if(su)su.textContent=T('not_signed');if(sb)sb.textContent=T('sign_in');if(au)au.textContent=T('sign_in');if(nm&&!window._fbUser)nm.textContent=T('not_signed');}
 }
-
-// ═══ DATA ═══
-window.DB={
-  tasks:[],projects:[],goals:[],visions:[],habits:[],habitLogs:{},
-  virtualAccounts:[
-    {id:'v1',name:'帳戶 1',deposited:0,pct:0},
-    {id:'v2',name:'帳戶 2',deposited:0,pct:0},
-    {id:'v3',name:'帳戶 3',deposited:0,pct:0}
-  ],
-  expenses:[],
-  assets:[
-    {id:'a1',code:'A',name:'帳戶 A',amount:0,color:'#2B7FD4'},
-    {id:'a2',code:'B',name:'帳戶 B',amount:0,color:'#3BAD7A'},
-    {id:'a3',code:'C',name:'帳戶 C',amount:0,color:'#D4A82B'}
-  ],
-  snapshots:[],incomeRecords:[],
-  schemes:[{id:'sch-default',name:'預設方案',desc:'',isDefault:true,socialFixed:2000,filialFixed:2000,alloc:{}}],
-  colors:{c1:'#2B7FD4',c2:'#5BAEE8',c3:'#E8F3FB'},
-  assetTarget:1000000,
-  showDoneTasks:false,showDoneProj:false,showDoneHabits:false,
-};
-try{const r=localStorage.getItem('lifeos_v4');if(r){const d=JSON.parse(r);window.DB={...window.DB,...d};}}catch(e){}
-
-function save(){localStorage.setItem('lifeos_v4',JSON.stringify(window.DB));if(window._saveToFB)window._saveToFB(window.DB);}
+// DATA
+window.DB={tasks:[],projects:[],visions:[],goals:[],
+  virtualAccounts:[{id:'v1',name:'小確幸',deposited:0,pct:0.01},{id:'v2',name:'必需品',deposited:0,pct:0.09},{id:'v3',name:'變漂亮',deposited:0,pct:0.02},{id:'v4',name:'社交',deposited:0,pct:0},{id:'v5',name:'學習',deposited:0,pct:0.10},{id:'v6',name:'短期旅遊',deposited:0,pct:0.03},{id:'v7',name:'長期旅遊',deposited:0,pct:0.05},{id:'v8',name:'孝親',deposited:0,pct:0},{id:'v9',name:'儲蓄',deposited:0,pct:0}],
+  expenses:[],assets:[{id:'a',code:'A',name:'日常活存+外幣',amount:0,color:'#2B7FD4'},{id:'b',code:'B',name:'定存',amount:0,color:'#3BAD7A'},{id:'c',code:'C',name:'備用金+舊ETF',amount:0,color:'#8B7FD4'},{id:'d',code:'D',name:'股票交割戶',amount:0,color:'#D4A82B'},{id:'e',code:'E',name:'薪轉高利活存',amount:0,color:'#5BAEE8'},{id:'f',code:'F',name:'主力台股ETF',amount:0,color:'#4A9BD4'},{id:'g',code:'G',name:'海外ETF',amount:0,color:'#D4705B'},{id:'h',code:'H',name:'現金',amount:0,color:'#8AADC5'}],
+  snapshots:[],incomeRecords:[],schemes:[{id:'sch-default',name:'預設方案',desc:'標準分配',isDefault:true,socialFixed:2000,filialFixed:2000,alloc:{}}],
+  colors:{c1:'#2B7FD4',c2:'#5BAEE8',c3:'#E8F3FB'},assetTarget:5800000};
+try{const r=localStorage.getItem('lifeos_v3');if(r){const d=JSON.parse(r);window.DB={...window.DB,...d};}}catch(e){}
+function save(){localStorage.setItem('lifeos_v3',JSON.stringify(window.DB));if(window._saveToFB)window._saveToFB(window.DB);}
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
-const fmtM=n=>{if(n==null)return'—';return '$'+parseFloat(n).toLocaleString('zh-TW',{maximumFractionDigits:2});};
+const fmtM=n=>{if(n==null)return'—';return '$'+parseFloat(n).toLocaleString('zh-TW',{maximumFractionDigits:4});};
 const fmtD=d=>{if(!d)return'';try{return new Date(d+'T00:00:00').toLocaleDateString('zh-TW',{month:'numeric',day:'numeric'});}catch(e){return d;}};
 const today=()=>new Date().toISOString().slice(0,10);
 const getVACBal=id=>{const v=DB.virtualAccounts.find(v=>v.id===id);if(!v)return 0;return v.deposited-DB.expenses.filter(e=>e.accountId===id&&e.txType!=='income_direct').reduce((s,e)=>s+e.amount,0);};
 const totalAssets=()=>DB.assets.reduce((s,a)=>s+(a.amount||0),0);
 const getDefaultScheme=()=>DB.schemes.find(s=>s.isDefault)||DB.schemes[0];
 const getSchemeById=id=>DB.schemes.find(s=>s.id===id)||getDefaultScheme();
-
-// ═══ THEME ═══
+// THEME
 function applyTheme(){
   const c=DB.colors||{},c1=c.c1||'#2B7FD4',c2=c.c2||'#5BAEE8',c3=c.c3||'#E8F3FB';
   const r=document.documentElement.style;
   r.setProperty('--c1',c1);r.setProperty('--c2',c2);r.setProperty('--c3',c3);r.setProperty('--bg',c3);
-  r.setProperty('--border',mix(c1,'#fff',0.75));r.setProperty('--border2',mix(c1,'#fff',0.55));
+  r.setProperty('--border',mix(c1,'#ffffff',0.75));r.setProperty('--border2',mix(c1,'#ffffff',0.55));
   document.querySelector('meta[name=theme-color]').setAttribute('content',c1);
   const ls=document.getElementById('loginScreen');if(ls)ls.style.background=c1;
   const sbt=document.querySelector('.sb-top');if(sbt)sbt.style.background=c1;
 }
 function mix(h1,h2,t){const p=h=>[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];const[r1,g1,b1]=p(h1),[r2,g2,b2]=p(h2);return'#'+[Math.round(r1+(r2-r1)*t),Math.round(g1+(g2-g1)*t),Math.round(b1+(b2-b1)*t)].map(x=>x.toString(16).padStart(2,'0')).join('');}
 applyTheme();
-
-// ═══ NAV ═══
+// NAV
 window._curPage='home';
-const PAGE_BTN={home:'btn_new_tx',habits:'btn_new_habit',tasks:'btn_new_task',projects:'btn_new_proj',cashflow:'btn_new_tx',assets:'btn_update'};
+const PAGE_BTN={home:'btn_new_tx',tasks:'btn_new_task',projects:'btn_new_proj',cashflow:'btn_new_tx',assets:'btn_update'};
 function nav(page){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-item,.mn-item').forEach(n=>n.classList.remove('active'));
@@ -1073,567 +648,99 @@ function nav(page){
   const tb=document.getElementById('tb-btn');if(tb){const k=PAGE_BTN[page];if(k){tb.textContent=T(k);tb.style.display='';}else tb.style.display='none';}
   window._curPage=page;renderPage(page);
 }
-function topbarAct(){const p=window._curPage;if(p==='home'||p==='cashflow')openModal('expense-modal');else if(p==='habits')openModal('habit-modal');else if(p==='tasks')openModal('task-modal');else if(p==='projects')openModal('proj-modal');else if(p==='assets')openModal('asset-modal');}
+function topbarAct(){const p=window._curPage;if(p==='home'||p==='cashflow')openModal('expense-modal');else if(p==='tasks')openModal('task-modal');else if(p==='projects')openModal('proj-modal');else if(p==='assets')openModal('asset-modal');}
 function renderPage(page){
-  if(page==='home')renderHome();else if(page==='habits')renderHabits();else if(page==='tasks')renderTasks();
-  else if(page==='projects')renderProjects();else if(page==='visions')renderVisions();
-  else if(page==='cashflow'){renderVACs();renderExpenses();renderGoals();}
-  else if(page==='assets')renderAssets();
-  else if(page==='income'){fillSchemeSelect();fillTypeSelects();calcIncome();renderIncomeRecords();}
+  if(page==='home')renderHome();else if(page==='tasks')renderTasks();else if(page==='projects')renderProjects();
+  else if(page==='visions')renderVisions();else if(page==='cashflow'){renderVACs();renderExpenses();renderGoals();}
+  else if(page==='assets')renderAssets();else if(page==='income'){fillSchemeSelect();fillTypeSelects();calcIncome();renderIncomeRecords();}
   else if(page==='settings')renderSettings();
 }
-
-// ═══ MODALS ═══
-function openModal(id){
-  fillAccountSelects();fillProjSelects();fillGoalSelects();fillTypeSelects();
-  document.getElementById(id).classList.add('open');
-  if(id==='asset-modal')renderAssetInputs();
-  if(id==='scheme-modal'){fillSchemeAllocFields();document.getElementById('sch-edit-id').value='';}
-  if(id==='task-modal'){document.getElementById('toggle-t-repeat').className='toggle';document.getElementById('repeat-settings').style.display='none';}
-  if(id==='habit-modal'){st('habit-modal-title',T('m_new_habit'));updateHabitFreqUI();}
-  document.querySelectorAll('#'+id+' input[type=date]').forEach(i=>{if(!i.value)i.value=today();});
-}
+// MODALS
+function openModal(id){fillAccountSelects();fillProjSelects();fillTypeSelects();document.getElementById(id).classList.add('open');if(id==='asset-modal')renderAssetInputs();if(id==='scheme-modal'){fillSchemeAllocFields();document.getElementById('sch-edit-id').value='';}document.querySelectorAll('#'+id+' input[type=date]').forEach(i=>{if(!i.value)i.value=today();});}
 function closeModal(id){document.getElementById(id).classList.remove('open');}
 document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
 function fillAccountSelects(){['p-account','v-account','e-account','dep-acct','g-account'].forEach(sid=>{const sel=document.getElementById(sid);if(!sel)return;const hasEmpty=['p-account','v-account'].includes(sid);sel.innerHTML=hasEmpty?`<option value="">${T('lbl_none')}</option>`:'';DB.virtualAccounts.forEach(v=>{sel.innerHTML+=`<option value="${v.id}">${v.name}</option>`;});});}
-function fillProjSelects(){['t-proj','g-proj','hb-proj'].forEach(sid=>{const sel=document.getElementById(sid);if(!sel)return;sel.innerHTML=`<option value="">${T('lbl_none')}</option>`;DB.projects.forEach(p=>{sel.innerHTML+=`<option value="${p.id}">${p.emoji||''}${p.name}</option>`;});});}
-function fillGoalSelects(){const sel=document.getElementById('t-goal');if(!sel)return;sel.innerHTML=`<option value="">${T('lbl_none')}</option>`;DB.goals.forEach(g=>{sel.innerHTML+=`<option value="${g.id}">${g.name}</option>`;});}
+function fillProjSelects(){['t-proj','g-proj'].forEach(sid=>{const sel=document.getElementById(sid);if(!sel)return;sel.innerHTML=`<option value="">${T('lbl_none')}</option>`;DB.projects.forEach(p=>{sel.innerHTML+=`<option value="${p.id}">${p.emoji||''}${p.name}</option>`;});});}
 function fillSchemeSelect(){const sel=document.getElementById('inc-scheme');if(!sel)return;sel.innerHTML=DB.schemes.map(s=>`<option value="${s.id}">${s.name}${s.isDefault?' ★':''}</option>`).join('');}
-
-// ═══ HOME ═══
+// HOME
 function renderHome(){
-  const td=today(),undone=DB.tasks.filter(t=>!t.done&&(t.date===td||isTaskDueToday(t)));
+  const td=today(),undone=DB.tasks.filter(t=>!t.done&&t.date===td);
   document.getElementById('h-tasks').textContent=undone.length;
-  const total=totalAssets(),target=DB.assetTarget||1000000,pct=total/target*100;
+  const total=totalAssets(),target=DB.assetTarget||5800000,pct=total/target*100;
   document.getElementById('h-assets').textContent=fmtM(total);
   document.getElementById('h-pct').textContent=pct.toFixed(1)+T('pct_goal');
   document.getElementById('h-target-lbl').textContent=T('goal_txt')+fmtM(target);
   document.getElementById('h-prog').style.width=Math.min(pct,100)+'%';
   document.getElementById('h-prog-pct').textContent=pct.toFixed(1)+'%';
   document.getElementById('h-prog-target').textContent=fmtM(target);
-  // today tasks
-  const display=undone.slice(0,5);
+  const allUndone=DB.tasks.filter(t=>!t.done).slice(0,6),display=undone.length?undone:allUndone;
   const doneT=DB.tasks.filter(t=>t.done&&t.date===td).length,totalT=DB.tasks.filter(t=>t.date===td).length;
   document.getElementById('h-task-count').textContent=T('done_fmt').replace('{d}',doneT).replace('{t}',totalT);
-  document.getElementById('home-tasks').innerHTML=display.length?display.map(taskHTML).join(''):`<div class="empty"><div class="empty-icon">✓</div>${T('all_clear')}</div>`;
-  // today habits
-  const habitsToday=DB.habits.filter(h=>isHabitDueToday(h));
-  document.getElementById('h-habits-today').innerHTML=habitsToday.length?habitsToday.map(h=>habitTodayHTML(h)).join(''):`<div style="font-size:13px;color:var(--text3)">${T('all_clear')}</div>`;
-  // projects
+  document.getElementById('home-tasks').innerHTML=display.length?display.map(t=>`<div class="task-item"><div class="task-cb ${t.done?'done':''}" onclick="toggleTask('${t.id}')"></div><span class="task-text ${t.done?'done':''}">${t.name}</span>${t.tag?`<span class="task-tag">${t.tag}</span>`:''}</div>`).join(''):`<div class="empty"><div class="empty-icon">✓</div>${T('all_clear')}</div>`;
   const sixMo=new Date();sixMo.setMonth(sixMo.getMonth()+6);
   const ap=DB.projects.filter(p=>p.status!=='done'&&p.type!=='long'&&(!p.endDate||new Date(p.endDate)<=sixMo)).slice(0,5);
   document.getElementById('h-projs').innerHTML=ap.length?ap.map(projCardHTML).join(''):`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">◈</div>${T('no_active')}</div>`;
-  // alerts
-  const alerts=[];
-  DB.goals.filter(g=>g.accountId&&g.targetAmount).forEach(g=>{const bal=getVACBal(g.accountId),p=bal/g.targetAmount*100;if(p<50){const v=DB.virtualAccounts.find(v=>v.id===g.accountId);alerts.push(`"${v?.name||''}" → ${g.name} ${p.toFixed(1)}%，${T('remaining')} ${fmtM(g.targetAmount-bal)}`);} });
+  const alerts=[];DB.goals.forEach(g=>{const bal=getVACBal(g.accountId),p=g.targetAmount?bal/g.targetAmount*100:null;if(p!==null&&p<50){const v=DB.virtualAccounts.find(v=>v.id===g.accountId);alerts.push(`"${v?.name||''}" ${p.toFixed(1)}% → ${g.name}，${T('remaining')} ${fmtM(g.targetAmount-bal)}`);} });
   document.getElementById('h-alerts').innerHTML=alerts.length?alerts.map(a=>`<div class="alert-box">⚠ ${a}</div>`).join(''):`<div style="font-size:13px;color:var(--text3)">${T('on_track')}</div>`;
   renderAssetChart();
   document.getElementById('h-visions').innerHTML=DB.visions.slice(0,3).map(visionCardHTML).join('');
 }
-
 function renderAssetChart(){
   const snaps=DB.snapshots.slice(-8),svg=document.getElementById('asset-svg');
-  if(snaps.length<2){svg.innerHTML=`<text x="200" y="35" text-anchor="middle" fill="#8AADC5" font-size="11" font-family="DM Sans">${T('no_data')}</text>`;return;}
-  const vals=snaps.map(s=>s.total),max=Math.max(...vals),min=Math.min(...vals),range=max-min||1,W=400,H=50,pad=7;
+  if(snaps.length<2){svg.innerHTML=`<text x="200" y="38" text-anchor="middle" fill="#8AADC5" font-size="11" font-family="DM Sans">${T('no_data')}</text>`;return;}
+  const vals=snaps.map(s=>s.total),max=Math.max(...vals),min=Math.min(...vals),range=max-min||1,W=400,H=55,pad=8;
   const pts=vals.map((v,i)=>{const x=pad+(W-pad*2)*i/(vals.length-1),y=H-pad-(v-min)/range*(H-pad*2);return`${x},${y}`;}).join(' ');
   const last=pts.split(' ').pop().split(',');
   const c1=getComputedStyle(document.documentElement).getPropertyValue('--c1').trim()||'#2B7FD4';
   svg.innerHTML=`<polyline points="${pts}" stroke="${c1}" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><polygon points="${pts} ${W-pad},${H} ${pad},${H}" fill="${c1}" opacity="0.08"/><circle cx="${last[0]}" cy="${last[1]}" r="3" fill="${c1}"/>`;
 }
-
-// ═══ HABITS ═══
-function isHabitDueToday(h){
-  const now=new Date(),dow=now.getDay(),dom=now.getDate();
-  if(h.freq==='daily')return true;
-  if(h.freq==='weekly')return (h.weekdays||[]).includes(dow);
-  if(h.freq==='monthly')return dom===(h.monthday||1);
-  return true;
-}
-
-function getHabitLogKey(hid,date){return hid+'_'+date;}
-
-function getHabitDoneToday(h){
-  const key=getHabitLogKey(h.id,today());
-  return DB.habitLogs[key]||0;
-}
-
-function habitTodayHTML(h){
-  const done=getHabitDoneToday(h),target=h.times||1,pct=Math.min(done/target*100,100);
-  return `<div class="card" style="margin-bottom:8px;padding:12px 14px">
-    <div style="display:flex;align-items:center;justify-content:space-between">
-      <div><span style="font-size:16px;margin-right:6px">${h.emoji||'◉'}</span><span style="font-size:13.5px;font-weight:500">${h.name}</span></div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <span style="font-size:12px;color:var(--text3)">${done}/${target}</span>
-        <button class="btn btn-sm ${done>=target?'btn-primary':''}" onclick="checkInHabit('${h.id}')">${done>=target?'✓':'打卡'}</button>
-      </div>
-    </div>
-    ${target>1?`<div class="prog-bar" style="margin-top:8px"><div class="prog-fill" style="width:${pct}%"></div></div>`:''}
-  </div>`;
-}
-
-function checkInHabit(id){
-  const h=DB.habits.find(h=>h.id===id);if(!h)return;
-  const key=getHabitLogKey(id,today());
-  const current=DB.habitLogs[key]||0;
-  const target=h.times||1;
-  if(current<target)DB.habitLogs[key]=current+1;
-  save();renderHome();if(window._curPage==='habits')renderHabits();
-}
-
-function getHabitStreak(h){
-  let streak=0,d=new Date();
-  for(let i=0;i<365;i++){
-    const dateStr=d.toISOString().slice(0,10);
-    const key=getHabitLogKey(h.id,dateStr);
-    const done=DB.habitLogs[key]||0;
-    const target=h.times||1;
-    // check if habit was due that day
-    const dow=d.getDay(),dom=d.getDate();
-    let due=false;
-    if(h.freq==='daily')due=true;
-    else if(h.freq==='weekly')due=(h.weekdays||[]).includes(dow);
-    else if(h.freq==='monthly')due=dom===(h.monthday||1);
-    if(due){if(done>=target)streak++;else if(i>0)break;}
-    d.setDate(d.getDate()-1);
-  }
-  return streak;
-}
-
-function buildHeatmap(h){
-  const cells=[];
-  const d=new Date();d.setDate(d.getDate()-6*7+1);
-  const weeks=[];let week=[];
-  for(let i=0;i<7*7;i++){
-    const dateStr=d.toISOString().slice(0,10);
-    const key=getHabitLogKey(h.id,dateStr);
-    const done=DB.habitLogs[key]||0,target=h.times||1;
-    const lvl=done===0?0:done>=target?4:done>=target*0.75?3:done>=target*0.5?2:1;
-    week.push(`<div class="heatmap-cell l${lvl}" title="${dateStr}: ${done}/${target}"></div>`);
-    if(week.length===7){weeks.push(week);week=[];}
-    d.setDate(d.getDate()+1);
-  }
-  if(week.length)weeks.push(week);
-  return`<div class="heatmap">${weeks.map(w=>`<div class="heatmap-col">${w.join('')}</div>`).join('')}</div>`;
-}
-
-function renderHabits(){
-  const el=document.getElementById('habit-list');
-  const habits=DB.showDoneHabits?DB.habits:DB.habits.filter(h=>h.active!==false);
-  const toggle=document.getElementById('toggle-done-habits');
-  if(toggle)toggle.className='toggle'+(DB.showDoneHabits?' on':'');
-  st('lbl-show-done-habits',DB.showDoneHabits?T('hide_done'):T('show_done'));
-  if(!habits.length){el.innerHTML=`<div class="empty"><div class="empty-icon">◉</div>${T('no_habits')}</div>`;return;}
-  el.innerHTML=habits.map(h=>{
-    const done=getHabitDoneToday(h),target=h.times||1,streak=getHabitStreak(h);
-    const dueToday=isHabitDueToday(h);
-    const freqLabel=h.freq==='daily'?T('freq_daily'):h.freq==='weekly'?T('freq_weekly')+' '+((h.weekdays||[]).map(i=>T('wd')[i]).join('/')):T('freq_monthly')+' '+h.monthday;
-    return`<div class="habit-card">
-      <div class="habit-hd">
-        <div>
-          <div class="habit-name">${h.emoji||'◉'} ${h.name}</div>
-          <div class="habit-freq">${freqLabel} · ${h.times||1}次</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px">
-          ${streak>0?`<span class="streak-badge">🔥 ${streak} ${T('days')}</span>`:''}
-          ${dueToday?`<button class="btn btn-sm ${done>=target?'btn-primary':''}" onclick="checkInHabit('${h.id}')">${done>=target?'✓ '+done+'/'+target:done+'/'+target}</button>`:''}
-          <span class="ca-btn" onclick="editHabit('${h.id}')">${T('btn_edit')}</span>
-          <span class="ca-btn ca-del" onclick="deleteHabit('${h.id}')">${T('btn_del')}</span>
-        </div>
-      </div>
-      <div class="heatmap-wrap">${buildHeatmap(h)}</div>
-    </div>`;
-  }).join('');
-}
-
-function toggleShowDoneHabits(){DB.showDoneHabits=!DB.showDoneHabits;save();renderHabits();}
-
-function editHabit(id){
-  const h=DB.habits.find(h=>h.id===id);if(!h)return;
-  st('habit-modal-title',T('m_edit_habit'));
-  document.getElementById('hb-edit-id').value=id;
-  document.getElementById('hb-emoji').value=h.emoji||'';
-  document.getElementById('hb-name').value=h.name;
-  fillTypeSelects();
-  document.getElementById('hb-freq').value=h.freq||'daily';
-  document.getElementById('hb-times').value=h.times||1;
-  fillProjSelects();
-  document.getElementById('hb-proj').value=h.projectId||'';
-  updateHabitFreqUI();
-  if(h.weekdays){
-    const picker=document.getElementById('hb-weekday-picker');
-    if(picker){picker.dataset.selected=h.weekdays.join(',');buildWeekdayPickers();}
-  }
-  if(h.monthday)document.getElementById('hb-monthday').value=h.monthday;
-  openModal('habit-modal');
-}
-
-function saveHabit(){
-  const name=document.getElementById('hb-name').value.trim();if(!name)return;
-  const editId=document.getElementById('hb-edit-id').value;
-  const freq=document.getElementById('hb-freq').value;
-  const weekdays=[...document.querySelectorAll('#hb-weekday-picker .wd-btn.selected')].map(el=>{
-    const idx=parseInt(el.getAttribute('onclick').match(/\d+/)?.[0]||'0');return idx;
-  });
-  const data={
-    emoji:document.getElementById('hb-emoji').value||'◉',name,freq,
-    weekdays:freq==='weekly'?weekdays:[],
-    monthday:freq==='monthly'?parseInt(document.getElementById('hb-monthday').value)||1:null,
-    times:parseInt(document.getElementById('hb-times').value)||1,
-    projectId:document.getElementById('hb-proj').value,
-    active:true,
-  };
-  if(editId){const h=DB.habits.find(h=>h.id===editId);if(h)Object.assign(h,data);}
-  else DB.habits.push({id:uid(),...data});
-  save();closeModal('habit-modal');document.getElementById('hb-name').value='';document.getElementById('hb-edit-id').value='';
-  renderHabits();renderHome();
-}
-
-function deleteHabit(id){if(!confirm(T('c_del_habit')))return;DB.habits=DB.habits.filter(h=>h.id!==id);save();renderHabits();}
-
-function updateHabitFreqUI(){
-  const freq=document.getElementById('hb-freq')?.value;
-  const ww=document.getElementById('hb-weekday-wrap'),mw=document.getElementById('hb-monthday-wrap');
-  if(ww)ww.style.display=freq==='weekly'?'':'none';
-  if(mw)mw.style.display=freq==='monthly'?'':'none';
-}
-
-// ═══ TASKS ═══
-function isTaskDueToday(t){
-  if(!t.repeat)return false;
-  const now=new Date(),dow=now.getDay(),dom=now.getDate();
-  if(t.freq==='daily')return true;
-  if(t.freq==='weekly')return (t.weekdays||[]).includes(dow);
-  if(t.freq==='monthly')return dom===(t.monthday||1);
-  return false;
-}
-
-function taskHTML(t){
-  const p=DB.projects.find(p=>p.id===t.projectId),g=DB.goals.find(g=>g.id===t.goalId);
-  const freqLabel=t.repeat?(t.freq==='daily'?T('freq_daily'):t.freq==='weekly'?T('freq_weekly'):T('freq_monthly')):'';
-  return`<div class="task-item">
-    <div class="task-cb ${t.done?'done':''} ${t.repeat?'repeat':''}" onclick="toggleTask('${t.id}')"></div>
-    <div class="task-body">
-      <div class="task-name ${t.done?'done':''}">${t.name}${t.tag?`<span class="task-tag">${t.tag}</span>`:''}</div>
-      <div class="task-meta">${t.date?fmtD(t.date):''}${p?' · '+(p.emoji||'')+p.name:''}${g?' → '+g.name:''}${t.repeat?` <span class="task-repeat-badge">↺ ${freqLabel}</span>`:''}</div>
-    </div>
-    <div class="task-actions">
-      <span class="task-act-btn" onclick="editTask('${t.id}')">${T('btn_edit')}</span>
-      <span class="task-act-btn del" onclick="deleteTask('${t.id}')">${T('btn_del')}</span>
-    </div>
-  </div>`;
-}
-
+// TASKS
 let _tf='undone';
-function renderTasks(f){
-  if(f)_tf=f;
-  let tasks=[...DB.tasks];
-  if(_tf==='today')tasks=tasks.filter(t=>t.date===today()||isTaskDueToday(t));
-  else if(_tf==='done')tasks=tasks.filter(t=>t.done);
-  else tasks=tasks.filter(t=>!t.done);
-  if(!DB.showDoneTasks&&_tf!=='done')tasks=tasks.filter(t=>!t.done);
-  const toggle=document.getElementById('toggle-done-tasks');
-  if(toggle)toggle.className='toggle'+(DB.showDoneTasks?' on':'');
-  st('lbl-show-done',DB.showDoneTasks?T('hide_done'):T('show_done'));
-  document.getElementById('task-list').innerHTML=tasks.length?tasks.map(taskHTML).join(''):`<div class="empty"><div class="empty-icon">✓</div>${T('no_tasks')}</div>`;
-}
-function filterTasks(f,btn){document.querySelectorAll('#page-tasks .btn-sm').forEach(b=>b.classList.remove('btn-primary'));btn.classList.add('btn-primary');renderTasks(f);}
-function toggleShowDoneTasks(){DB.showDoneTasks=!DB.showDoneTasks;save();renderTasks();}
-function quickTask(){const i=document.getElementById('h-ti'),n=i.value.trim();if(!n)return;DB.tasks.push({id:uid(),name:n,date:today(),done:false,projectId:'',goalId:'',tag:'',repeat:false});save();i.value='';renderHome();}
-
-function toggleTaskRepeat(){
-  const t=document.getElementById('toggle-t-repeat');
-  const rs=document.getElementById('repeat-settings');
-  const isOn=t.classList.contains('on');
-  t.className='toggle'+(isOn?'':' on');
-  rs.style.display=isOn?'none':'';
-  if(!isOn)updateFreqUI();
-}
-function updateFreqUI(){
-  const freq=document.getElementById('t-freq')?.value;
-  const ww=document.getElementById('weekday-picker-wrap'),mw=document.getElementById('monthday-wrap');
-  if(ww)ww.style.display=freq==='weekly'?'':'none';
-  if(mw)mw.style.display=freq==='monthly'?'':'none';
-}
-
-function editTask(id){
-  const t=DB.tasks.find(t=>t.id===id);if(!t)return;
-  st('task-modal-title',T('m_edit_task'));
-  document.getElementById('t-edit-id').value=id;
-  document.getElementById('t-name').value=t.name;
-  document.getElementById('t-date').value=t.date||'';
-  document.getElementById('t-tag').value=t.tag||'';
-  fillProjSelects();document.getElementById('t-proj').value=t.projectId||'';
-  fillGoalSelects();document.getElementById('t-goal').value=t.goalId||'';
-  const tog=document.getElementById('toggle-t-repeat');
-  const rs=document.getElementById('repeat-settings');
-  if(t.repeat){tog.className='toggle on';rs.style.display='';
-    document.getElementById('t-freq').value=t.freq||'daily';
-    document.getElementById('t-times').value=t.times||1;
-    updateFreqUI();
-    if(t.weekdays){const p=document.getElementById('weekday-picker');if(p){p.dataset.selected=t.weekdays.join(',');buildWeekdayPickers();}}
-    if(t.monthday)document.getElementById('t-monthday').value=t.monthday;
-  }else{tog.className='toggle';rs.style.display='none';}
-  openModal('task-modal');
-}
-
-function saveTask(){
-  const name=document.getElementById('t-name').value.trim();if(!name)return;
-  const editId=document.getElementById('t-edit-id').value;
-  const isRepeat=document.getElementById('toggle-t-repeat').classList.contains('on');
-  const freq=document.getElementById('t-freq')?.value||'daily';
-  const weekdays=[...document.querySelectorAll('#weekday-picker .wd-btn.selected')].map(el=>parseInt(el.getAttribute('onclick').match(/\d+/)?.[0]||'0'));
-  const data={
-    name,date:document.getElementById('t-date').value,
-    projectId:document.getElementById('t-proj').value,
-    goalId:document.getElementById('t-goal').value,
-    tag:document.getElementById('t-tag').value.trim(),
-    repeat:isRepeat,
-    freq:isRepeat?freq:'',
-    weekdays:isRepeat&&freq==='weekly'?weekdays:[],
-    monthday:isRepeat&&freq==='monthly'?parseInt(document.getElementById('t-monthday').value)||1:null,
-    times:isRepeat?parseInt(document.getElementById('t-times').value)||1:1,
-  };
-  if(editId){const t=DB.tasks.find(t=>t.id===editId);if(t)Object.assign(t,data);}
-  else DB.tasks.push({id:uid(),done:false,...data});
-  save();closeModal('task-modal');document.getElementById('t-name').value='';document.getElementById('t-edit-id').value='';st('task-modal-title',T('m_new_task'));
-  renderTasks();renderHome();
-}
-function toggleTask(id){
-  const t=DB.tasks.find(t=>t.id===id);
-  if(t){
-    if(t.repeat){
-      // for repeating tasks, log as habit checkin
-      const key=getHabitLogKey('task_'+id,today());
-      const cur=DB.habitLogs[key]||0,target=t.times||1;
-      if(cur<target)DB.habitLogs[key]=cur+1;
-      else{DB.habitLogs[key]=0;}
-    }else{t.done=!t.done;}
-    save();
-  }
-  renderPage(window._curPage);
-}
+function renderTasks(f){if(f)_tf=f;let tasks=[...DB.tasks];if(_tf==='today')tasks=tasks.filter(t=>t.date===today());else if(_tf==='done')tasks=tasks.filter(t=>t.done);else tasks=tasks.filter(t=>!t.done);document.getElementById('task-list').innerHTML=tasks.length?tasks.map(t=>{const p=DB.projects.find(p=>p.id===t.projectId);return`<div class="task-item"><div class="task-cb ${t.done?'done':''}" onclick="toggleTask('${t.id}')"></div><div style="flex:1"><div class="task-text ${t.done?'done':''}">${t.name}</div><div style="font-size:11px;color:var(--text3);margin-top:1px">${t.date?fmtD(t.date):''}${p?' · '+(p.emoji||'')+p.name:''}${t.tag?' · '+t.tag:''}</div></div><div class="task-actions"><span class="task-act-btn" onclick="editTask('${t.id}')">${T('btn_edit')}</span><span class="task-act-btn del" onclick="deleteTask('${t.id}')">${T('btn_del')}</span></div></div>`;}).join(''):`<div class="empty"><div class="empty-icon">✓</div>${T('no_tasks')}</div>`;}
+function filterTasks(f,btn){document.querySelectorAll('#page-tasks .btn').forEach(b=>b.classList.remove('btn-primary'));btn.classList.add('btn-primary');renderTasks(f);}
+function quickTask(){const i=document.getElementById('h-ti'),n=i.value.trim();if(!n)return;DB.tasks.push({id:uid(),name:n,date:today(),done:false,projectId:'',tag:''});save();i.value='';renderHome();}
+function editTask(id){const t=DB.tasks.find(t=>t.id===id);if(!t)return;st('task-modal-title',T('m_edit_task'));document.getElementById('t-edit-id').value=id;document.getElementById('t-name').value=t.name;document.getElementById('t-date').value=t.date||'';document.getElementById('t-tag').value=t.tag||'';fillProjSelects();document.getElementById('t-proj').value=t.projectId||'';openModal('task-modal');}
+function saveTask(){const name=document.getElementById('t-name').value.trim();if(!name)return;const editId=document.getElementById('t-edit-id').value;const data={name,date:document.getElementById('t-date').value,projectId:document.getElementById('t-proj').value,tag:document.getElementById('t-tag').value.trim()};if(editId){const t=DB.tasks.find(t=>t.id===editId);if(t)Object.assign(t,data);}else DB.tasks.push({id:uid(),done:false,...data});save();closeModal('task-modal');document.getElementById('t-name').value='';document.getElementById('t-edit-id').value='';st('task-modal-title',T('m_new_task'));renderTasks();renderHome();}
+function toggleTask(id){const t=DB.tasks.find(t=>t.id===id);if(t){t.done=!t.done;save();}renderPage(window._curPage);}
 function deleteTask(id){if(!confirm(T('c_del_task')))return;DB.tasks=DB.tasks.filter(t=>t.id!==id);save();renderTasks();}
-
-// ═══ PROJECTS ═══
-function projCardHTML(p){
-  const pct=p.progress||0;
-  const smap={active:T('p_active'),planning:T('p_planning'),done:T('p_done')};
-  const scls={active:'s-active',planning:'s-plan',done:'s-done'};
-  const projGoals=DB.goals.filter(g=>g.projectId===p.id);
-  return`<div class="proj-card">
-    <div class="card-actions"><span class="ca-btn" onclick="editProject('${p.id}')">${T('btn_edit')}</span><span class="ca-btn ca-del" onclick="deleteProject('${p.id}')">${T('btn_del')}</span></div>
-    <div class="proj-emoji">${p.emoji||'📌'}</div>
-    <div class="proj-name">${p.name}</div>
-    <div class="proj-meta">${p.endDate?fmtD(p.endDate):T('ongoing')}${projGoals.length?' · '+projGoals.length+'個目標':''}</div>
-    <div class="proj-bar"><div class="proj-fill" style="width:${pct}%"></div></div>
-    <div class="proj-status ${scls[p.status]||'s-plan'}">${smap[p.status]||p.status}</div>
-  </div>`;
-}
-function renderProjects(){
-  const el=document.getElementById('proj-grid');
-  let projs=DB.projects.filter(p=>p.type!=='long');
-  if(!DB.showDoneProj)projs=projs.filter(p=>p.status!=='done');
-  const toggle=document.getElementById('toggle-done-proj');
-  if(toggle)toggle.className='toggle'+(DB.showDoneProj?' on':'');
-  st('lbl-show-done-proj',DB.showDoneProj?T('hide_done'):T('show_done'));
-  el.innerHTML=projs.length?projs.map(projCardHTML).join(''):`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">◈</div>${T('no_proj')}</div>`;
-}
-function toggleShowDoneProj(){DB.showDoneProj=!DB.showDoneProj;save();renderProjects();}
-function editProject(id){
-  const p=DB.projects.find(p=>p.id===id);if(!p)return;
-  st('proj-modal-title',T('m_edit_proj'));
-  document.getElementById('p-edit-id').value=id;
-  document.getElementById('p-emoji').value=p.emoji||'';
-  document.getElementById('p-name').value=p.name;
-  fillTypeSelects();
-  document.getElementById('p-type').value=p.type||'short';
-  document.getElementById('p-status').value=p.status||'planning';
-  document.getElementById('p-start').value=p.startDate||'';
-  document.getElementById('p-end').value=p.endDate||'';
-  document.getElementById('p-prog').value=p.progress||0;
-  fillAccountSelects();
-  document.getElementById('p-account').value=p.accountId||'';
-  openModal('proj-modal');
-}
-function saveProject(){
-  const name=document.getElementById('p-name').value.trim();if(!name)return;
-  const editId=document.getElementById('p-edit-id').value;
-  const data={
-    emoji:document.getElementById('p-emoji').value||'📌',name,
-    type:document.getElementById('p-type').value,
-    status:document.getElementById('p-status').value,
-    startDate:document.getElementById('p-start').value,
-    endDate:document.getElementById('p-end').value,
-    progress:parseInt(document.getElementById('p-prog').value)||0,
-    accountId:document.getElementById('p-account').value,
-  };
-  if(editId){const p=DB.projects.find(p=>p.id===editId);if(p)Object.assign(p,data);}
-  else DB.projects.push({id:uid(),...data});
-  save();closeModal('proj-modal');document.getElementById('p-name').value='';document.getElementById('p-edit-id').value='';st('proj-modal-title',T('m_new_proj'));
-  renderProjects();renderHome();
-}
+// PROJECTS
+function projCardHTML(p){const pct=p.progress||0;const smap={active:T('p_active'),planning:T('p_planning'),done:T('p_done')};const scls={active:'s-active',planning:'s-plan',done:'s-done'};return`<div class="proj-card"><div class="card-actions"><span class="ca-btn" onclick="editProject('${p.id}')">${T('btn_edit')}</span><span class="ca-btn ca-del" onclick="deleteProject('${p.id}')">${T('btn_del')}</span></div><div class="proj-emoji">${p.emoji||'📌'}</div><div class="proj-name">${p.name}</div><div class="proj-meta">${p.endDate?fmtD(p.endDate):T('ongoing')}</div><div class="proj-bar"><div class="proj-fill" style="width:${pct}%"></div></div><div class="proj-status ${scls[p.status]||'s-plan'}">${smap[p.status]||p.status}</div></div>`;}
+function renderProjects(){const el=document.getElementById('proj-grid');const pp=DB.projects.filter(p=>p.type!=='long');el.innerHTML=pp.length?pp.map(projCardHTML).join(''):`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">◈</div>${T('no_proj')}</div>`;}
+function editProject(id){const p=DB.projects.find(p=>p.id===id);if(!p)return;st('proj-modal-title',T('m_edit_proj'));document.getElementById('p-edit-id').value=id;document.getElementById('p-emoji').value=p.emoji||'';document.getElementById('p-name').value=p.name;fillTypeSelects();document.getElementById('p-type').value=p.type||'short';document.getElementById('p-status').value=p.status||'planning';document.getElementById('p-start').value=p.startDate||'';document.getElementById('p-end').value=p.endDate||'';document.getElementById('p-prog').value=p.progress||0;fillAccountSelects();document.getElementById('p-account').value=p.accountId||'';openModal('proj-modal');}
+function saveProject(){const name=document.getElementById('p-name').value.trim();if(!name)return;const editId=document.getElementById('p-edit-id').value;const data={emoji:document.getElementById('p-emoji').value||'📌',name,type:document.getElementById('p-type').value,status:document.getElementById('p-status').value,startDate:document.getElementById('p-start').value,endDate:document.getElementById('p-end').value,progress:parseInt(document.getElementById('p-prog').value)||0,accountId:document.getElementById('p-account').value};if(editId){const p=DB.projects.find(p=>p.id===editId);if(p)Object.assign(p,data);}else DB.projects.push({id:uid(),...data});save();closeModal('proj-modal');document.getElementById('p-name').value='';document.getElementById('p-edit-id').value='';st('proj-modal-title',T('m_new_proj'));renderProjects();renderHome();}
 function deleteProject(id){if(!confirm(T('c_del_proj')))return;DB.projects=DB.projects.filter(p=>p.id!==id);save();renderProjects();}
-
-// ═══ GOALS ═══
-function renderGoals(){
-  document.getElementById('goals-list').innerHTML=DB.goals.length?DB.goals.map(g=>{
-    const v=DB.virtualAccounts.find(v=>v.id===g.accountId),bal=g.accountId?getVACBal(g.accountId):0;
-    const pct=g.targetAmount?Math.min(bal/g.targetAmount*100,100):0,diff=g.targetAmount-bal;
-    const proj=DB.projects.find(p=>p.id===g.projectId);
-    const tasks=DB.tasks.filter(t=>t.goalId===g.id);
-    return`<div class="card" style="margin-bottom:9px">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px">
-        <div>
-          <div style="font-size:14px;font-weight:500">🚩 ${g.name}</div>
-          <div style="font-size:11px;color:var(--text3);margin-top:1px">${proj?proj.emoji+proj.name:''}${v?' · '+v.name:''}</div>
-          ${tasks.length?`<div style="font-size:10px;color:var(--text3);margin-top:2px">${tasks.length} 個任務</div>`:''}
-        </div>
-        <div style="text-align:right">
-          ${g.targetAmount?`<div style="font-size:13px;color:var(--c1)">${fmtM(bal)}</div><div style="font-size:11px;color:var(--text3)">${T('goal_col')} ${fmtM(g.targetAmount)}</div>`:''}
-        </div>
-      </div>
-      ${g.targetAmount?`<div class="prog-bar" style="margin-top:0"><div class="prog-fill" style="width:${pct}%"></div></div><div class="prog-meta"><span>${pct.toFixed(1)}%</span><span style="color:${diff>0?'var(--red)':'var(--green)'}">${diff>0?T('remaining')+' '+fmtM(diff):T('goal_reached')}</span></div>`:''}
-      <div style="display:flex;gap:5px;margin-top:9px">
-        <span class="icon-btn" onclick="editGoal('${g.id}')">${T('btn_edit')}</span>
-        <span class="icon-btn del" onclick="deleteGoal('${g.id}')">${T('btn_del')}</span>
-      </div>
-    </div>`;
-  }).join(''):`<div class="empty"><div class="empty-icon">🚩</div>${T('no_goals')}</div>`;
-}
-function editGoal(id){
-  const g=DB.goals.find(g=>g.id===id);if(!g)return;
-  st('goal-modal-title',T('m_edit_goal'));
-  document.getElementById('g-edit-id').value=id;
-  document.getElementById('g-name').value=g.name;
-  document.getElementById('g-amt').value=g.targetAmount||'';
-  fillAccountSelects();document.getElementById('g-account').value=g.accountId||'';
-  fillProjSelects();document.getElementById('g-proj').value=g.projectId||'';
-  openModal('goal-modal');
-}
-function saveGoal(){
-  const name=document.getElementById('g-name').value.trim();if(!name)return;
-  const editId=document.getElementById('g-edit-id').value;
-  const data={name,accountId:document.getElementById('g-account').value,targetAmount:parseFloat(document.getElementById('g-amt').value)||null,projectId:document.getElementById('g-proj').value};
-  if(editId){const g=DB.goals.find(g=>g.id===editId);if(g)Object.assign(g,data);}
-  else DB.goals.push({id:uid(),...data});
-  save();closeModal('goal-modal');document.getElementById('g-name').value='';document.getElementById('g-edit-id').value='';st('goal-modal-title',T('m_new_goal'));
-  renderGoals();renderHome();
-}
-function deleteGoal(id){if(!confirm(T('c_del_goal')))return;DB.goals=DB.goals.filter(g=>g.id!==id);save();renderGoals();renderHome();}
-
-// ═══ VISIONS ═══
-function visionCardHTML(v){
-  const bal=v.accountId?getVACBal(v.accountId):0,pct=v.goalAmount?Math.min(bal/v.goalAmount*100,100):null;
-  return`<div class="vision-card">
-    <div class="card-actions"><span class="ca-btn" onclick="editVision('${v.id}')">${T('btn_edit')}</span><span class="ca-btn ca-del" onclick="deleteVision('${v.id}')">${T('btn_del')}</span></div>
-    <div class="vision-icon">${v.emoji||'⭐'}</div>
-    <div class="vision-title">${v.name}</div>
-    <div class="vision-year">${v.year||''}</div>
-    <div class="vision-desc">${v.desc||''}</div>
-    ${pct!==null?`<div style="margin-top:9px"><div class="prog-bar" style="margin-top:0"><div class="prog-fill" style="width:${pct}%"></div></div><div class="prog-meta"><span>${fmtM(bal)}</span><span>${pct.toFixed(1)}%</span><span>${fmtM(v.goalAmount)}</span></div></div>`:''}
-  </div>`;
-}
+// VISIONS
+function visionCardHTML(v){const bal=v.accountId?getVACBal(v.accountId):0,pct=v.goalAmount?Math.min(bal/v.goalAmount*100,100):null;return`<div class="vision-card"><div class="card-actions"><span class="ca-btn" onclick="editVision('${v.id}')">${T('btn_edit')}</span><span class="ca-btn ca-del" onclick="deleteVision('${v.id}')">${T('btn_del')}</span></div><div class="vision-icon">${v.emoji||'⭐'}</div><div class="vision-title">${v.name}</div><div class="vision-year">${v.year||''}</div><div class="vision-desc">${v.desc||''}</div>${pct!==null?`<div style="margin-top:10px"><div class="prog-bar" style="margin-top:0"><div class="prog-fill" style="width:${pct}%"></div></div><div class="prog-meta"><span>${fmtM(bal)}</span><span>${pct.toFixed(1)}%</span><span>${fmtM(v.goalAmount)}</span></div></div>`:''}</div>`;}
 function renderVisions(){document.getElementById('vision-grid').innerHTML=DB.visions.length?DB.visions.map(visionCardHTML).join(''):`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">◎</div>${T('no_visions')}</div>`;}
-function editVision(id){
-  const v=DB.visions.find(v=>v.id===id);if(!v)return;
-  st('vision-modal-title',T('m_edit_vision'));
-  document.getElementById('v-edit-id').value=id;
-  document.getElementById('v-emoji').value=v.emoji||'';
-  document.getElementById('v-name').value=v.name;
-  document.getElementById('v-year').value=v.year||'';
-  document.getElementById('v-desc').value=v.desc||'';
-  document.getElementById('v-goal-amt').value=v.goalAmount||'';
-  fillAccountSelects();document.getElementById('v-account').value=v.accountId||'';
-  openModal('vision-modal');
-}
-function saveVision(){
-  const name=document.getElementById('v-name').value.trim();if(!name)return;
-  const editId=document.getElementById('v-edit-id').value;
-  const ga=parseFloat(document.getElementById('v-goal-amt').value)||null;
-  const data={emoji:document.getElementById('v-emoji').value||'⭐',name,year:document.getElementById('v-year').value,accountId:document.getElementById('v-account').value,desc:document.getElementById('v-desc').value.trim(),goalAmount:ga};
-  if(editId){const v=DB.visions.find(v=>v.id===editId);if(v)Object.assign(v,data);}
-  else DB.visions.push({id:uid(),...data});
-  save();closeModal('vision-modal');document.getElementById('v-name').value='';document.getElementById('v-edit-id').value='';st('vision-modal-title',T('m_new_vision'));
-  renderVisions();renderHome();
-}
+function editVision(id){const v=DB.visions.find(v=>v.id===id);if(!v)return;st('vision-modal-title',T('m_edit_vision'));document.getElementById('v-edit-id').value=id;document.getElementById('v-emoji').value=v.emoji||'';document.getElementById('v-name').value=v.name;document.getElementById('v-year').value=v.year||'';document.getElementById('v-desc').value=v.desc||'';document.getElementById('v-goal-amt').value=v.goalAmount||'';fillAccountSelects();document.getElementById('v-account').value=v.accountId||'';openModal('vision-modal');}
+function saveVision(){const name=document.getElementById('v-name').value.trim();if(!name)return;const editId=document.getElementById('v-edit-id').value;const ga=parseFloat(document.getElementById('v-goal-amt').value)||null;const data={emoji:document.getElementById('v-emoji').value||'⭐',name,year:document.getElementById('v-year').value,accountId:document.getElementById('v-account').value,desc:document.getElementById('v-desc').value.trim(),goalAmount:ga};if(editId){const v=DB.visions.find(v=>v.id===editId);if(v)Object.assign(v,data);}else{const v={id:uid(),...data};DB.visions.push(v);if(ga&&v.accountId)DB.goals.push({id:uid(),name,accountId:v.accountId,targetAmount:ga,status:'active'});}save();closeModal('vision-modal');document.getElementById('v-name').value='';document.getElementById('v-edit-id').value='';st('vision-modal-title',T('m_new_vision'));renderVisions();renderHome();}
 function deleteVision(id){if(!confirm(T('c_del_vision')))return;DB.visions=DB.visions.filter(v=>v.id!==id);save();renderVisions();}
-
-// ═══ CASHFLOW ═══
+// CASHFLOW
 function cfTab(tab,btn){document.querySelectorAll('#page-cashflow .tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('#page-cashflow .tab-panel').forEach(p=>p.classList.remove('active'));btn.classList.add('active');document.getElementById('cf-'+tab).classList.add('active');}
-function renderVACs(){
-  document.getElementById('vac-grid').innerHTML=DB.virtualAccounts.map(v=>{
-    const bal=getVACBal(v.id),goals=DB.goals.filter(g=>g.accountId===v.id&&g.targetAmount);
-    return`<div class="vac">
-      <div class="card-actions"><span class="ca-btn" onclick="openDepositFor('${v.id}')">+</span></div>
-      <div class="vac-name">${v.name}</div>
-      <div class="vac-bal">${fmtM(bal)}</div>
-      <div class="vac-sub">${T('deposited')} ${fmtM(v.deposited)}</div>
-      ${goals.length?`<div class="vac-goals">${goals.map(g=>{const pct=Math.min(bal/g.targetAmount*100,100);return`<div class="vac-goal"><div class="vac-goal-hd"><span>${g.name}</span><span>${pct.toFixed(1)}%</span></div><div class="vac-gbar"><div class="vac-gfill" style="width:${pct}%"></div></div></div>`;}).join('')}</div>`:''}
-    </div>`;
-  }).join('');
-}
+function renderVACs(){document.getElementById('vac-grid').innerHTML=DB.virtualAccounts.map(v=>{const bal=getVACBal(v.id),goals=DB.goals.filter(g=>g.accountId===v.id);return`<div class="vac"><div class="card-actions"><span class="ca-btn" onclick="openDepositFor('${v.id}')">+</span></div><div class="vac-name">${v.name}</div><div class="vac-bal">${fmtM(bal)}</div><div class="vac-sub">${T('deposited')} ${fmtM(v.deposited)}</div>${goals.length?`<div class="vac-goals">${goals.map(g=>{const pct=g.targetAmount?Math.min(getVACBal(g.accountId)/g.targetAmount*100,100):0;return`<div class="vac-goal"><div class="vac-goal-hd"><span>${g.name}</span><span>${pct.toFixed(1)}%</span></div><div class="vac-gbar"><div class="vac-gfill" style="width:${pct}%"></div></div></div>`;}).join('')}</div>`:''}</div>`;}).join('');}
 function openDepositFor(vacId){openModal('deposit-modal');setTimeout(()=>{document.getElementById('dep-acct').value=vacId;},50);}
 function renderExpenses(){
   const el=document.getElementById('exp-list');
-  const catIcons={food:'🍜',transport:'🚌',shopping:'🛍',ent:'🎵',health:'💊',other:'📦',餐飲:'🍜',交通:'🚌',購物:'🛍',娛樂:'🎵',醫療:'💊',其他:'📦'};
   const sorted=[...DB.expenses].sort((a,b)=>(b.date||'').localeCompare(a.date||'')).slice(0,40);
-  el.innerHTML=sorted.length?sorted.map(e=>{const v=DB.virtualAccounts.find(v=>v.id===e.accountId),isIn=e.txType==='income_direct';return`<div class="exp-row"><div class="exp-icon ${isIn?'in-icon':''}">${isIn?'💰':(catIcons[e.category]||'📦')}</div><div class="exp-info"><div class="exp-name">${e.name}</div><div class="exp-detail">${fmtD(e.date)} · ${v?.name||''} ${e.note?'· '+e.note:''}</div></div><div style="display:flex;align-items:center;gap:7px"><div class="exp-amt ${isIn?'in':''}">${isIn?'+':'-'}${fmtM(e.amount)}</div><div class="exp-acts"><span class="icon-btn" onclick="editExpense('${e.id}')">${T('btn_edit')}</span><span class="icon-btn del" onclick="deleteExpense('${e.id}')">${T('btn_del')}</span></div></div></div>`;}).join(''):`<div class="empty"><div class="empty-icon">💸</div>${T('no_tx')}</div>`;
+  const catIcons={food:'🍜',transport:'🚌',shopping:'🛍',ent:'🎵',health:'💊',other:'📦',餐飲:'🍜',交通:'🚌',購物:'🛍',娛樂:'🎵',醫療:'💊',其他:'📦',Food:'🍜',Transport:'🚌',Shopping:'🛍',Entertainment:'🎵',Health:'💊',Other:'📦'};
+  el.innerHTML=sorted.length?sorted.map(e=>{const v=DB.virtualAccounts.find(v=>v.id===e.accountId),isIn=e.txType==='income_direct';return`<div class="exp-row"><div class="exp-icon ${isIn?'in-icon':''}">${isIn?'💰':(catIcons[e.category]||'📦')}</div><div class="exp-info"><div class="exp-name">${e.name}</div><div class="exp-detail">${fmtD(e.date)} · ${v?.name||''} ${e.note?'· '+e.note:''}</div></div><div style="display:flex;align-items:center;gap:8px"><div class="exp-amt ${isIn?'in':''}">${isIn?'+':'-'}${fmtM(e.amount)}</div><div class="exp-acts"><span class="icon-btn" onclick="editExpense('${e.id}')">${T('btn_edit')}</span><span class="icon-btn del" onclick="deleteExpense('${e.id}')">${T('btn_del')}</span></div></div></div>`;}).join(''):`<div class="empty"><div class="empty-icon">💸</div>${T('no_tx')}</div>`;
 }
+function renderGoals(){document.getElementById('goals-list').innerHTML=DB.goals.length?DB.goals.map(g=>{const v=DB.virtualAccounts.find(v=>v.id===g.accountId),bal=getVACBal(g.accountId);const pct=g.targetAmount?Math.min(bal/g.targetAmount*100,100):0,diff=g.targetAmount-bal;return`<div class="card" style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px"><div><div style="font-size:15px;font-weight:500">🚩 ${g.name}</div><div style="font-size:11px;color:var(--text3);margin-top:2px">${v?.name||'—'}</div></div><div style="text-align:right"><div style="font-size:13px;color:var(--c1)">${fmtM(bal)}</div><div style="font-size:11px;color:var(--text3)">${T('goal_col')} ${fmtM(g.targetAmount)}</div></div></div><div class="prog-bar" style="margin-top:0"><div class="prog-fill" style="width:${pct}%"></div></div><div class="prog-meta"><span>${pct.toFixed(2)}%</span><span style="color:${diff>0?'var(--red)':'var(--green)'}">${diff>0?T('remaining')+' '+fmtM(diff):T('goal_reached')}</span></div><div style="display:flex;gap:6px;margin-top:10px"><span class="icon-btn" onclick="editGoal('${g.id}')">${T('btn_edit')}</span><span class="icon-btn del" onclick="deleteGoal('${g.id}')">${T('btn_del')}</span></div></div>`;}).join(''):`<div class="empty"><div class="empty-icon">🚩</div>${T('no_goals')}</div>`;}
 function toggleExpType(){const t=document.getElementById('e-type').value,af=document.getElementById('e-account-field');if(af)af.style.display=t==='income_direct'?'none':'';}
-function saveExpense(){
-  const name=document.getElementById('e-name').value.trim(),amount=parseFloat(document.getElementById('e-amount').value),txType=document.getElementById('e-type').value,accountId=document.getElementById('e-account').value;
-  if(!name||!amount){alert(T('err_fill'));return;}
-  if(txType!=='income_direct'&&!accountId){alert(T('err_acct'));return;}
-  const editId=document.getElementById('e-edit-id').value;
-  const data={name,amount,date:document.getElementById('e-date').value||today(),accountId,category:document.getElementById('e-cat').value,note:document.getElementById('e-note').value.trim(),txType};
-  if(editId){const e=DB.expenses.find(e=>e.id===editId);if(e)Object.assign(e,data);}
-  else DB.expenses.push({id:uid(),...data});
-  save();closeModal('expense-modal');['e-name','e-amount','e-note'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});document.getElementById('e-edit-id').value='';
-  renderVACs();renderExpenses();renderGoals();renderHome();
-}
-function editExpense(id){
-  const e=DB.expenses.find(e=>e.id===id);if(!e)return;
-  st('exp-modal-title',T('m_edit_tx'));
-  document.getElementById('e-edit-id').value=id;
-  document.getElementById('e-type').value=e.txType||'expense';
-  document.getElementById('e-name').value=e.name;
-  document.getElementById('e-amount').value=e.amount;
-  document.getElementById('e-date').value=e.date||'';
-  document.getElementById('e-cat').value=e.category||'other';
-  document.getElementById('e-note').value=e.note||'';
-  fillAccountSelects();document.getElementById('e-account').value=e.accountId||'';
-  toggleExpType();openModal('expense-modal');
-}
+function saveExpense(){const name=document.getElementById('e-name').value.trim(),amount=parseFloat(document.getElementById('e-amount').value),txType=document.getElementById('e-type').value,accountId=document.getElementById('e-account').value;if(!name||!amount){alert(T('err_fill'));return;}if(txType!=='income_direct'&&!accountId){alert(T('err_acct'));return;}const editId=document.getElementById('e-edit-id').value;const data={name,amount,date:document.getElementById('e-date').value||today(),accountId,category:document.getElementById('e-cat').value,note:document.getElementById('e-note').value.trim(),txType};if(editId){const e=DB.expenses.find(e=>e.id===editId);if(e)Object.assign(e,data);}else DB.expenses.push({id:uid(),...data});save();closeModal('expense-modal');['e-name','e-amount','e-note'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});document.getElementById('e-edit-id').value='';renderVACs();renderExpenses();renderGoals();renderHome();}
+function editExpense(id){const e=DB.expenses.find(e=>e.id===id);if(!e)return;st('exp-modal-title',T('m_edit_tx'));document.getElementById('e-edit-id').value=id;document.getElementById('e-type').value=e.txType||'expense';document.getElementById('e-name').value=e.name;document.getElementById('e-amount').value=e.amount;document.getElementById('e-date').value=e.date||'';document.getElementById('e-cat').value=e.category||'other';document.getElementById('e-note').value=e.note||'';fillAccountSelects();document.getElementById('e-account').value=e.accountId||'';toggleExpType();openModal('expense-modal');}
 function deleteExpense(id){if(!confirm(T('c_del_tx')))return;DB.expenses=DB.expenses.filter(e=>e.id!==id);save();renderExpenses();renderVACs();renderGoals();renderHome();}
-function saveDeposit(){
-  const accountId=document.getElementById('dep-acct').value,amount=parseFloat(document.getElementById('dep-amt').value);
-  if(!accountId||!amount){alert(T('err_all'));return;}
-  const v=DB.virtualAccounts.find(v=>v.id===accountId);if(v)v.deposited+=amount;
-  save();closeModal('deposit-modal');document.getElementById('dep-amt').value='';document.getElementById('dep-note').value='';
-  renderVACs();renderHome();
-}
-
-// ═══ ASSETS ═══
-function renderAssets(){
-  document.getElementById('asset-list').innerHTML=DB.assets.map(a=>`<div class="acc-row"><div class="acc-dot" style="background:${a.color}"></div><span class="acc-name">${a.name}<span class="acc-code">${a.code}</span></span><span class="acc-val">${fmtM(a.amount)}</span></div>`).join('');
-  const total=totalAssets(),target=DB.assetTarget||1000000,pct=total/target*100;
-  document.getElementById('asset-total').textContent=fmtM(total);
-  document.getElementById('asset-prog').style.width=Math.min(pct,100)+'%';
-  document.getElementById('asset-prog-pct').textContent=pct.toFixed(1)+'%';
-  document.getElementById('asset-prog-target').textContent=T('goal_col')+fmtM(target);
-  const snaps=[...DB.snapshots].reverse().slice(0,6);
-  document.getElementById('snap-list').innerHTML=snaps.length?snaps.map(s=>`<div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px"><span style="color:var(--text3)">${s.date}</span><span style="color:var(--c1)">${fmtM(s.total)}</span></div>`).join(''):`<div class="empty">${T('no_snaps')}</div>`;
-}
+function saveDeposit(){const accountId=document.getElementById('dep-acct').value,amount=parseFloat(document.getElementById('dep-amt').value);if(!accountId||!amount){alert(T('err_all'));return;}const v=DB.virtualAccounts.find(v=>v.id===accountId);if(v)v.deposited+=amount;save();closeModal('deposit-modal');document.getElementById('dep-amt').value='';document.getElementById('dep-note').value='';renderVACs();renderHome();}
+function editGoal(id){const g=DB.goals.find(g=>g.id===id);if(!g)return;st('goal-modal-title',T('m_edit_goal'));document.getElementById('g-edit-id').value=id;document.getElementById('g-name').value=g.name;document.getElementById('g-amt').value=g.targetAmount||'';fillAccountSelects();document.getElementById('g-account').value=g.accountId||'';fillProjSelects();document.getElementById('g-proj').value=g.projectId||'';openModal('goal-modal');}
+function saveGoal(){const name=document.getElementById('g-name').value.trim(),accountId=document.getElementById('g-account').value,amt=parseFloat(document.getElementById('g-amt').value);if(!name||!accountId||!amt){alert(T('err_all'));return;}const editId=document.getElementById('g-edit-id').value;const data={name,accountId,targetAmount:amt,projectId:document.getElementById('g-proj').value,status:'active'};if(editId){const g=DB.goals.find(g=>g.id===editId);if(g)Object.assign(g,data);}else DB.goals.push({id:uid(),...data});save();closeModal('goal-modal');document.getElementById('g-name').value='';document.getElementById('g-edit-id').value='';st('goal-modal-title',T('m_new_goal'));renderGoals();renderHome();}
+function deleteGoal(id){if(!confirm(T('c_del_goal')))return;DB.goals=DB.goals.filter(g=>g.id!==id);save();renderGoals();renderHome();}
+// ASSETS
+function renderAssets(){document.getElementById('asset-list').innerHTML=DB.assets.map(a=>`<div class="acc-row"><div class="acc-dot" style="background:${a.color}"></div><span class="acc-name">${a.name}<span class="acc-code">${a.code}</span></span><span class="acc-val">${fmtM(a.amount)}</span></div>`).join('');const total=totalAssets(),target=DB.assetTarget||5800000,pct=total/target*100;document.getElementById('asset-total').textContent=fmtM(total);document.getElementById('asset-prog').style.width=Math.min(pct,100)+'%';document.getElementById('asset-prog-pct').textContent=pct.toFixed(1)+'%';document.getElementById('asset-prog-target').textContent=T('goal_col')+fmtM(target);const snaps=[...DB.snapshots].reverse().slice(0,6);document.getElementById('snap-list').innerHTML=snaps.length?snaps.map(s=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px"><span style="color:var(--text3)">${s.date}</span><span style="color:var(--c1)">${fmtM(s.total)}</span></div>`).join(''):`<div class="empty">${T('no_snaps')}</div>`;}
 function renderAssetInputs(){document.getElementById('asset-modal-inputs').innerHTML=DB.assets.map(a=>`<div class="field"><label>${a.name} (${a.code})</label><input type="number" id="ai-${a.id}" value="${a.amount}" step="any"></div>`).join('');}
 function saveAssets(){DB.assets.forEach(a=>{const v=parseFloat(document.getElementById('ai-'+a.id)?.value)||0;a.amount=v;});DB.snapshots.push({date:new Date().toLocaleDateString('zh-TW'),total:totalAssets()});save();closeModal('asset-modal');renderAssets();renderHome();}
-
-// ═══ INCOME ═══
+// INCOME
 let _lastCalc=null;
-function updateIncTypes(){
-  const src=document.getElementById('inc-src')?.value,te=document.getElementById('inc-type');if(!te)return;
-  te.innerHTML=src==='parents'?`<option value="extra">${T('t_extra')}</option><option value="hongbao">${T('t_red')}</option>`:`<option value="salary">${T('t_salary')}</option><option value="bonus_annual">${T('t_year')}</option><option value="bonus_perf">${T('t_perf')}</option><option value="extra">${T('t_extra')}</option>`;
-  calcIncome();
-}
+function updateIncTypes(){const src=document.getElementById('inc-src')?.value,te=document.getElementById('inc-type');if(!te)return;te.innerHTML=src==='parents'?`<option value="extra">${T('t_extra')}</option><option value="hongbao">${T('t_red')}</option>`:`<option value="salary">${T('t_salary')}</option><option value="bonus_annual">${T('t_year')}</option><option value="bonus_perf">${T('t_perf')}</option><option value="extra">${T('t_extra')}</option>`;calcIncome();}
 function calcIncome(){
   const raw=parseFloat(document.getElementById('inc-amt')?.value)||0;
   const src=document.getElementById('inc-src')?.value,type=document.getElementById('inc-type')?.value;
@@ -1642,89 +749,39 @@ function calcIncome(){
   const rule=document.getElementById('inc-rule'),result=document.getElementById('inc-result');
   if(!rule||!result)return;
   const social=scheme.socialFixed??2000,filial=scheme.filialFixed??2000;
-  if(type==='hongbao'){
-    rule.textContent=T('rule_red');
-    if(!raw){result.innerHTML='';return;}
-    const sv=DB.virtualAccounts.find(v=>v.id==='v3')||DB.virtualAccounts[DB.virtualAccounts.length-1];
-    _lastCalc=[{name:sv?.name||'儲蓄',id:sv?.id||'v3',amount:raw,pct:'100%',special:true}];
-    result.innerHTML=resultHTML(_lastCalc,raw);return;
-  }
+  if(type==='hongbao'){rule.textContent=T('rule_red');if(!raw){result.innerHTML='';return;}const savings=DB.virtualAccounts.find(v=>v.id==='v9');_lastCalc=[{name:savings?.name||'儲蓄',id:'v9',amount:raw,pct:'100%',special:true}];result.innerHTML=resultHTML(_lastCalc,raw);return;}
   if(src==='parents')rule.textContent=T('rule_parents');
   else if(type==='salary')rule.textContent=T('rule_salary').replace('{s}',fmtM(social)).replace('{f}',fmtM(filial));
   else rule.textContent=T('rule_other');
   if(!raw){result.innerHTML='';return;}
   const rows=[];let rem=raw;
-  DB.virtualAccounts.forEach(v=>{
-    const pct=scheme.alloc?.[v.id]??v.pct;if(!pct||pct<=0)return;
-    const amt=raw*pct;rows.push({name:v.name,id:v.id,amount:amt,pct:(pct*100).toFixed(1)+'%',special:false});rem-=amt;
-  });
-  // find social/filial/savings accounts by position if not enough accounts
-  const lastV=DB.virtualAccounts[DB.virtualAccounts.length-1];
-  const midV=DB.virtualAccounts.length>1?DB.virtualAccounts[DB.virtualAccounts.length-2]:lastV;
-  if(src==='parents'){rows.push({name:midV?.name||'孝親',id:midV?.id,amount:rem,pct:'剩餘',special:true});}
-  else if(type==='salary'){
-    rows.push({name:'社交',id:'_social',amount:social,pct:T('fixed_lbl'),special:true});
-    rows.push({name:midV?.name||'孝親',id:midV?.id,amount:filial,pct:T('fixed_lbl'),special:true});
-    rows.push({name:lastV?.name||'儲蓄',id:lastV?.id,amount:Math.max(0,rem-social-filial),pct:'剩餘',special:true});
-  }
-  else rows.push({name:lastV?.name||'儲蓄',id:lastV?.id,amount:rem,pct:'剩餘',special:true});
+  DB.virtualAccounts.forEach(v=>{const pct=scheme.alloc?.[v.id]??v.pct;if(!pct||pct<=0)return;const amt=raw*pct;rows.push({name:v.name,id:v.id,amount:amt,pct:(pct*100).toFixed(1)+'%',special:false});rem-=amt;});
+  const v8=DB.virtualAccounts.find(v=>v.id==='v8'),v4=DB.virtualAccounts.find(v=>v.id==='v4'),v9=DB.virtualAccounts.find(v=>v.id==='v9');
+  if(src==='parents')rows.push({name:v8?.name||'孝親',id:'v8',amount:rem,pct:'70%',special:true});
+  else if(type==='salary'){rows.push({name:v4?.name||'社交',id:'v4',amount:social,pct:T('fixed_lbl'),special:true});rows.push({name:v8?.name||'孝親',id:'v8',amount:filial,pct:T('fixed_lbl'),special:true});rows.push({name:v9?.name||'儲蓄',id:'v9',amount:Math.max(0,rem-social-filial),pct:T('remainder'),special:true});}
+  else rows.push({name:v9?.name||'儲蓄',id:'v9',amount:rem,pct:'70%',special:true});
   _lastCalc=rows;result.innerHTML=resultHTML(rows,raw);
 }
-function resultHTML(rows,total){
-  return`<div>${rows.map(r=>`<div class="alloc-row"><div><div class="alloc-name">${r.name}</div><div class="alloc-pct">${r.pct}</div></div><div class="alloc-amt ${r.special?'special':''}">${fmtM(r.amount)}</div></div>`).join('')}</div><div class="total-strip"><span class="total-lbl">${T('total_in')}</span><span style="font-size:15px;font-weight:500;color:var(--c1)">${fmtM(total)}</span></div>`;
-}
-function applyIncome(){
-  if(!_lastCalc?.length){alert(T('err_amt'));return;}
-  _lastCalc.forEach(r=>{if(!r.id||r.id==='_social')return;const v=DB.virtualAccounts.find(v=>v.id===r.id);if(v)v.deposited+=r.amount;});
-  const raw=parseFloat(document.getElementById('inc-amt')?.value)||0;
-  const schemeId=document.getElementById('inc-scheme')?.value;
-  const scheme=schemeId?getSchemeById(schemeId):getDefaultScheme();
-  DB.incomeRecords.push({id:uid(),date:today(),amount:raw,source:document.getElementById('inc-src').value,type:document.getElementById('inc-type').value,schemeName:scheme.name,allocation:[..._lastCalc]});
-  save();alert(T('ok_applied'));renderPage('cashflow');renderHome();renderIncomeRecords();
-}
-function renderIncomeRecords(){
-  const el=document.getElementById('income-records');if(!el)return;
-  const recs=[...DB.incomeRecords].reverse();
-  el.innerHTML=recs.length?recs.slice(0,10).map(r=>`<div style="padding:10px 0;border-bottom:1px solid var(--border)"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><div><span style="font-size:13.5px;font-weight:500">${fmtM(r.amount)}</span><span style="font-size:11px;color:var(--text3);margin-left:7px">${r.source} · ${r.type} · ${r.schemeName||''}</span></div><div style="display:flex;gap:5px;align-items:center"><span style="font-size:11px;color:var(--text3)">${fmtD(r.date)}</span><span class="icon-btn del" onclick="deleteIncomeRecord('${r.id}')">${T('btn_del')}</span></div></div>${r.allocation?`<div style="display:flex;flex-wrap:wrap;gap:4px">${r.allocation.map(a=>`<span style="font-size:10px;padding:1px 6px;border-radius:20px;background:var(--c3);color:var(--c1)">${a.name} ${fmtM(a.amount)}</span>`).join('')}</div>`:''}</div>`).join(''):`<div class="empty">${T('no_income')}</div>`;
-}
+function resultHTML(rows,total){return`<div>${rows.map(r=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)"><div><div style="font-size:13px;color:var(--text2)">${r.name}</div><div style="font-size:11px;color:var(--text3)">${r.pct}</div></div><div style="font-size:13px;font-weight:500;color:${r.special?'var(--green)':'var(--c1)'}">${fmtM(r.amount)}</div></div>`).join('')}</div><div class="total-strip"><span class="total-lbl">${T('total_in')}</span><span style="font-size:16px;font-weight:500;color:var(--c1)">${fmtM(total)}</span></div>`;}
+function applyIncome(){if(!_lastCalc?.length){alert(T('err_amt'));return;}_lastCalc.forEach(r=>{const v=DB.virtualAccounts.find(v=>v.id===r.id);if(v)v.deposited+=r.amount;});save();saveIncome();alert(T('ok_applied'));renderPage('cashflow');renderHome();}
+function saveIncome(){const raw=parseFloat(document.getElementById('inc-amt')?.value)||0;if(!raw)return;const schemeId=document.getElementById('inc-scheme')?.value;const scheme=schemeId?getSchemeById(schemeId):getDefaultScheme();DB.incomeRecords.push({id:uid(),date:today(),amount:raw,source:document.getElementById('inc-src').value,type:document.getElementById('inc-type').value,schemeName:scheme.name,allocation:_lastCalc?[..._lastCalc]:[]});save();renderIncomeRecords();}
+function renderIncomeRecords(){const el=document.getElementById('income-records');if(!el)return;const recs=[...DB.incomeRecords].reverse();el.innerHTML=recs.length?recs.slice(0,10).map(r=>`<div style="padding:11px 0;border-bottom:1px solid var(--border)"><div style="display:flex;justify-content:space-between;margin-bottom:5px"><div><span style="font-size:14px;font-weight:500">${fmtM(r.amount)}</span><span style="font-size:11px;color:var(--text3);margin-left:8px">${r.source} · ${r.type} · ${r.schemeName||''}</span></div><div style="display:flex;align-items:center;gap:6px"><span style="font-size:11px;color:var(--text3)">${fmtD(r.date)}</span><span class="icon-btn del" onclick="deleteIncomeRecord('${r.id}')">${T('btn_del')}</span></div></div>${r.allocation?`<div style="display:flex;flex-wrap:wrap;gap:5px">${r.allocation.map(a=>`<span style="font-size:10px;padding:2px 7px;border-radius:20px;background:var(--c3);color:var(--c1)">${a.name} ${fmtM(a.amount)}</span>`).join('')}</div>`:''}</div>`).join(''):`<div class="empty">${T('no_income')}</div>`;}
 function deleteIncomeRecord(id){if(!confirm(T('c_del_rec')))return;DB.incomeRecords=DB.incomeRecords.filter(r=>r.id!==id);save();renderIncomeRecords();}
-
-// ═══ SCHEMES ═══
-function fillSchemeAllocFields(){
-  const el=document.getElementById('sch-alloc-fields');if(!el)return;
-  el.innerHTML=`<div style="font-size:11px;color:var(--text3);margin:9px 0 5px">${T('lbl_sch_alloc')}</div>`+
-  DB.virtualAccounts.map(v=>`<div class="input-row" style="align-items:center"><div class="field" style="flex:1;margin-bottom:5px"><label>${v.name}</label><input type="number" id="sch-a-${v.id}" placeholder="${(v.pct*100).toFixed(0)}" step="any" min="0" max="100"></div><span style="font-size:11px;color:var(--text3);padding-top:14px">%</span></div>`).join('');
-  document.getElementById('sch-social').value=2000;document.getElementById('sch-filial').value=2000;
-}
+// SCHEMES
+function fillSchemeAllocFields(){const el=document.getElementById('sch-alloc-fields');if(!el)return;el.innerHTML=`<div style="font-size:12px;color:var(--text3);margin:10px 0 6px">${T('lbl_sch_alloc')}</div>`+DB.virtualAccounts.filter(v=>v.pct>0).map(v=>`<div class="input-row" style="align-items:center"><div class="field" style="flex:1;margin-bottom:6px"><label>${v.name}</label><input type="number" id="sch-a-${v.id}" placeholder="${(v.pct*100).toFixed(1)}" step="any" min="0" max="100"></div><span style="font-size:12px;color:var(--text3);padding-top:16px">%</span></div>`).join('');document.getElementById('sch-social').value=2000;document.getElementById('sch-filial').value=2000;}
 function addScheme(){st('scheme-modal-title',T('m_new_scheme'));document.getElementById('sch-edit-id').value='';document.getElementById('sch-name').value='';document.getElementById('sch-desc').value='';fillSchemeAllocFields();openModal('scheme-modal');}
-function saveScheme(){
-  const name=document.getElementById('sch-name').value.trim();if(!name){alert(T('err_scheme'));return;}
-  const editId=document.getElementById('sch-edit-id').value;
-  const alloc={};DB.virtualAccounts.forEach(v=>{const inp=document.getElementById('sch-a-'+v.id);if(inp&&inp.value)alloc[v.id]=parseFloat(inp.value)/100;});
-  const data={name,desc:document.getElementById('sch-desc').value.trim(),socialFixed:parseFloat(document.getElementById('sch-social').value)||2000,filialFixed:parseFloat(document.getElementById('sch-filial').value)||2000,alloc};
-  if(editId){const s=DB.schemes.find(s=>s.id===editId);if(s)Object.assign(s,data);}
-  else DB.schemes.push({id:uid(),isDefault:DB.schemes.length===0,...data});
-  save();closeModal('scheme-modal');renderSettings();fillSchemeSelect();
-}
+function saveScheme(){const name=document.getElementById('sch-name').value.trim();if(!name){alert(T('err_scheme'));return;}const editId=document.getElementById('sch-edit-id').value;const alloc={};DB.virtualAccounts.forEach(v=>{const inp=document.getElementById('sch-a-'+v.id);if(inp&&inp.value)alloc[v.id]=parseFloat(inp.value)/100;});const data={name,desc:document.getElementById('sch-desc').value.trim(),socialFixed:parseFloat(document.getElementById('sch-social').value)||2000,filialFixed:parseFloat(document.getElementById('sch-filial').value)||2000,alloc};if(editId){const s=DB.schemes.find(s=>s.id===editId);if(s)Object.assign(s,data);}else DB.schemes.push({id:uid(),isDefault:DB.schemes.length===0,...data});save();closeModal('scheme-modal');renderSettings();fillSchemeSelect();}
 function setDefaultScheme(id){DB.schemes.forEach(s=>s.isDefault=(s.id===id));save();renderSettings();fillSchemeSelect();}
 function deleteScheme(id){if(DB.schemes.length<=1){alert(T('keep_scheme'));return;}if(!confirm(T('c_del_scheme')))return;DB.schemes=DB.schemes.filter(s=>s.id!==id);if(!DB.schemes.find(s=>s.isDefault))DB.schemes[0].isDefault=true;save();renderSettings();fillSchemeSelect();}
-function editScheme(id){
-  const s=DB.schemes.find(s=>s.id===id);if(!s)return;
-  st('scheme-modal-title',T('m_edit_scheme'));document.getElementById('sch-edit-id').value=id;
-  document.getElementById('sch-name').value=s.name;document.getElementById('sch-desc').value=s.desc||'';
-  fillSchemeAllocFields();
-  setTimeout(()=>{if(s.alloc)Object.entries(s.alloc).forEach(([vid,pct])=>{const inp=document.getElementById('sch-a-'+vid);if(inp)inp.value=(pct*100).toFixed(1);});document.getElementById('sch-social').value=s.socialFixed||2000;document.getElementById('sch-filial').value=s.filialFixed||2000;},50);
-  openModal('scheme-modal');
-}
-
-// ═══ SETTINGS ═══
+function editScheme(id){const s=DB.schemes.find(s=>s.id===id);if(!s)return;st('scheme-modal-title',T('m_edit_scheme'));document.getElementById('sch-edit-id').value=id;document.getElementById('sch-name').value=s.name;document.getElementById('sch-desc').value=s.desc||'';fillSchemeAllocFields();setTimeout(()=>{if(s.alloc)Object.entries(s.alloc).forEach(([vid,pct])=>{const inp=document.getElementById('sch-a-'+vid);if(inp)inp.value=(pct*100).toFixed(1);});document.getElementById('sch-social').value=s.socialFixed||2000;document.getElementById('sch-filial').value=s.filialFixed||2000;},50);openModal('scheme-modal');}
+// SETTINGS
 function renderSettings(){
   const c=DB.colors||{};
   document.getElementById('sc1').value=c.c1||'#2B7FD4';document.getElementById('sc2').value=c.c2||'#5BAEE8';document.getElementById('sc3').value=c.c3||'#E8F3FB';
-  document.getElementById('vac-settings').innerHTML=DB.virtualAccounts.map((v,i)=>`<div class="settings-row"><div class="settings-row-ctrl" style="gap:5px;flex:1;flex-wrap:wrap"><input type="text" value="${v.name}" id="vn-${i}" style="width:80px"><input type="number" value="${(v.pct*100).toFixed(0)}" id="vp-${i}" step="any" style="width:54px"><span style="font-size:10px;color:var(--text3)">${T('pct_hint')}</span><span style="font-size:17px;cursor:pointer;color:var(--text3)" onclick="removeVAC(${i})">×</span></div></div>`).join('');
+  document.getElementById('vac-settings').innerHTML=DB.virtualAccounts.map((v,i)=>`<div class="settings-row"><div class="settings-row-ctrl" style="gap:6px;flex:1;flex-wrap:wrap"><input type="text" value="${v.name}" id="vn-${i}" style="width:90px"><input type="number" value="${(v.pct*100)}" id="vp-${i}" step="any" style="width:60px"><span style="font-size:11px;color:var(--text3)">${T('pct_hint')}</span><span style="font-size:18px;cursor:pointer;color:var(--text3)" onclick="removeVAC(${i})">×</span></div></div>`).join('');
   document.getElementById('scheme-settings').innerHTML=DB.schemes.map(s=>`<div class="scheme-card ${s.isDefault?'default-scheme':''}"><div class="scheme-name">${s.name}${s.isDefault?`<span class="scheme-badge">${T('badge_def')}</span>`:''}</div><div class="scheme-desc">${s.desc||''}</div><div class="scheme-actions">${!s.isDefault?`<button class="btn btn-sm" onclick="setDefaultScheme('${s.id}')">${T('btn_set_def')}</button>`:''}<button class="btn btn-sm" onclick="editScheme('${s.id}')">${T('btn_edit')}</button>${DB.schemes.length>1?`<button class="btn btn-sm btn-danger" onclick="deleteScheme('${s.id}')">${T('btn_del')}</button>`:''}</div></div>`).join('');
-  document.getElementById('asset-settings').innerHTML=DB.assets.map((a,i)=>`<div class="settings-row"><div class="settings-row-ctrl" style="gap:5px;flex:1;flex-wrap:wrap"><input type="text" value="${a.code}" id="ac-${i}" style="width:32px"><input type="text" value="${a.name}" id="an-${i}" style="flex:1;min-width:90px"><input type="color" value="${a.color}" id="acol-${i}" style="width:34px;height:27px;padding:2px;cursor:pointer;border-radius:4px;border:1px solid var(--border2)"><span style="font-size:17px;cursor:pointer;color:var(--text3)" onclick="removeAsset(${i})">×</span></div></div>`).join('');
-  document.getElementById('s-target').value=DB.assetTarget||1000000;
+  document.getElementById('asset-settings').innerHTML=DB.assets.map((a,i)=>`<div class="settings-row"><div class="settings-row-ctrl" style="gap:6px;flex:1;flex-wrap:wrap"><input type="text" value="${a.code}" id="ac-${i}" style="width:36px"><input type="text" value="${a.name}" id="an-${i}" style="flex:1;min-width:100px"><input type="color" value="${a.color}" id="acol-${i}" style="width:36px;height:30px;padding:2px;cursor:pointer;border-radius:4px;border:1px solid var(--border2)"><span style="font-size:18px;cursor:pointer;color:var(--text3)" onclick="removeAsset(${i})">×</span></div></div>`).join('');
+  document.getElementById('s-target').value=DB.assetTarget||5800000;
   const su=document.getElementById('s-user'),sb=document.getElementById('s-auth-btn');
   if(su)su.textContent=window._fbUser?(window._fbUser.displayName||window._fbUser.email):T('not_signed');
   if(sb)sb.textContent=window._fbUser?T('sign_out'):T('sign_in');
@@ -1738,18 +795,15 @@ function saveVACSettings(){DB.virtualAccounts.forEach((v,i)=>{const n=document.g
 function addAsset(){DB.assets.push({id:uid(),code:'?',name:T('new_acct'),amount:0,color:'#8AADC5'});save();renderSettings();}
 function removeAsset(i){if(!confirm(T('c_remove_acct')))return;DB.assets.splice(i,1);save();renderSettings();}
 function saveAssetSettings(){DB.assets.forEach((a,i)=>{const c=document.getElementById('ac-'+i)?.value.trim(),n=document.getElementById('an-'+i)?.value.trim(),col=document.getElementById('acol-'+i)?.value;if(c)a.code=c;if(n)a.name=n;if(col)a.color=col;});save();alert(T('ok_saved'));renderSettings();}
-function saveTarget(){DB.assetTarget=parseFloat(document.getElementById('s-target').value)||1000000;save();alert(T('ok_saved'));}
-
-// ═══ INIT ═══
+function saveTarget(){DB.assetTarget=parseFloat(document.getElementById('s-target').value)||5800000;save();alert(T('ok_saved'));}
+// INIT
 function showApp(){
-  window.showApp = showApp;
   document.getElementById('appShell').style.display='grid';
   document.getElementById('mobileNav').style.display='block';
   const td=document.getElementById('tb-date');if(td)td.textContent=new Date().toLocaleDateString('zh-TW',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
   applyLang();applyTheme();renderHome();fillSchemeSelect();fillTypeSelects();
 }
 function skipLogin(){document.getElementById('loginScreen').style.display='none';showApp();}
-
 const mf={name:'Life OS',short_name:'Life OS',start_url:'.',display:'standalone',background_color:'#EEF4FB',theme_color:'#2B7FD4',orientation:'portrait',icons:[{src:'https://em-content.zobj.net/source/google/387/house_1f3e0.png',sizes:'192x192',type:'image/png'}]};
 document.getElementById('manifest-link').href=URL.createObjectURL(new Blob([JSON.stringify(mf)],{type:'application/json'}));
 applyLang();
