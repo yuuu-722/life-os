@@ -702,24 +702,81 @@ input:focus,select:focus,textarea:focus{border-color:var(--c1)}
     <button class="btn btn-primary" id="btn-hb-save" onclick="saveHabit()"></button>
   </div>
 </div></div>
-<script type="module">
-import{initializeApp}from"https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import{getAuth,GoogleAuthProvider,signInWithPopup,signInWithRedirect,getRedirectResult,signOut,onAuthStateChanged}from"https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import{getFirestore,doc,getDoc,setDoc}from"https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script>
 const cfg={apiKey:"AIzaSyA2rHPAQT-eaJnvoUuNHBZdIo88b0Olhmk",authDomain:"life-os-01-byyu.firebaseapp.com",projectId:"life-os-01-byyu",storageBucket:"life-os-01-byyu.firebasestorage.app",messagingSenderId:"904924111847",appId:"1:904924111847:web:8301a7bf43e13f5ef0d342"};
-const app=initializeApp(cfg),auth=getAuth(app),db=getFirestore(app),provider=new GoogleAuthProvider();
+firebase.initializeApp(cfg);
+const auth=firebase.auth(),db=firebase.firestore(),provider=new firebase.auth.GoogleAuthProvider();
 const isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-window._doSignIn=async()=>{document.getElementById('loginBtn').style.display='none';document.getElementById('loginLoading').style.display='block';try{if(isMobile){await signInWithRedirect(auth,provider);}else{await signInWithPopup(auth,provider);}}catch(e){console.error(e);document.getElementById('loginBtn').style.display='flex';document.getElementById('loginLoading').style.display='none';}};
-getRedirectResult(auth).catch(e=>console.error(e));
-window._doSignOut=async()=>{await signOut(auth);updateAuthUI(null);};
-window._saveToFB=async(data)=>{if(!window._fbUser)return;try{await setDoc(doc(db,'users',window._fbUser.uid),JSON.parse(JSON.stringify(data)));}catch(e){console.error(e);}};
-window._loadFromFB=async(uid)=>{try{const snap=await getDoc(doc(db,'users',uid));if(snap.exists()){const d=snap.data();window.DB={...window.DB,...d};applyTheme();applyLang();renderPage(window._curPage||'home');}}catch(e){console.error(e);}};
+
+window._doSignIn=async()=>{
+  document.getElementById('loginBtn').style.display='none';
+  document.getElementById('loginLoading').style.display='block';
+  try{
+    if(isMobile){await auth.signInWithRedirect(provider);}
+    else{await auth.signInWithPopup(provider);}
+  }catch(e){
+    console.error(e);
+    document.getElementById('loginBtn').style.display='flex';
+    document.getElementById('loginLoading').style.display='none';
+  }
+};
+
+auth.getRedirectResult().then(result=>{
+  if(result&&result.user){
+    document.getElementById('loginScreen').style.display='none';
+    window.showApp&&window.showApp();
+  }
+}).catch(e=>console.error('redirect:',e));
+
+window._doSignOut=async()=>{await auth.signOut();updateAuthUI(null);};
+
+window._saveToFB=async(data)=>{
+  if(!window._fbUser)return;
+  try{await db.collection('users').doc(window._fbUser.uid).set(JSON.parse(JSON.stringify(data)));}
+  catch(e){console.error(e);}
+};
+
+window._loadFromFB=async(uid)=>{
+  try{
+    const snap=await db.collection('users').doc(uid).get();
+    if(snap.exists){
+      const d=snap.data();
+      window.DB={...window.DB,...d};
+      applyTheme();applyLang();renderPage(window._curPage||'home');
+    }
+  }catch(e){console.error(e);}
+};
+
 function updateAuthUI(user){
   const av=document.getElementById('sb-av'),nm=document.getElementById('sb-nm'),au=document.getElementById('sb-auth'),su=document.getElementById('s-user'),sb=document.getElementById('s-auth-btn');
-  if(user){if(av)av.innerHTML=user.photoURL?`<img src="${user.photoURL}">`:(user.displayName?.[0]||'U');if(nm)nm.textContent=user.displayName||user.email;if(au)au.textContent=T('sign_out');if(su)su.textContent=user.displayName||user.email;if(sb)sb.textContent=T('sign_out');}
-  else{if(av)av.textContent='?';if(nm)nm.textContent=T('not_signed');if(au)au.textContent=T('sign_in');if(su)su.textContent=T('not_signed');if(sb)sb.textContent=T('sign_in');}
+  if(user){
+    if(av)av.innerHTML=user.photoURL?`<img src="${user.photoURL}">`:(user.displayName?.[0]||'U');
+    if(nm)nm.textContent=user.displayName||user.email;
+    if(au)au.textContent=T('sign_out');
+    if(su)su.textContent=user.displayName||user.email;
+    if(sb)sb.textContent=T('sign_out');
+  }else{
+    if(av)av.textContent='?';
+    if(nm)nm.textContent=T('not_signed');
+    if(au)au.textContent=T('sign_in');
+    if(su)su.textContent=T('not_signed');
+    if(sb)sb.textContent=T('sign_in');
+  }
 }
-onAuthStateChanged(auth,user=>{window._fbUser=user;updateAuthUI(user);if(user){window._loadFromFB(user.uid);document.getElementById('loginScreen').style.display='none';window.showApp&&window.showApp();}});
+
+auth.onAuthStateChanged(user=>{
+  window._fbUser=user;
+  updateAuthUI(user);
+  if(user){
+    window._loadFromFB(user.uid);
+    document.getElementById('loginScreen').style.display='none';
+    window.showApp&&window.showApp();
+  }
+});
+
 window.doSignIn=()=>window._doSignIn();
 window.handleAuth=()=>window._fbUser?window._doSignOut():window._doSignIn();
 </script>
