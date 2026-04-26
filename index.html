@@ -702,6 +702,12 @@ input:focus,select:focus,textarea:focus{border-color:var(--c1)}
     <button class="btn btn-primary" id="btn-hb-save" onclick="saveHabit()"></button>
   </div>
 </div></div>
+<script>
+// Pre-expose showApp so module script can call it after page loads
+window._showAppQueue = false;
+window.showApp = function(){ window._showAppQueue = true; };
+window.skipLogin = function(){ document.getElementById('loginScreen').style.display='none'; window.showApp(); };
+</script>
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import{getAuth,GoogleAuthProvider,signInWithPopup,signInWithRedirect,getRedirectResult,signOut,onAuthStateChanged}from"https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
@@ -710,25 +716,9 @@ const cfg={apiKey:"AIzaSyA2rHPAQT-eaJnvoUuNHBZdIo88b0Olhmk",authDomain:"life-os-
 const app=initializeApp(cfg),auth=getAuth(app),db=getFirestore(app),provider=new GoogleAuthProvider();
 const isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 // Handle redirect result first
-getRedirectResult(auth).then(result=>{
-  if(result?.user){
-    document.getElementById('loginScreen').style.display='none';
-    if(window.showApp)window.showApp();
-  }
-}).catch(e=>console.error('redirect result:',e));
+getRedirectResult(auth).catch(e=>console.error(e));
 
-window._doSignIn=async()=>{
-  document.getElementById('loginBtn').style.display='none';
-  document.getElementById('loginLoading').style.display='block';
-  provider.setCustomParameters({prompt:'select_account'});
-  try{
-    await signInWithRedirect(auth,provider);
-  }catch(e){
-    console.error('Sign in error:',e);
-    document.getElementById('loginBtn').style.display='flex';
-    document.getElementById('loginLoading').style.display='none';
-  }
-};
+window._doSignIn=async()=>{document.getElementById('loginBtn').style.display='none';document.getElementById('loginLoading').style.display='block';try{if(isMobile){await signInWithRedirect(auth,provider);}else{await signInWithPopup(auth,provider);}}catch(e){console.error(e);document.getElementById('loginBtn').style.display='flex';document.getElementById('loginLoading').style.display='none';}};
 window._doSignOut=async()=>{await signOut(auth);updateAuthUI(null);};
 window._saveToFB=async(data)=>{if(!window._fbUser)return;try{await setDoc(doc(db,'users',window._fbUser.uid),JSON.parse(JSON.stringify(data)));}catch(e){console.error(e);}};
 window._loadFromFB=async(uid)=>{try{const snap=await getDoc(doc(db,'users',uid));if(snap.exists()){const d=snap.data();window.DB={...window.DB,...d};applyTheme();applyLang();renderPage(window._curPage||'home');}}catch(e){console.error(e);}};
@@ -737,7 +727,7 @@ function updateAuthUI(user){
   if(user){if(av)av.innerHTML=user.photoURL?`<img src="${user.photoURL}">`:(user.displayName?.[0]||'U');if(nm)nm.textContent=user.displayName||user.email;if(au)au.textContent=T('sign_out');if(su)su.textContent=user.displayName||user.email;if(sb)sb.textContent=T('sign_out');}
   else{if(av)av.textContent='?';if(nm)nm.textContent=T('not_signed');if(au)au.textContent=T('sign_in');if(su)su.textContent=T('not_signed');if(sb)sb.textContent=T('sign_in');}
 }
-onAuthStateChanged(auth,user=>{window._fbUser=user;updateAuthUI(user);if(user){window._loadFromFB(user.uid);document.getElementById('loginScreen').style.display='none';if(window.showApp)window.showApp();}});
+onAuthStateChanged(auth,user=>{window._fbUser=user;updateAuthUI(user);if(user){window._loadFromFB(user.uid);document.getElementById('loginScreen').style.display='none';if(typeof showApp==='function')showApp();else if(window.showApp)window.showApp();}});
 window.doSignIn=()=>window._doSignIn();
 window.handleAuth=()=>window._fbUser?window._doSignOut():window._doSignIn();
 </script>
@@ -1703,7 +1693,8 @@ function saveTarget(){DB.assetTarget=parseFloat(document.getElementById('s-targe
 
 // ═══ INIT ═══
 function showApp(){
-  window.showApp=showApp;
+  window.showApp = showApp; // expose for module script
+  if(window._showAppQueue){ window._showAppQueue = false; }
   document.getElementById('appShell').style.display='grid';
   document.getElementById('mobileNav').style.display='block';
   const td=document.getElementById('tb-date');if(td)td.textContent=new Date().toLocaleDateString('zh-TW',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
